@@ -1,0 +1,21 @@
+{
+    "name": "fibercli",
+    "version": "0.0.2",
+    "description": "FiberUI CLI — add components to your project",
+    "bin": {
+        "fiberui": "dist/index.js",
+        "fibercli": "dist/index.js"
+    },
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "prepare": "pnpm build"
+    },
+    "files": [
+        "dist"
+    ],
+    "devDependencies": {
+        "typescript": "^5.9.2"
+    },
+    "type": "module"
+}

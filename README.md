@@ -1,135 +1,92 @@
-# Turborepo starter
+# Fiber UI
 
-This Turborepo starter is maintained by the Turborepo core team.
+<div align="center">
+  <p>
+    <strong>Beautiful, accessible, and customizable React components built with React Aria and Tailwind CSS.</strong>
+  </p>
+  <br />
+  <p>
+    <a href="https://github.com/YOUR_USERNAME/YOUR_REPO/actions">
+      <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/YOUR_REPO/ci.yml?branch=main&style=flat-square" />
+    </a>
+    <a href="https://www.npmjs.com/package/fiber-ui">
+      <img alt="NPM Version" src="https://img.shields.io/npm/v/fiber-ui?style=flat-square" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" />
+    </a>
+  </p>
+</div>
 
-## Using this example
+---
 
-Run the following command:
+## What is Fiber UI?
 
-```sh
-npx create-turbo@latest
+Fiber UI is an open-source component library for React, designed for accessibility and elegance. It leverages the power of [**React Aria**](https://react-spectrum.adobe.com/react-aria/) for accessibility and behavior, and [**Tailwind CSS**](https://tailwindcss.com/) for styling.
+
+Our goal is to provide a set of **beautiful, unstyled components** that you can easily copy and paste into your projects. You own the code, so you can customize it to fit your design system perfectly.
+
+This is not a component library in the traditional sense. It's a collection of reusable components that you can fully control.
+
+---
+
+## The Philosophy
+
+- **Built for Customization:** Components are designed to be easily modified and extended.
+- **Accessibility First:** Using React Aria, all components are accessible out-of-the-box, following WAI-ARIA standards.
+- **Developer Experience:** A simple CLI to add components to your project without extra dependencies.
+
+---
+
+## Monorepo Structure
+
+This project is a monorepo managed by [**Turborepo**](https://turbo.build/repo).
+
+- `apps/web`: The landing page and main website (`fiberui.com`).
+- `apps/docs`: Documentation for components (`docs.fiberui.com`).
+- `packages/ui`: The core Fiber UI components.
+- `packages/cli`: Command-line interface for adding components.
+
+---
+
+## Command-Line Interface (CLI)
+
+We are developing a CLI tool, similar to `shadcn/ui`, to make it easy to integrate Fiber UI components into your projects.
+
+The CLI will handle adding components, installing dependencies, and configuring `tailwind.config.js` for you.
+
+**Usage (Coming Soon):**
+
+```bash
+npx fibercli add [component-name]
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Getting Started
 
-### Apps and Packages
+> Note: The project is currently under active development. The documentation and CLI are coming soon!
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+Instructions on how to run the project locally will be available here shortly.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+---
 
-### Utilities
+## Contributing
 
-This Turborepo has some additional tools already setup for you:
+We welcome contributions from the community! If you're interested in helping build Fiber UI, please check out our contributing guidelines (coming soon) and feel free to open an issue or pull request.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+---
 
-### Build
+## License
 
-To build all apps and packages, run the following command:
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE.md) file for details.
 
-```
-cd my-turborepo
+---
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+## Stay Updated
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+You can subscribe for updates or follow the progress of Fiber UI:
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+- Website: [fiberui.com](https://fiberui.com)
+- GitHub: [rajatverma311201/fiberui](https://github.com/rajatverma311201/fiberui)
+- NPM: [fibercli](https://www.npmjs.com/package/fibercli)
