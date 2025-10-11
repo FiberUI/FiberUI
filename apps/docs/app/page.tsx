@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 
 interface HomePageProps {}
 
@@ -13,7 +13,8 @@ const HomePage: React.FC<HomePageProps> = ({}) => {
                 onClick={() => {
                     alert("ON CLICK");
                 }}
-                className="border-2"
+                variant={"gradient"}
+                // className="border-2"
             >
                 Hello
             </Button>
