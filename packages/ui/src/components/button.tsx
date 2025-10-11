@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { type AriaButtonOptions, useButton } from "react-aria";
-import { cn } from "@repo/ui/lib/utils";
+import { cn } from "@/lib/utils";
 
 import { cva, type VariantProps } from "class-variance-authority";
 
