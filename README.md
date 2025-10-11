@@ -6,11 +6,8 @@
   </p>
   <br />
   <p>
-    <a href="https://github.com/YOUR_USERNAME/YOUR_REPO/actions">
-      <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/YOUR_REPO/ci.yml?branch=main&style=flat-square" />
-    </a>
-    <a href="https://www.npmjs.com/package/fiber-ui">
-      <img alt="NPM Version" src="https://img.shields.io/npm/v/fiber-ui?style=flat-square" />
+    <a href="https://www.npmjs.com/package/fibercli">
+      <img alt="NPM Version" src="https://img.shields.io/npm/v/fibercli?style=flat-square" />
     </a>
     <a href="https://opensource.org/licenses/MIT">
       <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" />

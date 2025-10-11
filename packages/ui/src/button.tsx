@@ -1,20 +1,19 @@
-"use client";
+import { useRef } from "react";
+import { type AriaButtonOptions, useButton } from "react-aria";
 
-import { ReactNode } from "react";
-
-interface ButtonProps {
-  children: ReactNode;
-  className?: string;
-  appName: string;
+interface ButtonProps extends AriaButtonOptions<"div"> {
+    children: React.ReactNode;
+    className?: string;
 }
 
-export const Button = ({ children, className, appName }: ButtonProps) => {
-  return (
-    <button
-      className={className}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
-    >
-      {children}
-    </button>
-  );
+export const Button: React.FC<ButtonProps> = (props) => {
+    const ref = useRef<HTMLButtonElement | null>(null);
+
+    const { buttonProps, isPressed } = useButton(props, ref);
+
+    return (
+        <button {...buttonProps} className={"rounded-md bg-blue-600 px-4 py-2"}>
+            {props.children}
+        </button>
+    );
 };
