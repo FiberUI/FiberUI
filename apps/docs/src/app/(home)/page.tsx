@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { JSX } from "react";
 
-export const HomePage = (): JSX.Element => {
+export default function HomePage() {
     return (
         <main className="flex flex-1 flex-col justify-center text-center">
             <h1 className="mb-4 text-2xl font-bold">Hello World</h1>
@@ -17,6 +16,4 @@ export const HomePage = (): JSX.Element => {
             </p>
         </main>
     );
-};
-
-export default HomePage;
+}
