@@ -1,10 +1,16 @@
-import defaultMdxComponents from 'fumadocs-ui/mdx';
-import type { MDXComponents } from 'mdx/types';
-
+import defaultMdxComponents from "fumadocs-ui/mdx";
+import type { MDXComponents } from "mdx/types";
+import * as ComponentShowcaseTabsComponent from "./components/component-showcase-tabs";
+import { CodeFromFile } from "./components/code-from-file";
+import * as ButtonExamples from "./components/examples/button-examples";
 // use this function to get MDX components, you will need it for rendering MDX
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
-  return {
-    ...defaultMdxComponents,
-    ...components,
-  };
+    return {
+        ...defaultMdxComponents,
+        ...components,
+        ...ComponentShowcaseTabsComponent,
+        ...ButtonExamples,
+        Code: CodeFromFile,
+        CodeFromFile,
+    };
 }
