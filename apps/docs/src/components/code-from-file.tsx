@@ -2,10 +2,8 @@ import fs from "fs";
 import path from "path";
 
 interface CodeFromFileProps {
-    /** Example number" */
-    cnt: number;
-    /** name of component */
-    name: string;
+    cnt: number; // Example Number
+    name: string; // name of component
 }
 
 import * as Base from "fumadocs-ui/components/codeblock";
