@@ -1,28 +1,25 @@
 "use client";
 import { cn } from "@repo/ui/lib/utils";
 import { motion } from "motion/react";
-
+import { Loader2 } from "lucide-react";
 interface LoaderProps {}
 export const LoaderCircles: React.FC<LoaderProps> = ({}) => {
     return (
-        <div className="relative space-x-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
+        <div className="space-x-2">
+            {Array.from({ length: 3 }).map((_, idx) => (
                 <motion.span
                     key={idx}
                     animate={{
-                        scale: [0, 1],
-                        opacity: [1, 0],
+                        y: [20, -20, 20],
                     }}
                     transition={{
-                        duration: 2,
+                        duration: 1,
                         repeat: Infinity,
                         repeatType: "loop",
                         ease: "easeInOut",
-                        delay: 0.4 * idx,
+                        delay: 0.1 * idx,
                     }}
-                    className={cn(
-                        "absolute inline-block h-20 w-20 rounded-full border-8 border-black",
-                    )}
+                    className="inline-block h-4 w-4 rounded-full bg-black"
                 />
             ))}
         </div>
@@ -74,3 +71,9 @@ export const LoaderBars: React.FC<LoaderProps> = ({}) => {
         </div>
     );
 };
+
+export const LoaderSpinner: React.FC<LoaderProps> = ({}) => {
+    return <Loader2 className="h-10 w-10 animate-spin" />;
+};
+
+
