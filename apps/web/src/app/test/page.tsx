@@ -3,6 +3,7 @@ interface TestPageProps {}
 import {
     LoaderBars,
     LoaderCircles,
+    LoaderPulse,
     LoaderSpinner,
 } from "@repo/ui/components/loader";
 
@@ -18,6 +19,9 @@ const TestPage: React.FC<TestPageProps> = ({}) => {
             </div>
             <div>
                 <LoaderSpinner />
+            </div>
+            <div>
+                <LoaderPulse />
             </div>
         </div>
     );
