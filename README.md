@@ -3,6 +3,10 @@
 <div align="center">
   <p>
     <strong>Beautiful, accessible, and customizable React components built with React Aria and Tailwind CSS.</strong>
+    <br />
+    Inspired by 
+    <a href="https://ui.shadcn.com" target="_blank" rel="noopener noreferrer"><strong>Shadcn UI</strong>
+</a> 
   </p>
   <br />
   <p>
