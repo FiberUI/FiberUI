@@ -1,3 +1,4 @@
+// import "global.css";
 import React from "react";
 import {
     ChevronRight,
@@ -52,9 +53,9 @@ const FiberUIIcon = () => (
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 font-sans text-slate-50">
+        <div className="min-h-screen bg-gradient-to-b from-slate-50 via-neutral-50 to-zinc-50 font-sans text-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             {/* Navigation */}
-            <nav className="fixed left-0 right-0 top-0 z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md">
+            <nav className="fixed left-0 right-0 top-0 z-50 border-b border-slate-200 bg-slate-100/50 backdrop-blur-md dark:border-slate-800/50 dark:bg-slate-950/80">
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-2">
                         <FiberUIIcon />
@@ -94,15 +95,15 @@ export default function App() {
             <section className="px-4 pb-20 pt-32 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl text-center">
                     {/* Badge */}
-                    <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-2">
-                        <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-400"></span>
-                        <span className="text-sm text-slate-300">
+                    <div className="mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 dark:border-slate-700 dark:bg-slate-800/50">
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-600 dark:bg-cyan-400"></span>
+                        <span className="text-sm text-slate-700 dark:text-slate-300">
                             Open Source & Coming Soon
                         </span>
                     </div>
 
                     {/* Main Heading */}
-                    <h1 className="mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl">
+                    <h1 className="mb-6 bg-gradient-to-br from-cyan-500 via-blue-500 to-cyan-500 bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl dark:bg-gradient-to-r dark:from-cyan-400 dark:via-blue-400 dark:to-cyan-400">
                         Beautiful, Accessible React Components
                     </h1>
 
@@ -112,14 +113,17 @@ export default function App() {
                     </p>
                     <p className="mx-auto mb-12 max-w-2xl text-lg text-slate-500">
                         Built with{" "}
-                        <span className="font-semibold text-cyan-400">
-                            React Aria hooks
-                        </span>{" "}
-                        from Adobe for accessibility-first design and
-                        <span className="font-semibold text-blue-400">
-                            {" "}
-                            Tailwind CSS
-                        </span>{" "}
+                        <div className="inline-block skew-x-12 transform bg-cyan-600 px-3 py-2">
+                            <div className="-skew-x-12 font-semibold text-white">
+                                React Aria hooks
+                            </div>
+                        </div>{" "}
+                        from Adobe for accessibility-first design and{" "}
+                        <div className="inline-block -skew-x-12 bg-blue-600 px-3 py-2">
+                            <div className="skew-x-12 break-inside-avoid font-semibold text-white">
+                                Tailwind CSS
+                            </div>
+                        </div>{" "}
                         for styling. Inspired by shadcn/ui&apos;s philosophy,
                         but with accessibility baked in.
                     </p>
@@ -306,15 +310,7 @@ export default function App() {
                                         Adobe for accessibility
                                     </span>
                                 </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="mt-1 text-emerald-400">
-                                        ✨
-                                    </span>
-                                    <span>
-                                        No dependency lock-in (not even on
-                                        Radix)
-                                    </span>
-                                </li>
+
                                 <li className="flex items-start gap-3">
                                     <span className="mt-1 text-emerald-400">
                                         ✨
