@@ -52,7 +52,7 @@ export const buttonVariants = cva(
 );
 
 interface ButtonProps
-    extends AriaButtonOptions<"div">,
+    extends AriaButtonOptions<"button">,
         VariantProps<typeof buttonVariants> {
     children: React.ReactNode;
     className?: string;
