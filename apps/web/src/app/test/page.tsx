@@ -4,7 +4,7 @@ import {
     LoaderBars,
     LoaderCircles,
     LoaderPulse,
-    LoaderSpinner,
+    // LoaderSpinner,
 } from "@repo/ui/components/loader";
 
 const TestPage: React.FC<TestPageProps> = ({}) => {
@@ -17,9 +17,9 @@ const TestPage: React.FC<TestPageProps> = ({}) => {
             <div>
                 <LoaderCircles />
             </div>
-            <div>
+            {/* <div>
                 <LoaderSpinner />
-            </div>
+            </div> */}
             <div>
                 <LoaderPulse />
             </div>
