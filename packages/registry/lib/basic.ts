@@ -11,4 +11,9 @@ export const BASIC_COMPONENTS: Array<BasicComponentType> = [
         dependencies: ["@react-aria/button"],
         files: ["components/button.tsx"],
     },
+    {
+        name: "input",
+        dependencies: ["@react-aria/textfield"],
+        files: ["components/input.tsx"],
+    },
 ];
