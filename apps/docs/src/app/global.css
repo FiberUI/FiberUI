@@ -20,6 +20,9 @@
     --color-fd-secondary: hsl(240, 6%, 97%);
     --color-fd-accent-foreground: hsl(240, 6%, 25%);
     --color-fd-primary: hsl(210, 100%, 45%);
+
+    --font-sans: Noto Sans, Noto Sans Fallback;
+    --font-serif: Fraunces, Fraunces Fallback;
 }
 
 .dark {
