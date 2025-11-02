@@ -6,7 +6,9 @@ const config: Config = {
         "../../apps/**/*.{ts,tsx,js,jsx,mdx}",
         // 👇 Add this line to include your UI components
         "../../packages/ui/src/**/*.{ts,tsx,js,jsx,mdx}",
+        "../../.storybook/**/*.{js,ts,jsx,tsx}",
     ],
+    darkMode: "class",
     theme: {
         extend: {},
     },

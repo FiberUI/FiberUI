@@ -1,15 +1,24 @@
-// import "./global.css";
+import "./global.css";
 import "@repo/ui/globals.css";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
-const geistSans = localFont({
-    src: "./fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
+import { Fraunces, Noto_Sans } from "next/font/google";
+
+// const geistSans = localFont({
+//     src: "./fonts/GeistVF.woff",
+//     variable: "--font-geist-sans",
+// });
+// const geistMono = localFont({
+//     src: "./fonts/GeistMonoVF.woff",
+//     variable: "--font-geist-mono",
+// });
+
+const notoSansFont = Noto_Sans({
+    subsets: ["latin"],
 });
-const geistMono = localFont({
-    src: "./fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
+
+const frauncesSerifFont = Fraunces({
+    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -64,7 +73,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+            <body
+                className={`${notoSansFont.className} ${frauncesSerifFont.className}`}
+            >
                 {children}
 
                 {/* JSON-LD Structured Data */}
