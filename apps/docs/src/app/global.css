@@ -2,6 +2,14 @@
 /* @import "fumadocs-ui/css/vitepress.css"; */
 @import "fumadocs-ui/css/preset.css";
 
+body {
+    font-family: var(--font-sans);
+}
+
+h1 {
+    font-family: var(--font-serif);
+}
+
 @theme {
     --color-fd-muted: hsl(0, 0%, 96.1%);
     --color-fd-popover: hsl(0, 0%, 100%);
