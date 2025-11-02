@@ -29,7 +29,6 @@ export const FiberUILogo: React.FC<LogoProps> = ({
     const dimension = sizeMap[size];
     return (
         <>
-            {/* @ts-ignore */}
             <Image
                 src={logoPath}
                 alt={alt}

@@ -43,9 +43,7 @@ export const ComponentCodeTab: React.FC<ComponentCodeTabProps> = ({
 }) => {
     return (
         <Tab asChild value="Code">
-            <div className="h-96 overflow-scroll bg-zinc-50 dark:bg-zinc-800/75">
-                {children}
-            </div>
+            <div className="bg-zinc-50 dark:bg-zinc-800/75">{children}</div>
         </Tab>
     );
 };

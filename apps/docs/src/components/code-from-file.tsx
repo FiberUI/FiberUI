@@ -11,13 +11,13 @@ import { highlight } from "fumadocs-core/highlight";
 
 export const CodeFromFile = async ({ cnt, name }: CodeFromFileProps) => {
     const fnName = "example-" + cnt + ".tsx";
-    const pathToFile =
-        "src/components/examples/" + name + "-examples" + "/" + fnName;
+    const pathToFile = "src/components/examples/" + name + "/" + fnName;
     const filePath = path.join(process.cwd(), pathToFile);
     const codeSnippet = fs.readFileSync(filePath, "utf8");
 
     const rendered = await highlight(codeSnippet, {
         lang: "tsx",
+
         components: {
             pre: (props) => (
                 <Base.Pre {...props} className="pt-1 text-sm leading-6" />
@@ -27,6 +27,7 @@ export const CodeFromFile = async ({ cnt, name }: CodeFromFileProps) => {
 
     return (
         <Base.CodeBlock
+            id="test-code-block-rajat"
             className="border-none bg-transparent shadow-none"
             data-line-numbers
         >
