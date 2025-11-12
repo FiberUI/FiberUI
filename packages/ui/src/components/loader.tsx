@@ -75,6 +75,29 @@ export const LoaderBars: React.FC<LoaderProps> = ({}) => {
     );
 };
 
+export const LoaderBars2: React.FC<LoaderProps> = ({}) => {
+    return (
+        <div className="flex h-20 items-end gap-4">
+            {Array.from({ length: 5 }).map((_, idx) => (
+                <motion.span
+                    key={idx}
+                    animate={{
+                        height: [0, 40, 0],
+                    }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        // ease: "",
+                        delay: 0.1 * idx,
+                    }}
+                    className="h- inline-block w-2 rounded bg-black dark:bg-white"
+                />
+            ))}
+        </div>
+    );
+};
+
 export const LoaderPulse: React.FC<LoaderProps> = ({}) => {
     return (
         <div className="space-x-2">
@@ -98,25 +121,89 @@ export const LoaderPulse: React.FC<LoaderProps> = ({}) => {
     );
 };
 
-export const LoaderDots: React.FC<LoaderProps> = ({}) => {
+export const LoaderDotsPulsingSpinner = ({
+    size = "2.8rem",
+    speed = "0.9s",
+}) => {
+    const delays = [-0.875, -0.75, -0.625, -0.5, -0.375, -0.25, -0.125, 0];
+
     return (
-        <div className="space-x-2">
-            {Array.from({ length: 3 }).map((_, idx) => (
-                <motion.span
-                    key={idx}
-                    animate={{
-                        y: [0, -10, 0],
+        <div
+            className="relative flex items-center justify-start"
+            style={{
+                height: size,
+                width: size,
+            }}
+        >
+            <style>{`
+        @keyframes pulse0112 {
+          0%, 100% {
+            transform: scale(0);
+            opacity: 0.5;
+          }
+          50% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
+            {[0, 45, 90, 135, 180, 225, 270, 315].map((rotation, index) => (
+                <div
+                    key={index}
+                    className="absolute left-0 top-0 flex h-full w-full items-center justify-start"
+                    style={{
+                        transform: `rotate(${rotation}deg)`,
                     }}
-                    transition={{
-                        duration: 0.5,
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        ease: "easeInOut",
-                        delay: 0.1 * idx,
-                    }}
-                    className="inline-block h-3 w-3 rounded-full bg-black dark:bg-white"
-                />
+                >
+                    <div
+                        className={cn("block bg-black dark:bg-white")}
+                        style={{
+                            height: "20%",
+                            width: "20%",
+                            borderRadius: "50%",
+                            transform: "scale(0)",
+                            opacity: 0.5,
+                            animation: `pulse0112 calc(${speed} * 1.111) ease-in-out infinite`,
+                            animationDelay: `calc(${speed} * ${delays[index]})`,
+                            boxShadow: "0 0 20px rgba(18, 31, 53, 0.3)",
+                        }}
+                    />
+                </div>
             ))}
         </div>
+    );
+};
+
+export const LoaderSpinner: React.FC<LoaderProps> = ({}) => {
+    return (
+        <>
+            <svg
+                className="text-primary h-10 w-10 animate-spin"
+                viewBox="0 0 24 24"
+            >
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    fill="none"
+                    className="opacity-25"
+                />
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    fill="none"
+                    pathLength="100"
+                    strokeDasharray="60 140"
+                    strokeDashoffset="0"
+                />
+            </svg>
+        </>
     );
 };

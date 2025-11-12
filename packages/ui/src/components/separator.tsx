@@ -10,11 +10,6 @@ export const Separator: React.FC<SeparatorComponentProps> = (props) => {
     return (
         <div
             {...separatorProps}
-            // style={{
-            //     width: props.orientation === "vertical" ? "1px" : "100%",
-            //     height: props.orientation === "vertical" ? "100%" : "1px",
-            //     margin: props.orientation === "vertical" ? "0 5px" : "5px 0",
-            // }}
             className={cn(
                 "bg-gray-500",
                 props.orientation === "vertical"

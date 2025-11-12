@@ -2,14 +2,19 @@ import fs from "fs";
 import path from "path";
 
 interface CodeFromFileProps {
-    cnt: number; // Example Number
-    name: string; // name of component
+    cnt: number;
+    name: string;
+    isComponent?: boolean;
 }
 
 import * as Base from "fumadocs-ui/components/codeblock";
 import { highlight } from "fumadocs-core/highlight";
 
-export const CodeFromFile = async ({ cnt, name }: CodeFromFileProps) => {
+export const CodeFromFile = async ({
+    cnt,
+    name,
+    isComponent,
+}: CodeFromFileProps) => {
     const fnName = "example-" + cnt + ".tsx";
     const pathToFile = "src/components/examples/" + name + "/" + fnName;
     const filePath = path.join(process.cwd(), pathToFile);

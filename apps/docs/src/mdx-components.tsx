@@ -5,7 +5,10 @@ import { CodeFromFile } from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
 import * as ButtonExamples from "./components/examples/button";
+import * as InputExamples from "./components/examples/input";
+import * as LabelExamples from "./components/examples/label";
 import * as LoaderExamples from "./components/examples/loader";
+import * as PopoverExamples from "./components/examples/popover";
 import * as SeparatorExamples from "./components/examples/separator";
 
 /* ------------------------------------*/
@@ -23,8 +26,11 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         /* Fiber UI Components Examples */
 
         ...ButtonExamples,
+        ...InputExamples,
+        ...LabelExamples,
         ...LoaderExamples,
         ...SeparatorExamples,
+        ...PopoverExamples,
 
         /* ------------------------------*/
 
