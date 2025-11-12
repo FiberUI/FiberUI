@@ -15,9 +15,14 @@ const COMPONENTS_LIST = [
         description: "Buttons to trigger user actions.",
     },
     {
-        name: "Separator",
-        href: "separator",
-        description: "visual elements to separate",
+        name: "Input",
+        href: "input",
+        description: "input field",
+    },
+    {
+        name: "Label",
+        href: "label",
+        description: "label component optimized for a11y",
     },
     {
         name: "Loader",
@@ -25,30 +30,40 @@ const COMPONENTS_LIST = [
         description: "loading indicators",
     },
     {
-        name: "Modal",
-        href: "modal",
-        description: "Overlays for dialogs and prompts.",
+        name: "Popover",
+        href: "popover",
+        description: "popover component",
     },
     {
-        name: "Select",
-        href: "select",
-        description: "Dropdown selector component.",
+        name: "Separator",
+        href: "separator",
+        description: "visual elements to separate",
     },
-    {
-        name: "Card",
-        href: "card",
-        description: "Cards for grouping UI content.",
-    },
-    {
-        name: "Avatar",
-        href: "avatar",
-        description: "Profile and image avatars.",
-    },
-    {
-        name: "Tabs",
-        href: "tabs",
-        description: "Tabbed navigation views.",
-    },
+    // {
+    //     name: "Modal",
+    //     href: "modal",
+    //     description: "Overlays for dialogs and prompts.",
+    // },
+    // {
+    //     name: "Select",
+    //     href: "select",
+    //     description: "Dropdown selector component.",
+    // },
+    // {
+    //     name: "Card",
+    //     href: "card",
+    //     description: "Cards for grouping UI content.",
+    // },
+    // {
+    //     name: "Avatar",
+    //     href: "avatar",
+    //     description: "Profile and image avatars.",
+    // },
+    // {
+    //     name: "Tabs",
+    //     href: "tabs",
+    //     description: "Tabbed navigation views.",
+    // },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 
 export const ComponentsListView = () => {
