@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { type AriaButtonOptions, useButton } from "react-aria";
+import { forwardRef, useRef } from "react";
+import { AriaButtonProps, useButton } from "react-aria";
 import { cn } from "@repo/ui/lib/utils";
 
 import { cva, type VariantProps } from "class-variance-authority";
@@ -52,25 +52,43 @@ export const buttonVariants = cva(
 );
 
 interface ButtonProps
-    extends AriaButtonOptions<"button">,
+    extends AriaButtonProps<"button">,
         VariantProps<typeof buttonVariants> {
-    children: React.ReactNode;
     className?: string;
+    disabled?: boolean | undefined;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
-    const { variant, size, className } = props;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ variant, size, className, children, ...restProps }, forwardedRef) => {
+        const internalRef = useRef<HTMLButtonElement | null>(null);
 
-    const ref = useRef<HTMLButtonElement | null>(null);
+        // Merge refs properly
+        const mergedRef = (node: HTMLButtonElement | null) => {
+            internalRef.current = node;
+            if (typeof forwardedRef === "function") {
+                forwardedRef(node);
+            } else if (forwardedRef) {
+                forwardedRef.current = node;
+            }
+        };
 
-    const { buttonProps } = useButton(props, ref);
+        const { buttonProps, isPressed } = useButton(restProps, internalRef);
 
-    return (
-        <button
-            {...buttonProps}
-            className={cn(buttonVariants({ variant, size, className }))}
-        >
-            {props.children}
-        </button>
-    );
-};
+        return (
+            <button
+                {...restProps}
+                {...buttonProps}
+                ref={mergedRef}
+                className={cn(buttonVariants({ variant, size }), className)}
+                // Ensure disabled state is properly handled
+                disabled={restProps.isDisabled || restProps.disabled}
+                // Add data attribute for pressed state if needed
+                data-pressed={isPressed ? "true" : undefined}
+            >
+                {children}
+            </button>
+        );
+    },
+);
+
+Button.displayName = "Button";
