@@ -5,6 +5,7 @@ import { CodeFromFile } from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
 import * as ButtonExamples from "./components/examples/button";
+import * as CheckboxExamples from "./components/examples/checkbox";
 import * as InputExamples from "./components/examples/input";
 import * as LabelExamples from "./components/examples/label";
 import * as LoaderExamples from "./components/examples/loader";
@@ -26,6 +27,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         /* Fiber UI Components Examples */
 
         ...ButtonExamples,
+        ...CheckboxExamples,
         ...InputExamples,
         ...LabelExamples,
         ...LoaderExamples,

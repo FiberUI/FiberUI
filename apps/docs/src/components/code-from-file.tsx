@@ -9,6 +9,7 @@ interface CodeFromFileProps {
 
 import * as Base from "fumadocs-ui/components/codeblock";
 import { highlight } from "fumadocs-core/highlight";
+import Link from "next/link";
 
 export const CodeFromFile = async ({
     cnt,

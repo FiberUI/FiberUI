@@ -14,7 +14,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     componentsUrl,
 }) => {
     return (
-        <section className="px-4 pt-32 pb-20 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 pt-32 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
                 <HeroBadge />
 
