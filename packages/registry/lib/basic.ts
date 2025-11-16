@@ -16,4 +16,9 @@ export const BASIC_COMPONENTS: Array<BasicComponentType> = [
         dependencies: ["@react-aria/textfield"],
         files: ["components/input.tsx"],
     },
+    {
+        name: "checkbox",
+        dependencies: ["@react-aria/checkbox"],
+        files: ["components/checkbox.tsx"],
+    },
 ];
