@@ -8,12 +8,14 @@ import {
 
 /* Fiber UI Components Examples IMPORT */
 import * as ButtonExamples from "./components/examples/button";
+import * as CardExamples from "./components/examples/card";
 import * as CheckboxExamples from "./components/examples/checkbox";
 import * as InputExamples from "./components/examples/input";
 import * as LabelExamples from "./components/examples/label";
 import * as LoaderExamples from "./components/examples/loader";
 import * as PopoverExamples from "./components/examples/popover";
 import * as SeparatorExamples from "./components/examples/separator";
+import * as TextareaExamples from "./components/examples/textarea";
 
 /* ------------------------------------*/
 
@@ -30,12 +32,14 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         /* Fiber UI Components Examples */
 
         ...ButtonExamples,
+        ...CardExamples,
         ...CheckboxExamples,
         ...InputExamples,
         ...LabelExamples,
         ...LoaderExamples,
         ...SeparatorExamples,
         ...PopoverExamples,
+        ...TextareaExamples,
 
         /* ------------------------------*/
 

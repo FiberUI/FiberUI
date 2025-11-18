@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@repo/ui/lib/utils";
 import { ComponentProps, forwardRef, useRef } from "react";
 import { AriaTextFieldOptions, useFocusRing, useTextField } from "react-aria";

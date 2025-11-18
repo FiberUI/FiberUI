@@ -29,7 +29,9 @@ export const ComponentPreviewTab: React.FC<ComponentPreviewTabProps> = ({
 }) => {
     return (
         <Tab asChild value="Preview">
-            <div className="grid h-96 place-content-center">{children}</div>
+            <div className="no-prose! grid min-h-96 min-w-80 place-content-center">
+                {children}
+            </div>
         </Tab>
     );
 };
