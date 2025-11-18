@@ -41,3 +41,29 @@ export const CodeFromFile = async ({
         </Base.CodeBlock>
     );
 };
+
+export const ComponentCodeFromFile = async ({ name }: { name: string }) => {
+    const pathToFile = "../../packages/ui/src/components/" + name + ".tsx";
+    const filePath = path.join(process.cwd(), pathToFile);
+    const codeSnippet = fs.readFileSync(filePath, "utf8");
+
+    const rendered = await highlight(codeSnippet, {
+        lang: "tsx",
+
+        components: {
+            pre: (props) => (
+                <Base.Pre {...props} className="pt-1 text-sm leading-6" />
+            ),
+        },
+    });
+
+    return (
+        <Base.CodeBlock
+            id="test-code-block-rajat"
+            className="border bg-transparent shadow"
+            data-line-numbers
+        >
+            {rendered}
+        </Base.CodeBlock>
+    );
+};

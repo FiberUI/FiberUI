@@ -1,4 +1,5 @@
 import { Button } from "@repo/ui/components/button";
+import { Checkbox } from "@repo/ui/components/checkbox";
 import {
     Popover,
     PopoverTrigger,
@@ -33,13 +34,13 @@ export const Example3: React.FC<Example3Props> = ({}) => {
                                 <span className="text-sm">
                                     Email notifications
                                 </span>
-                                <input type="checkbox" defaultChecked />
+                                <Checkbox defaultSelected />
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-sm">
                                     Marketing emails
                                 </span>
-                                <input type="checkbox" />
+                                <Checkbox />
                             </div>
                         </div>
                     </PopoverBody>
