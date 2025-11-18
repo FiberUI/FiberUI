@@ -172,8 +172,12 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
         const dataState = state.isOpen ? "open" : "closed";
         const side = props.placement?.split(" ")[0] ?? "bottom";
 
-        const animation =
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2";
+        const animationClasses =
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95" +
+            " data-[side=bottom]:slide-in-from-top-2" +
+            " data-[side=top]:slide-in-from-bottom-2" +
+            " data-[side=left]:slide-in-from-right-2" +
+            " data-[side=right]:slide-in-from-left-2";
 
         const content = asChild ? (
             <Slot
@@ -181,7 +185,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
                 ref={mergedRef}
                 data-state={dataState}
                 data-side={side}
-                className={cn(animation, className)}
+                className={cn(animationClasses, className)}
             >
                 {children}
             </Slot>
@@ -193,7 +197,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
                 data-state={dataState}
                 data-side={side}
                 className={cn(
-                    animation,
+                    animationClasses,
                     "bg-popover text-popover-foreground absolute z-50 w-72 rounded-md border p-4 shadow-md outline-none",
                     className,
                 )}

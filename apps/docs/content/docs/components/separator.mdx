@@ -18,26 +18,4 @@ description: A separator is a visual divider between two groups of content, e.g.
 
 ## Component Code
 
-```tsx
-import { cn } from "@repo/ui/lib/utils";
-import { SeparatorProps, useSeparator } from "react-aria";
-import {} from "react-aria/i18n";
-
-interface SeparatorComponentProps extends SeparatorProps {}
-
-export const Separator: React.FC<SeparatorComponentProps> = (props) => {
-    const { separatorProps } = useSeparator(props);
-
-    return (
-        <div
-            {...separatorProps}
-            className={cn(
-                "bg-gray-500",
-                props.orientation === "vertical"
-                    ? "mx-2 my-0 h-full w-px"
-                    : "mx-0 my-2 h-px w-full",
-            )}
-        />
-    );
-};
-```
+<ComponentCode name="separator" />

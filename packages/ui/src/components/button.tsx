@@ -7,7 +7,9 @@ import { cn } from "@repo/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const buttonVariants = cva(
-    "inline-flex items-center transition-colors  font-medium cursor-pointer justify-center gap-2 whitespace-nowrap rounded-full text-sm  transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+    "inline-flex items-center transition-colors font-medium cursor-pointer justify-center gap-2 whitespace-nowrap rounded-full text-sm  transition-all disabled:pointer-events-none disabled:opacity-50 " +
+        " [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]" +
+        " aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
     {
         variants: {
             variant: {
@@ -26,14 +28,14 @@ export const buttonVariants = cva(
 
                 adobe:
                     "bg-[#3B63FB] text-white font-semibold rounded-full shadow-sm hover:bg-[#274dea] " +
-                    "active:bg-[#274dea] focus-visible:ring-1 focus-visible:ring-[#274dea]/40 " +
-                    "focus-visible:ring-offset-0",
+                    " active:bg-[#274dea] focus-visible:ring-1 focus-visible:ring-[#274dea]/40 " +
+                    " focus-visible:ring-offset-0",
 
                 instagram:
-                    "text-white font-semibold rounded-full shadow-sm " +
-                    "bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] " +
-                    "hover:opacity-90 active:opacity-80 " +
-                    "focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2",
+                    " text-white font-semibold rounded-full shadow-sm " +
+                    " bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] " +
+                    " hover:opacity-90 active:opacity-80 " +
+                    " focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2",
             },
             size: {
                 default: "h-9 px-4 py-2 has-[>svg]:px-3",

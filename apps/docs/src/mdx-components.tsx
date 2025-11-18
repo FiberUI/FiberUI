@@ -1,7 +1,10 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import * as ComponentShowcaseTabsComponent from "./components/component-showcase-tabs";
-import { CodeFromFile } from "./components/code-from-file";
+import {
+    CodeFromFile,
+    ComponentCodeFromFile,
+} from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
 import * as ButtonExamples from "./components/examples/button";
@@ -38,5 +41,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 
         Code: CodeFromFile,
         CodeFromFile,
+        ComponentCode: ComponentCodeFromFile,
     };
 }

@@ -18,7 +18,7 @@ interface CheckboxProps extends AriaCheckboxProps {
     className?: string;
 }
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-    ({ className, children, ...restProps }, forwardedRef) => {
+    ({ className, ...restProps }, forwardedRef) => {
         const localRef = useRef<HTMLInputElement>(null);
 
         const mergedRef = (node: HTMLInputElement | null) => {
@@ -55,28 +55,22 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 <label
                     htmlFor={restProps.id}
                     {...labelProps}
-                    className="peer inline-flex items-center gap-2"
+                    className={cn(
+                        "peer inline-flex items-center gap-2",
+                        "border-primary ring-offset-background h-4 w-4 shrink-0 rounded-sm border",
+                        "flex items-center justify-center overflow-hidden",
+                        (isFocusVisible || isFocused) &&
+                            "ring-ring outline-none ring-2 ring-offset-2",
+                        isSelected && "bg-primary text-primary-foreground",
+                        isDisabled && "cursor-not-allowed opacity-50",
+                        className,
+                    )}
                     data-disabled={isDisabled || undefined}
                     aria-disabled={isDisabled || undefined}
+                    aria-hidden="true" // Decorative, input handles semantics
+                    data-state={isSelected ? "checked" : null}
                 >
-                    <div
-                        className={cn(
-                            "border-primary ring-offset-background h-4 w-4 shrink-0 rounded-sm border",
-                            "flex items-center justify-center overflow-hidden",
-                            isFocusVisible &&
-                                isFocused &&
-                                "ring-ring outline-none ring-2 ring-offset-2",
-                            isSelected && "bg-primary text-primary-foreground",
-                            isDisabled && "cursor-not-allowed opacity-50",
-                            className,
-                        )}
-                        // data-
-                        aria-hidden="true" // Decorative, input handles semantics
-                        data-state={isSelected ? "checked" : null}
-                    >
-                        {isSelected && <Check className="h-4 w-4" />}
-                    </div>
-                    {children}
+                    {isSelected && <Check className="h-4 w-4" />}
                 </label>
             </>
         );

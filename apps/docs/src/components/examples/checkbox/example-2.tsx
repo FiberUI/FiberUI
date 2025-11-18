@@ -7,10 +7,12 @@ export const Example2 = () => {
     const [checked, setChecked] = useState(false);
 
     return (
-        <div className="flex items-center space-x-2">
-            <Checkbox isSelected={checked} onChange={setChecked}>
+        <div className="space-x-2">
+            <div className="flex items-center gap-2">
+                <Checkbox isSelected={checked} onChange={setChecked} />
                 Controlled checkbox
-            </Checkbox>
+            </div>
+
             <p>Checked: {checked ? "Yes" : "No"}</p>
         </div>
     );
