@@ -11,7 +11,7 @@ export const Separator: React.FC<SeparatorComponentProps> = (props) => {
         <div
             {...separatorProps}
             className={cn(
-                "bg-gray-500",
+                "shrink-0 bg-gray-500",
                 props.orientation === "vertical"
                     ? "mx-2 my-0 h-full w-px"
                     : "mx-0 my-2 h-px w-full",

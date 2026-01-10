@@ -16,6 +16,7 @@ import * as LoaderExamples from "./components/examples/loader";
 import * as PaginationExamples from "./components/examples/pagination";
 import * as PopoverExamples from "./components/examples/popover";
 import * as SeparatorExamples from "./components/examples/separator";
+import * as SkeletonExamples from "./components/examples/skeleton";
 import * as TextareaExamples from "./components/examples/textarea";
 
 /* ------------------------------------*/
@@ -41,6 +42,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...PaginationExamples,
         ...SeparatorExamples,
         ...PopoverExamples,
+        ...SkeletonExamples,
         ...TextareaExamples,
 
         /* ------------------------------*/

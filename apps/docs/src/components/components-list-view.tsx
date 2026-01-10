@@ -55,6 +55,11 @@ const COMPONENTS_LIST = [
         description: "Visual divider between elements.",
     },
     {
+        name: "Skeleton",
+        href: "skeleton",
+        description: "Placeholder loading states for content.",
+    },
+    {
         name: "Textarea",
         href: "textarea",
         description: "Multi-line text input field.",
