@@ -22,6 +22,7 @@ import {
     ChevronsRightIcon,
     MoreHorizontalIcon,
 } from "lucide-react";
+import { Slot } from "@repo/ui/components/slot";
 
 export interface PaginationState {
     /** Total number of items */
@@ -287,41 +288,49 @@ interface PaginationButtonProps
         VariantProps<typeof paginationButtonVariants> {
     className?: string;
     children?: React.ReactNode;
+    asChild?: boolean;
 }
 
 export const PaginationButton = forwardRef<
     HTMLButtonElement,
     PaginationButtonProps
->(({ variant, size, className, children, ...props }, forwardedRef) => {
-    const internalRef = useRef<HTMLButtonElement | null>(null);
+>(
+    (
+        { variant, size, className, children, asChild = false, ...props },
+        forwardedRef,
+    ) => {
+        const internalRef = useRef<HTMLButtonElement | null>(null);
 
-    const mergedRef = (node: HTMLButtonElement | null) => {
-        internalRef.current = node;
-        if (typeof forwardedRef === "function") {
-            forwardedRef(node);
-        } else if (forwardedRef) {
-            forwardedRef.current = node;
-        }
-    };
+        const mergedRef = (node: HTMLButtonElement | null) => {
+            internalRef.current = node;
+            if (typeof forwardedRef === "function") {
+                forwardedRef(node);
+            } else if (forwardedRef) {
+                forwardedRef.current = node;
+            }
+        };
 
-    const { buttonProps, isPressed } = useButton(props, internalRef);
-    const { focusProps, isFocusVisible } = useFocusRing();
+        const { buttonProps, isPressed } = useButton(props, internalRef);
+        const { focusProps, isFocusVisible } = useFocusRing();
 
-    return (
-        <button
-            {...mergeProps(buttonProps, focusProps)}
-            ref={mergedRef}
-            className={cn(
-                paginationButtonVariants({ variant, size }),
-                isFocusVisible && "ring-ring ring-2 ring-offset-2",
-                className,
-            )}
-            data-pressed={isPressed ? "true" : undefined}
-        >
-            {children}
-        </button>
-    );
-});
+        const Comp = asChild ? Slot : "button";
+
+        return (
+            <Comp
+                {...mergeProps(buttonProps, focusProps)}
+                ref={mergedRef}
+                className={cn(
+                    paginationButtonVariants({ variant, size }),
+                    isFocusVisible && "ring-ring ring-2 ring-offset-2",
+                    className,
+                )}
+                data-pressed={isPressed ? "true" : undefined}
+            >
+                {children}
+            </Comp>
+        );
+    },
+);
 PaginationButton.displayName = "PaginationButton";
 
 interface PaginationLinkProps extends Omit<PaginationButtonProps, "variant"> {
@@ -349,8 +358,7 @@ export const PaginationLink = forwardRef<
 });
 PaginationLink.displayName = "PaginationLink";
 
-interface PaginationPreviousProps
-    extends Omit<PaginationButtonProps, "children"> {
+interface PaginationPreviousProps extends PaginationButtonProps {
     showLabel?: boolean;
     label?: string;
 }
@@ -358,24 +366,35 @@ interface PaginationPreviousProps
 export const PaginationPrevious = forwardRef<
     HTMLButtonElement,
     PaginationPreviousProps
->(({ showLabel = true, label = "Previous", className, ...props }, ref) => {
-    return (
-        <PaginationButton
-            ref={ref}
-            aria-label="Go to previous page"
-            variant="ghost"
-            size={showLabel ? "default" : "icon"}
-            className={cn("gap-1", showLabel && "px-2.5", className)}
-            {...props}
-        >
-            <ChevronLeftIcon className="h-4 w-4" />
-            {showLabel && <span className="hidden sm:inline">{label}</span>}
-        </PaginationButton>
-    );
-});
+>(
+    (
+        { showLabel = true, label = "Previous", className, children, ...props },
+        ref,
+    ) => {
+        return (
+            <PaginationButton
+                ref={ref}
+                aria-label="Go to previous page"
+                variant="ghost"
+                size={showLabel ? "default" : "icon"}
+                className={cn("gap-1", showLabel && "px-2.5", className)}
+                {...props}
+            >
+                {children ?? (
+                    <>
+                        <ChevronLeftIcon className="h-4 w-4" />
+                        {showLabel && (
+                            <span className="hidden sm:inline">{label}</span>
+                        )}
+                    </>
+                )}
+            </PaginationButton>
+        );
+    },
+);
 PaginationPrevious.displayName = "PaginationPrevious";
 
-interface PaginationNextProps extends Omit<PaginationButtonProps, "children"> {
+interface PaginationNextProps extends PaginationButtonProps {
     showLabel?: boolean;
     label?: string;
 }
@@ -383,24 +402,35 @@ interface PaginationNextProps extends Omit<PaginationButtonProps, "children"> {
 export const PaginationNext = forwardRef<
     HTMLButtonElement,
     PaginationNextProps
->(({ showLabel = true, label = "Next", className, ...props }, ref) => {
-    return (
-        <PaginationButton
-            ref={ref}
-            aria-label="Go to next page"
-            variant="ghost"
-            size={showLabel ? "default" : "icon"}
-            className={cn("gap-1", showLabel && "px-2.5", className)}
-            {...props}
-        >
-            {showLabel && <span className="hidden sm:inline">{label}</span>}
-            <ChevronRightIcon className="h-4 w-4" />
-        </PaginationButton>
-    );
-});
+>(
+    (
+        { showLabel = true, label = "Next", className, children, ...props },
+        ref,
+    ) => {
+        return (
+            <PaginationButton
+                ref={ref}
+                aria-label="Go to next page"
+                variant="ghost"
+                size={showLabel ? "default" : "icon"}
+                className={cn("gap-1", showLabel && "px-2.5", className)}
+                {...props}
+            >
+                {children ?? (
+                    <>
+                        {showLabel && (
+                            <span className="hidden sm:inline">{label}</span>
+                        )}
+                        <ChevronRightIcon className="h-4 w-4" />
+                    </>
+                )}
+            </PaginationButton>
+        );
+    },
+);
 PaginationNext.displayName = "PaginationNext";
 
-interface PaginationFirstProps extends Omit<PaginationButtonProps, "children"> {
+interface PaginationFirstProps extends PaginationButtonProps {
     showLabel?: boolean;
     label?: string;
 }
@@ -408,24 +438,35 @@ interface PaginationFirstProps extends Omit<PaginationButtonProps, "children"> {
 export const PaginationFirst = forwardRef<
     HTMLButtonElement,
     PaginationFirstProps
->(({ showLabel = false, label = "First", className, ...props }, ref) => {
-    return (
-        <PaginationButton
-            ref={ref}
-            aria-label="Go to first page"
-            variant="ghost"
-            size={showLabel ? "default" : "icon"}
-            className={cn("gap-1", className)}
-            {...props}
-        >
-            <ChevronsLeftIcon className="h-4 w-4" />
-            {showLabel && <span className="hidden sm:inline">{label}</span>}
-        </PaginationButton>
-    );
-});
+>(
+    (
+        { showLabel = false, label = "First", className, children, ...props },
+        ref,
+    ) => {
+        return (
+            <PaginationButton
+                ref={ref}
+                aria-label="Go to first page"
+                variant="ghost"
+                size={showLabel ? "default" : "icon"}
+                className={cn("gap-1", className)}
+                {...props}
+            >
+                {children ?? (
+                    <>
+                        <ChevronsLeftIcon className="h-4 w-4" />
+                        {showLabel && (
+                            <span className="hidden sm:inline">{label}</span>
+                        )}
+                    </>
+                )}
+            </PaginationButton>
+        );
+    },
+);
 PaginationFirst.displayName = "PaginationFirst";
 
-interface PaginationLastProps extends Omit<PaginationButtonProps, "children"> {
+interface PaginationLastProps extends PaginationButtonProps {
     showLabel?: boolean;
     label?: string;
 }
@@ -433,21 +474,32 @@ interface PaginationLastProps extends Omit<PaginationButtonProps, "children"> {
 export const PaginationLast = forwardRef<
     HTMLButtonElement,
     PaginationLastProps
->(({ showLabel = false, label = "Last", className, ...props }, ref) => {
-    return (
-        <PaginationButton
-            ref={ref}
-            aria-label="Go to last page"
-            variant="ghost"
-            size={showLabel ? "default" : "icon"}
-            className={cn("gap-1", className)}
-            {...props}
-        >
-            {showLabel && <span className="hidden sm:inline">{label}</span>}
-            <ChevronsRightIcon className="h-4 w-4" />
-        </PaginationButton>
-    );
-});
+>(
+    (
+        { showLabel = false, label = "Last", className, children, ...props },
+        ref,
+    ) => {
+        return (
+            <PaginationButton
+                ref={ref}
+                aria-label="Go to last page"
+                variant="ghost"
+                size={showLabel ? "default" : "icon"}
+                className={cn("gap-1", className)}
+                {...props}
+            >
+                {children ?? (
+                    <>
+                        {showLabel && (
+                            <span className="hidden sm:inline">{label}</span>
+                        )}
+                        <ChevronsRightIcon className="h-4 w-4" />
+                    </>
+                )}
+            </PaginationButton>
+        );
+    },
+);
 PaginationLast.displayName = "PaginationLast";
 
 interface PaginationEllipsisProps extends React.ComponentProps<"span"> {

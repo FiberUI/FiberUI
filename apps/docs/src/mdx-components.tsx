@@ -7,6 +7,7 @@ import {
 } from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
+import * as BreadcrumbExamples from "./components/examples/breadcrumb";
 import * as ButtonExamples from "./components/examples/button";
 import * as CardExamples from "./components/examples/card";
 import * as CheckboxExamples from "./components/examples/checkbox";
@@ -33,6 +34,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 
         /* Fiber UI Components Examples */
 
+        ...BreadcrumbExamples,
         ...ButtonExamples,
         ...CardExamples,
         ...CheckboxExamples,
