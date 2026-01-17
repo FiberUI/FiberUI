@@ -10,7 +10,7 @@ import {
     ReactAriaSection,
 } from "./components/home";
 
-const DOCS_LINK = "https://docs.fiberui.com";
+const DOCS_LINK = "https://docs.fiberui.com/docs";
 const DOCS_COMPONENTS_LINK = DOCS_LINK + "/components";
 
 const GITHUB_LINK = "https://github.com/FiberUI/FiberUI";

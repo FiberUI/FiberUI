@@ -10,6 +10,11 @@ type ComponentItem = {
 
 const COMPONENTS_LIST = [
     {
+        name: "Badge",
+        href: "badge",
+        description: "Small status or category indicator.",
+    },
+    {
         name: "Breadcrumb",
         href: "breadcrumb",
         description: "Navigation path hierarchy.",
