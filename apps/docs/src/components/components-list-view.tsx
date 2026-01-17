@@ -10,6 +10,11 @@ type ComponentItem = {
 
 const COMPONENTS_LIST = [
     {
+        name: "Badge",
+        href: "badge",
+        description: "Small status or category indicator.",
+    },
+    {
         name: "Breadcrumb",
         href: "breadcrumb",
         description: "Navigation path hierarchy.",
@@ -78,6 +83,11 @@ const COMPONENTS_LIST = [
         name: "Select",
         href: "select",
         description: "Dropdown menu for selecting from options.",
+    },
+    {
+        name: "Slider",
+        href: "slider",
+        description: "Input for selecting a value within a range.",
     },
     {
         name: "Switch",

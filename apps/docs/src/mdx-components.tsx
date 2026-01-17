@@ -7,6 +7,7 @@ import {
 } from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
+import * as BadgeExamples from "./components/examples/badge";
 import * as BreadcrumbExamples from "./components/examples/breadcrumb";
 import * as ButtonExamples from "./components/examples/button";
 import * as CardExamples from "./components/examples/card";
@@ -21,6 +22,7 @@ import * as SkeletonExamples from "./components/examples/skeleton";
 import * as ToastExamples from "./components/examples/toast";
 import * as TextareaExamples from "./components/examples/textarea";
 import * as SelectExamples from "./components/examples/select";
+import * as SliderExamples from "./components/examples/slider";
 import * as SwitchExamples from "./components/examples/switch";
 import * as TabsExamples from "./components/examples/tabs";
 
@@ -38,6 +40,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 
         /* Fiber UI Components Examples */
 
+        ...BadgeExamples,
         ...BreadcrumbExamples,
         ...ButtonExamples,
         ...CardExamples,
@@ -52,6 +55,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...ToastExamples,
         ...TextareaExamples,
         ...SelectExamples,
+        ...SliderExamples,
         ...SwitchExamples,
         ...TabsExamples,
 

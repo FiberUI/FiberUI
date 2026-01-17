@@ -20,7 +20,7 @@ export const Example7 = () => {
                     <Tab id="account">Account</Tab>
                     <Tab id="password">Password</Tab>
                 </TabList>
-                <TabPanel id="account" className="pt-4">
+                <TabPanel id="account">
                     <Card>
                         <CardHeader>
                             <CardTitle>Account</CardTitle>
@@ -44,7 +44,7 @@ export const Example7 = () => {
                         </CardFooter>
                     </Card>
                 </TabPanel>
-                <TabPanel id="password" className="pt-4">
+                <TabPanel id="password">
                     <Card>
                         <CardHeader>
                             <CardTitle>Password</CardTitle>

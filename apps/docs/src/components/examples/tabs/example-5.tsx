@@ -27,7 +27,7 @@ export const Example5 = () => {
                         Security
                     </Tab>
                 </TabList>
-                <TabPanel id="profile" className="pt-4">
+                <TabPanel id="profile">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -55,7 +55,7 @@ export const Example5 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="notifications" className="pt-4">
+                <TabPanel id="notifications">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -94,7 +94,7 @@ export const Example5 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="security" className="pt-4">
+                <TabPanel id="security">
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
