@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, TabsList, Tab, TabPanel } from "@repo/ui/components/tabs";
+import { Tabs, TabList, Tab, TabPanel } from "@repo/ui/components/tabs";
 import {
     Card,
     CardContent,
@@ -39,9 +39,9 @@ export const Example6 = () => {
     return (
         <div className="w-full max-w-md">
             <Tabs>
-                <TabsList aria-label="Projects" items={tabs}>
+                <TabList aria-label="Projects" items={tabs}>
                     {(item) => <Tab id={item.id}>{item.title}</Tab>}
-                </TabsList>
+                </TabList>
                 {tabs.map((item) => (
                     <TabPanel key={item.id} id={item.id} className="pt-4">
                         <Card>

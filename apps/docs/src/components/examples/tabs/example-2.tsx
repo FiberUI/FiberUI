@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Key } from "react-aria-components";
-import { Tabs, TabsList, Tab, TabPanel } from "@repo/ui/components/tabs";
+import { Tabs, TabList, Tab, TabPanel } from "@repo/ui/components/tabs";
 import {
     Card,
     CardContent,
@@ -18,11 +18,11 @@ export const Example2 = () => {
     return (
         <div className="w-full max-w-md space-y-4">
             <Tabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>
-                <TabsList aria-label="Dashboard">
+                <TabList aria-label="Dashboard">
                     <Tab id="overview">Overview</Tab>
                     <Tab id="analytics">Analytics</Tab>
                     <Tab id="reports">Reports</Tab>
-                </TabsList>
+                </TabList>
                 <TabPanel id="overview" className="pt-4">
                     <Card>
                         <CardHeader>

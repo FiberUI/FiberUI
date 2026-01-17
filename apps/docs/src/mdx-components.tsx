@@ -18,7 +18,11 @@ import * as PaginationExamples from "./components/examples/pagination";
 import * as PopoverExamples from "./components/examples/popover";
 import * as SeparatorExamples from "./components/examples/separator";
 import * as SkeletonExamples from "./components/examples/skeleton";
+import * as ToastExamples from "./components/examples/toast";
 import * as TextareaExamples from "./components/examples/textarea";
+import * as SelectExamples from "./components/examples/select";
+import * as SwitchExamples from "./components/examples/switch";
+import * as TabsExamples from "./components/examples/tabs";
 
 /* ------------------------------------*/
 
@@ -45,7 +49,11 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...SeparatorExamples,
         ...PopoverExamples,
         ...SkeletonExamples,
+        ...ToastExamples,
         ...TextareaExamples,
+        ...SelectExamples,
+        ...SwitchExamples,
+        ...TabsExamples,
 
         /* ------------------------------*/
 

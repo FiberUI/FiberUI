@@ -69,6 +69,26 @@ const COMPONENTS_LIST = [
         href: "textarea",
         description: "Multi-line text input field.",
     },
+    {
+        name: "Toast",
+        href: "toast",
+        description: "An opinionated toast component for React.",
+    },
+    {
+        name: "Select",
+        href: "select",
+        description: "Dropdown menu for selecting from options.",
+    },
+    {
+        name: "Switch",
+        href: "switch",
+        description: "Toggle control for on/off states.",
+    },
+    {
+        name: "Tabs",
+        href: "tabs",
+        description: "Organize content into switchable panels.",
+    },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 
 export const ComponentsListView = () => {

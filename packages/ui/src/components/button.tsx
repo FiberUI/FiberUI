@@ -1,94 +1,65 @@
 "use client";
 
-import { forwardRef, useRef } from "react";
-import { AriaButtonProps, useButton } from "react-aria";
-import { cn } from "@repo/ui/lib/utils";
+// import { cn } from "@repo/ui/lib/utils";
+import { forwardRef } from "react";
+import {
+    Button as AriaButton,
+    ButtonProps as AriaButtonProps,
+} from "react-aria-components";
+import { tv, type VariantProps, cn } from "tailwind-variants";
 
-import { cva, type VariantProps } from "class-variance-authority";
+export const buttonVariants = tv({
+    base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium outline-none transition-colors focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    variants: {
+        variant: {
+            default:
+                "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40",
+            gradient:
+                "text-primary-foreground shadow-xs hover:bg-primary/90 bg-linear-to-br from-indigo-600 to-purple-600 hover:from-purple-600 hover:to-indigo-600",
+            destructive:
+                "bg-destructive shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white",
+            outline:
+                "bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border",
+            secondary:
+                "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+            ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+            link: "text-primary underline-offset-4 hover:underline",
 
-export const buttonVariants = cva(
-    "inline-flex items-center transition-colors font-medium cursor-pointer justify-center gap-2 whitespace-nowrap rounded-lg text-sm  transition-all disabled:pointer-events-none disabled:opacity-50 " +
-        " [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]" +
-        " aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-    {
-        variants: {
-            variant: {
-                default:
-                    "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40",
-                gradient:
-                    "text-white dark:text-white from-indigo-600 to-purple-600 bg-gradient-to-br hover:from-purple-600 hover:to-indigo-600 text-primary-foreground shadow-xs hover:bg-primary/90",
-                destructive:
-                    "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-                outline:
-                    "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-                secondary:
-                    "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-                ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-                link: "text-primary underline-offset-4 hover:underline",
+            adobe: "rounded-full bg-[#3B63FB] font-semibold text-white shadow-sm hover:bg-[#274dea] focus-visible:ring-1 focus-visible:ring-[#274dea]/40 focus-visible:ring-offset-0 active:bg-[#274dea]",
 
-                adobe:
-                    "bg-[#3B63FB] text-white font-semibold rounded-full shadow-sm hover:bg-[#274dea] " +
-                    " active:bg-[#274dea] focus-visible:ring-1 focus-visible:ring-[#274dea]/40 " +
-                    " focus-visible:ring-offset-0",
-
-                instagram:
-                    " text-white font-semibold rounded-full shadow-sm " +
-                    " bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] " +
-                    " hover:opacity-90 active:opacity-80 " +
-                    " focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2",
-            },
-            size: {
-                default: "h-9 px-4 py-2 has-[>svg]:px-3",
-                sm: "h-8 rounded-lg gap-1.5 px-3 has-[>svg]:px-2.5",
-                lg: "h-11 rounded-lg px-6 has-[>svg]:px-4",
-                icon: "h-9 w-9 rounded-lg",
-                "icon-sm": "h-8 w-8 rounded-lg ",
-                "icon-lg": "h-10 w-10 rounded-lg ",
-            },
+            instagram:
+                "bg-linear-to-tr rounded-full from-[#F58529] via-[#DD2A7B] to-[#515BD4] font-semibold text-white shadow-sm hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2 active:opacity-80",
         },
-        defaultVariants: {
-            variant: "default",
-            size: "default",
+        size: {
+            default: "h-9 px-4 py-2 has-[>svg]:px-3",
+            sm: "h-8 gap-1.5 rounded-lg px-3 has-[>svg]:px-2.5",
+            lg: "h-11 rounded-lg px-6 has-[>svg]:px-4",
+            icon: "h-9 w-9 rounded-lg",
+            "icon-sm": "h-8 w-8 rounded-lg",
+            "icon-lg": "h-10 w-10 rounded-lg",
         },
     },
-);
+    defaultVariants: {
+        variant: "default",
+        size: "default",
+    },
+});
 
 interface ButtonProps
-    extends AriaButtonProps<"button">,
-        VariantProps<typeof buttonVariants> {
-    className?: string;
-    disabled?: boolean | undefined;
-}
+    extends AriaButtonProps,
+        VariantProps<typeof buttonVariants> {}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ variant, size, className, children, ...restProps }, forwardedRef) => {
-        const internalRef = useRef<HTMLButtonElement | null>(null);
-
-        // Merge refs properly
-        const mergedRef = (node: HTMLButtonElement | null) => {
-            internalRef.current = node;
-            if (typeof forwardedRef === "function") {
-                forwardedRef(node);
-            } else if (forwardedRef) {
-                forwardedRef.current = node;
-            }
-        };
-
-        const { buttonProps, isPressed } = useButton(restProps, internalRef);
-
+    (props, ref) => {
+        const { variant, size, className, children, ...restProps } = props;
         return (
-            <button
+            <AriaButton
                 {...restProps}
-                {...buttonProps}
-                ref={mergedRef}
+                ref={ref}
                 className={cn(buttonVariants({ variant, size }), className)}
-                // Ensure disabled state is properly handled
-                disabled={restProps.isDisabled || restProps.disabled}
-                // Add data attribute for pressed state if needed
-                data-pressed={isPressed ? "true" : undefined}
             >
                 {children}
-            </button>
+            </AriaButton>
         );
     },
 );

@@ -1,4 +1,4 @@
-import { Tabs, TabsList, Tab, TabPanel } from "@repo/ui/components/tabs";
+import { Tabs, TabList, Tab, TabPanel } from "@repo/ui/components/tabs";
 import {
     Card,
     CardContent,
@@ -13,7 +13,7 @@ export const Example3 = () => {
     return (
         <div className="w-full max-w-md">
             <Tabs>
-                <TabsList aria-label="Features">
+                <TabList aria-label="Features">
                     <Tab id="active">Active</Tab>
                     <Tab id="disabled" isDisabled>
                         Disabled
@@ -23,7 +23,7 @@ export const Example3 = () => {
                         Premium
                     </Tab>
                     <Tab id="settings">Settings</Tab>
-                </TabsList>
+                </TabList>
                 <TabPanel id="active" className="pt-4">
                     <Card>
                         <CardHeader>
