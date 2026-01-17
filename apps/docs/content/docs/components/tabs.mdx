@@ -1,0 +1,115 @@
+---
+title: Tabs
+description: A set of layered sections of content, displayed one at a time.
+---
+
+Tabs organize content into multiple sections, allowing users to navigate between them. Built on React Aria's Tabs component with full keyboard navigation and accessibility support.
+
+## Basic Usage
+
+A simple tabs component with three panels.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Controlled Tabs
+
+Use `selectedKey` and `onSelectionChange` props to control the active tab programmatically.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled Tabs
+
+Use `isDisabled` on individual tabs to prevent interaction.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Default Selected
+
+Use `defaultSelectedKey` to set the initially selected tab for uncontrolled usage.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## With Icons
+
+Tabs can include icons alongside text labels.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Dynamic Tabs
+
+Use the `items` prop on TabList for dynamic collections.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## With Cards
+
+Combine Tabs with Card components for a polished form interface.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <TabsExample7 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="tabs" cnt={7} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="tabs" />
