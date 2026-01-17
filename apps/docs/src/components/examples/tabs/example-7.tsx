@@ -1,4 +1,4 @@
-import { Tabs, TabsList, Tab, TabPanel } from "@repo/ui/components/tabs";
+import { Tabs, TabList, Tab, TabPanel } from "@repo/ui/components/tabs";
 import { Button } from "@repo/ui/components/button";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
@@ -16,10 +16,10 @@ export const Example7 = () => {
     return (
         <div className="w-full max-w-md">
             <Tabs defaultSelectedKey="account">
-                <TabsList aria-label="Account settings">
+                <TabList aria-label="Account settings">
                     <Tab id="account">Account</Tab>
                     <Tab id="password">Password</Tab>
-                </TabsList>
+                </TabList>
                 <TabPanel id="account" className="pt-4">
                     <Card>
                         <CardHeader>
