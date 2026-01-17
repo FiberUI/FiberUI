@@ -85,6 +85,11 @@ const COMPONENTS_LIST = [
         description: "Dropdown menu for selecting from options.",
     },
     {
+        name: "Slider",
+        href: "slider",
+        description: "Input for selecting a value within a range.",
+    },
+    {
         name: "Switch",
         href: "switch",
         description: "Toggle control for on/off states.",

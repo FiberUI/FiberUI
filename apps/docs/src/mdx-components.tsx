@@ -22,6 +22,7 @@ import * as SkeletonExamples from "./components/examples/skeleton";
 import * as ToastExamples from "./components/examples/toast";
 import * as TextareaExamples from "./components/examples/textarea";
 import * as SelectExamples from "./components/examples/select";
+import * as SliderExamples from "./components/examples/slider";
 import * as SwitchExamples from "./components/examples/switch";
 import * as TabsExamples from "./components/examples/tabs";
 
@@ -54,6 +55,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...ToastExamples,
         ...TextareaExamples,
         ...SelectExamples,
+        ...SliderExamples,
         ...SwitchExamples,
         ...TabsExamples,
 
