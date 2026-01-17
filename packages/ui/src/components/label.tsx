@@ -1,22 +1,20 @@
 "use client";
 
-import { cn } from "@repo/ui/lib/utils";
-import { ComponentProps, forwardRef, ReactNode } from "react";
-import { LabelAriaProps, mergeProps, useLabel } from "react-aria";
+import { forwardRef } from "react";
+import {
+    Label as AriaLabel,
+    LabelProps as AriaLabelProps,
+} from "react-aria-components";
+import { cn } from "tailwind-variants";
 
-interface LabelProps extends LabelAriaProps, ComponentProps<"label"> {
-    className?: string;
-    children: ReactNode;
-}
+interface LabelProps extends AriaLabelProps {}
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
-    ({ className = "", children, ...restProps }, ref) => {
-        const { labelProps } = useLabel(restProps);
-
+    ({ className, children, ...restProps }, ref) => {
         return (
-            <label
-                {...mergeProps(labelProps, restProps)}
+            <AriaLabel
                 ref={ref}
+                {...restProps}
                 className={cn(
                     `flex select-none items-center gap-2 text-sm font-medium leading-none`,
                     `peer-disabled:cursor-not-allowed peer-disabled:opacity-50`,
@@ -27,7 +25,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
                 )}
             >
                 {children}
-            </label>
+            </AriaLabel>
         );
     },
 );

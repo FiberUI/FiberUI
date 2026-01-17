@@ -2,7 +2,7 @@ import { Separator } from "@repo/ui/components/separator";
 
 export const Example1 = () => {
     return (
-        <>
+        <div className="flex h-full flex-col">
             {/* Horizontal Separator  */}
             <div className="mb-10 flex flex-col rounded-md border border-gray-500 p-2 text-lg">
                 First Item
@@ -22,6 +22,6 @@ export const Example1 = () => {
                 <Separator orientation="vertical" />
                 Item 3
             </div>
-        </>
+        </div>
     );
 };

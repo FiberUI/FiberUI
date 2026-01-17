@@ -1,0 +1,115 @@
+---
+title: Select
+description: Displays a list of options for the user to pick from, triggered by a button.
+---
+
+The Select component provides a dropdown list of options, built on top of React Aria's Select component with full keyboard navigation, accessibility, and animation support.
+
+## Basic Usage
+
+A simple select with a list of options. The `placeholder` prop sets the initial text displayed before a selection is made.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Controlled Select
+
+Use the `selectedKey` and `onSelectionChange` props to control the select's value programmatically.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Grouped Options
+
+Use `SelectGroup` and `SelectLabel` to organize options into logical categories.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled State
+
+Disable the entire select with `isDisabled`, or disable individual items with the `isDisabled` prop on `SelectItem`.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Trigger Sizes
+
+The `SelectTrigger` supports a `size` prop with `"default"` and `"sm"` options.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Scrollable Content
+
+When you have many options, the dropdown automatically becomes scrollable with a maximum height.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Form Layout
+
+Select components work well with Label components in form layouts.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <SelectExample7 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="select" cnt={7} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="select" />

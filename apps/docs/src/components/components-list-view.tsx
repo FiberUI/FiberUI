@@ -10,60 +10,85 @@ type ComponentItem = {
 
 const COMPONENTS_LIST = [
     {
+        name: "Breadcrumb",
+        href: "breadcrumb",
+        description: "Navigation path hierarchy.",
+    },
+    {
         name: "Button",
         href: "button",
         description: "Buttons to trigger user actions.",
     },
     {
+        name: "Card",
+        href: "card",
+        description: "Container for grouping related content.",
+    },
+    {
+        name: "Checkbox",
+        href: "checkbox",
+        description: "Checkbox input for boolean selections.",
+    },
+    {
         name: "Input",
         href: "input",
-        description: "input field",
+        description: "Text input field for user data.",
     },
     {
         name: "Label",
         href: "label",
-        description: "label component optimized for a11y",
+        description: "Accessible label for form controls.",
     },
     {
         name: "Loader",
         href: "loader",
-        description: "loading indicators",
+        description: "Loading indicators and spinners.",
+    },
+    {
+        name: "Pagination",
+        href: "pagination",
+        description: "Navigate through pages of content.",
     },
     {
         name: "Popover",
         href: "popover",
-        description: "popover component",
+        description: "Floating content panel.",
     },
     {
         name: "Separator",
         href: "separator",
-        description: "visual elements to separate",
+        description: "Visual divider between elements.",
     },
-    // {
-    //     name: "Modal",
-    //     href: "modal",
-    //     description: "Overlays for dialogs and prompts.",
-    // },
-    // {
-    //     name: "Select",
-    //     href: "select",
-    //     description: "Dropdown selector component.",
-    // },
-    // {
-    //     name: "Card",
-    //     href: "card",
-    //     description: "Cards for grouping UI content.",
-    // },
-    // {
-    //     name: "Avatar",
-    //     href: "avatar",
-    //     description: "Profile and image avatars.",
-    // },
-    // {
-    //     name: "Tabs",
-    //     href: "tabs",
-    //     description: "Tabbed navigation views.",
-    // },
+    {
+        name: "Skeleton",
+        href: "skeleton",
+        description: "Placeholder loading states for content.",
+    },
+    {
+        name: "Textarea",
+        href: "textarea",
+        description: "Multi-line text input field.",
+    },
+    {
+        name: "Toast",
+        href: "toast",
+        description: "An opinionated toast component for React.",
+    },
+    {
+        name: "Select",
+        href: "select",
+        description: "Dropdown menu for selecting from options.",
+    },
+    {
+        name: "Switch",
+        href: "switch",
+        description: "Toggle control for on/off states.",
+    },
+    {
+        name: "Tabs",
+        href: "tabs",
+        description: "Organize content into switchable panels.",
+    },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 
 export const ComponentsListView = () => {

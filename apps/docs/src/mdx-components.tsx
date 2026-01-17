@@ -7,15 +7,22 @@ import {
 } from "./components/code-from-file";
 
 /* Fiber UI Components Examples IMPORT */
+import * as BreadcrumbExamples from "./components/examples/breadcrumb";
 import * as ButtonExamples from "./components/examples/button";
 import * as CardExamples from "./components/examples/card";
 import * as CheckboxExamples from "./components/examples/checkbox";
 import * as InputExamples from "./components/examples/input";
 import * as LabelExamples from "./components/examples/label";
 import * as LoaderExamples from "./components/examples/loader";
+import * as PaginationExamples from "./components/examples/pagination";
 import * as PopoverExamples from "./components/examples/popover";
 import * as SeparatorExamples from "./components/examples/separator";
+import * as SkeletonExamples from "./components/examples/skeleton";
+import * as ToastExamples from "./components/examples/toast";
 import * as TextareaExamples from "./components/examples/textarea";
+import * as SelectExamples from "./components/examples/select";
+import * as SwitchExamples from "./components/examples/switch";
+import * as TabsExamples from "./components/examples/tabs";
 
 /* ------------------------------------*/
 
@@ -31,15 +38,22 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 
         /* Fiber UI Components Examples */
 
+        ...BreadcrumbExamples,
         ...ButtonExamples,
         ...CardExamples,
         ...CheckboxExamples,
         ...InputExamples,
         ...LabelExamples,
         ...LoaderExamples,
+        ...PaginationExamples,
         ...SeparatorExamples,
         ...PopoverExamples,
+        ...SkeletonExamples,
+        ...ToastExamples,
         ...TextareaExamples,
+        ...SelectExamples,
+        ...SwitchExamples,
+        ...TabsExamples,
 
         /* ------------------------------*/
 
