@@ -24,7 +24,7 @@ export const Example3 = () => {
                     </Tab>
                     <Tab id="settings">Settings</Tab>
                 </TabList>
-                <TabPanel id="active" className="pt-4">
+                <TabPanel id="active">
                     <Card>
                         <CardHeader>
                             <CardTitle>Active Feature</CardTitle>
@@ -40,7 +40,7 @@ export const Example3 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="disabled" className="pt-4">
+                <TabPanel id="disabled">
                     <Card>
                         <CardContent>
                             <p className="text-muted-foreground text-sm">
@@ -49,7 +49,7 @@ export const Example3 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="premium" className="pt-4">
+                <TabPanel id="premium">
                     <Card>
                         <CardContent>
                             <p className="text-muted-foreground text-sm">
@@ -58,7 +58,7 @@ export const Example3 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="settings" className="pt-4">
+                <TabPanel id="settings">
                     <Card>
                         <CardHeader>
                             <CardTitle>Settings</CardTitle>

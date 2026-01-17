@@ -43,7 +43,7 @@ export const Example6 = () => {
                     {(item) => <Tab id={item.id}>{item.title}</Tab>}
                 </TabList>
                 {tabs.map((item) => (
-                    <TabPanel key={item.id} id={item.id} className="pt-4">
+                    <TabPanel key={item.id} id={item.id}>
                         <Card>
                             <CardHeader>
                                 <CardTitle>{item.title}</CardTitle>

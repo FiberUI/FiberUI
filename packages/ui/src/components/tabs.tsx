@@ -21,7 +21,6 @@ import { focusRing } from "@repo/ui/lib/utils";
 interface TabsProps extends AriaTabsProps {}
 
 const tabsStyles = tv({
-    base: "flex gap-2 font-sans",
     variants: {
         orientation: {
             horizontal: "flex-col",
@@ -132,7 +131,7 @@ interface TabPanelProps extends AriaTabPanelProps {}
 
 const tabPanelStyles = tv({
     extend: focusRing,
-    base: "text-foreground flex-1 p-4 text-sm outline-none",
+    base: "text-foreground flex-1 pt-2 text-sm outline-none",
 });
 
 export const TabPanel = ({ className, ...props }: TabPanelProps) => {

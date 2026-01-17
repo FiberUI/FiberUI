@@ -23,7 +23,7 @@ export const Example2 = () => {
                     <Tab id="analytics">Analytics</Tab>
                     <Tab id="reports">Reports</Tab>
                 </TabList>
-                <TabPanel id="overview" className="pt-4">
+                <TabPanel id="overview">
                     <Card>
                         <CardHeader>
                             <CardTitle>Dashboard Overview</CardTitle>
@@ -49,7 +49,7 @@ export const Example2 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="analytics" className="pt-4">
+                <TabPanel id="analytics">
                     <Card>
                         <CardHeader>
                             <CardTitle>Analytics</CardTitle>
@@ -66,7 +66,7 @@ export const Example2 = () => {
                         </CardContent>
                     </Card>
                 </TabPanel>
-                <TabPanel id="reports" className="pt-4">
+                <TabPanel id="reports">
                     <Card>
                         <CardHeader>
                             <CardTitle>Reports</CardTitle>
