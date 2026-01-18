@@ -37,7 +37,7 @@ export function Example5() {
                         </div>
                     </div>
                     <Popover>
-                        <PopoverTrigger asChild>
+                        <PopoverTrigger>
                             <Button variant="outline" className="ml-auto">
                                 Owner
                             </Button>
@@ -87,7 +87,7 @@ export function Example5() {
                         </div>
                     </div>
                     <Popover>
-                        <PopoverTrigger asChild>
+                        <PopoverTrigger>
                             <Button variant="outline" className="ml-auto">
                                 Member
                             </Button>

@@ -13,7 +13,7 @@ export const PopoverBlock = () => {
     return (
         <div className="flex flex-wrap items-center gap-3 rounded-xl border p-6">
             <Popover>
-                <PopoverTrigger asChild>
+                <PopoverTrigger>
                     <Button variant="outline">Open Popover</Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-72">

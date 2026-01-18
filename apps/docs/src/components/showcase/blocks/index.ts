@@ -10,3 +10,22 @@ export { SettingsBlock } from "./settings-block";
 export { TabsBlock } from "./tabs-block";
 export { TeamBlock } from "./team-block";
 export { NavigationBlock } from "./navigation-block";
+export { ColorPickerBlock } from "./color-picker-block";
+export { OverlaysBlock } from "./overlays-block";
+
+// Auth blocks
+export { AuthLoginBlock, AuthSignupBlock } from "./auth-blocks";
+
+// Dashboard blocks
+export {
+    DashboardStatsBlock,
+    DashboardActivityBlock,
+    DashboardProgressBlock,
+} from "./dashboard-blocks";
+
+// Email blocks
+export {
+    EmailListBlock,
+    EmailComposeBlock,
+    EmailActionsBlock,
+} from "./email-blocks";

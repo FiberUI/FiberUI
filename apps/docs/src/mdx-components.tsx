@@ -12,6 +12,8 @@ import * as BreadcrumbExamples from "./components/examples/breadcrumb";
 import * as ButtonExamples from "./components/examples/button";
 import * as CardExamples from "./components/examples/card";
 import * as CheckboxExamples from "./components/examples/checkbox";
+import * as ColorAreaExamples from "./components/examples/color-area";
+import * as ColorWheelExamples from "./components/examples/color-wheel";
 import * as InputExamples from "./components/examples/input";
 import * as LabelExamples from "./components/examples/label";
 import * as LoaderExamples from "./components/examples/loader";
@@ -46,6 +48,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...ButtonExamples,
         ...CardExamples,
         ...CheckboxExamples,
+        ...ColorAreaExamples,
+        ...ColorWheelExamples,
         ...InputExamples,
         ...LabelExamples,
         ...LoaderExamples,
