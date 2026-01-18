@@ -88,3 +88,7 @@ h1 {
 button[data-search-full] {
     background-color: var(--color-fd-background);
 }
+
+@utility text-gradient {
+    @apply bg-linear-to-br from-cyan-500 via-blue-500 via-50% to-sky-500 to-95% bg-clip-text text-transparent dark:from-cyan-400 dark:via-blue-400 dark:to-cyan-400;
+}
