@@ -54,7 +54,7 @@ const tabListStyles = tv({
     base: "bg-muted text-muted-foreground inline-flex w-fit items-center justify-center rounded-lg p-1",
     variants: {
         orientation: {
-            horizontal: "h-9 flex-row",
+            horizontal: "flex-row",
             vertical: "flex-col items-start",
         },
     },
@@ -87,7 +87,7 @@ interface TabProps extends AriaTabProps {}
 const tabStyles = tv({
     extend: focusRing,
     base: [
-        "inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-transparent px-3 py-1 text-sm font-medium transition-[color,box-shadow]",
+        "inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-transparent px-3 py-1.5 text-sm font-medium transition-[color,box-shadow]",
         "text-foreground dark:text-muted-foreground",
         "disabled:pointer-events-none disabled:opacity-50",
         "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",

@@ -32,11 +32,11 @@ export const buttonVariants = tv({
         },
         size: {
             default: "h-9 px-4 py-2 has-[>svg]:px-3",
-            sm: "h-8 gap-1.5 rounded-lg px-3 has-[>svg]:px-2.5",
-            lg: "h-11 rounded-lg px-6 has-[>svg]:px-4",
-            icon: "h-9 w-9 rounded-lg",
-            "icon-sm": "h-8 w-8 rounded-lg",
-            "icon-lg": "h-10 w-10 rounded-lg",
+            sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5",
+            lg: "h-11 px-6 has-[>svg]:px-4",
+            icon: "h-9 w-9",
+            "icon-sm": "h-8 w-8",
+            "icon-lg": "h-10 w-10",
         },
     },
     defaultVariants: {
@@ -52,6 +52,7 @@ interface ButtonProps
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (props, ref) => {
         const { variant, size, className, children, ...restProps } = props;
+
         return (
             <AriaButton
                 {...restProps}

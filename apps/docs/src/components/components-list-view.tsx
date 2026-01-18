@@ -35,6 +35,16 @@ const COMPONENTS_LIST = [
         description: "Checkbox input for boolean selections.",
     },
     {
+        name: "ColorArea",
+        href: "color-area",
+        description: "2D color picker for adjusting color channels.",
+    },
+    {
+        name: "ColorWheel",
+        href: "color-wheel",
+        description: "Circular hue selector for color picking.",
+    },
+    {
         name: "Input",
         href: "input",
         description: "Text input field for user data.",
@@ -98,6 +108,11 @@ const COMPONENTS_LIST = [
         name: "Tabs",
         href: "tabs",
         description: "Organize content into switchable panels.",
+    },
+    {
+        name: "Tooltip",
+        href: "tooltip",
+        description: "Popup that displays information on hover or focus.",
     },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 

@@ -7,7 +7,7 @@ import {
     BreadcrumbSeparator,
 } from "@repo/ui/components/breadcrumb";
 import { Separator } from "@repo/ui/components/separator";
-import { Home, ChevronRight } from "lucide-react";
+import { Home } from "lucide-react";
 
 export const NavigationShowcase = () => {
     return (

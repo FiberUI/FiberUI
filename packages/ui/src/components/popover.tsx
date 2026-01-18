@@ -1,298 +1,134 @@
 "use client";
-
-import { useOverlayTriggerState, OverlayTriggerState } from "react-stately";
-
 import {
-    useOverlayTrigger,
-    usePopover,
-    Overlay,
-    DismissButton,
-    AriaButtonProps,
-    AriaPopoverProps,
-    useButton,
-    mergeProps,
-    useOverlay,
-} from "react-aria";
-
-import {
-    createContext,
-    useContext,
-    useRef,
-    ReactNode,
-    forwardRef,
-    RefObject,
-} from "react";
-
+    OverlayArrow,
+    Popover as AriaPopover,
+    PopoverProps as AriaPopoverProps,
+    DialogTrigger,
+    DialogTriggerProps,
+    composeRenderProps,
+    PopoverContext,
+    useSlottedContext,
+    Dialog,
+} from "react-aria-components";
+import React from "react";
+import { tv } from "tailwind-variants";
 import { cn } from "@repo/ui/lib/utils";
-import { Slot } from "@repo/ui/components/slot";
-import { Button } from "@repo/ui/components/button";
 
-interface PopoverProviderT {
-    defaultOpen?: boolean;
-    isOpen?: boolean;
-    onOpenChange?: (val: boolean) => void;
-    modal?: boolean;
-}
+const popoverStyles = tv({
+    base: "bg-popover text-popover-foreground z-50 rounded-md border p-4 shadow-md outline-none",
+    variants: {
+        isEntering: {
+            true: "animate-in fade-in-0 zoom-in-95 duration-200",
+        },
+        isExiting: {
+            true: "animate-out fade-out-0 zoom-out-95 duration-150",
+        },
+    },
+});
+
 // ============================================================================
-// Popover Context
+// Popover (Wrapper)
 // ============================================================================
 
-interface PopoverContextT extends PopoverProviderT {
-    state: OverlayTriggerState;
-    triggerRef: RefObject<HTMLButtonElement | null>;
-}
-const PopoverContext = createContext<PopoverContextT | null>(null);
+export const Popover: React.FC<DialogTriggerProps> = (props) => {
+    return <DialogTrigger {...props} />;
+};
 
-const Popover = ({
+// ============================================================================
+// PopoverTrigger
+// ============================================================================
+
+export const PopoverTrigger: React.FC<React.PropsWithChildren> = ({
     children,
+}) => {
+    return children;
+};
+
+// ============================================================================
+// PopoverContent
+// ============================================================================
+
+export interface PopoverContentProps
+    extends Omit<AriaPopoverProps, "children"> {
+    showArrow?: boolean;
+    children: React.ReactNode;
+}
+
+export const PopoverContent: React.FC<PopoverContentProps> = ({
+    children,
+    showArrow,
+    className,
     ...props
-}: PopoverProviderT & { children: ReactNode }) => {
-    const state = useOverlayTriggerState(props);
-    const triggerRef = useRef<HTMLButtonElement>(null);
+}) => {
+    const popoverContext = useSlottedContext(PopoverContext);
+    const isSubmenu = popoverContext?.trigger === "SubmenuTrigger";
+    let offset = showArrow ? 12 : 8;
+    offset = isSubmenu ? offset - 6 : offset;
 
     return (
-        <PopoverContext.Provider value={{ state, triggerRef, ...props }}>
-            {children}
-        </PopoverContext.Provider>
+        <AriaPopover
+            data-slot="popover-content"
+            offset={offset}
+            {...props}
+            className={composeRenderProps(className, (className, renderProps) =>
+                cn(popoverStyles({ ...renderProps }), className),
+            )}
+        >
+            {showArrow && (
+                <OverlayArrow className="group">
+                    <svg
+                        width={12}
+                        height={12}
+                        viewBox="0 0 12 12"
+                        className="fill-popover stroke-border block group-data-[placement^=bottom]:rotate-180 group-data-[placement^=left]:-rotate-90 group-data-[placement^=right]:rotate-90"
+                    >
+                        <path d="M0 0 L6 6 L12 0" />
+                    </svg>
+                </OverlayArrow>
+            )}
+            <Dialog className="outline-none">{children}</Dialog>
+        </AriaPopover>
     );
 };
 
 // ============================================================================
-// Popover Trigger
+// PopoverHeader
 // ============================================================================
 
-interface PopoverTriggerProps extends AriaButtonProps {
-    asChild?: boolean;
-    className?: string;
-    children: ReactNode;
-}
+export interface PopoverHeaderProps extends React.ComponentProps<"div"> {}
 
-const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
-    ({ asChild, className, children, ...props }, ref) => {
-        const ctx = useContext(PopoverContext);
-        if (!ctx) throw new Error("PopoverTrigger must be inside <Popover>");
-        const { state, triggerRef } = ctx;
-
-        const { triggerProps } = useOverlayTrigger(
-            { type: "dialog" },
-            state,
-            triggerRef,
-        );
-
-        const internalRef = useRef<HTMLButtonElement>(null);
-
-        const { buttonProps } = useButton(props, internalRef);
-
-        const finalProps = mergeProps(triggerProps, buttonProps);
-
-        const mergedRef = (node: HTMLButtonElement | null) => {
-            triggerRef.current = node;
-            internalRef.current = node;
-            if (typeof ref === "function") {
-                ref(node);
-            } else if (ref) {
-                /* eslint-disable */
-                (ref as any).current = node;
-            }
-        };
-
-        if (asChild) {
-            return (
-                <Slot {...finalProps} ref={mergedRef} className={className}>
-                    {children}
-                </Slot>
-            );
-        }
-
-        return (
-            <Button
-                {...finalProps}
-                ref={mergedRef}
-                className={cn("outline-none", className)}
-            >
-                {children}
-            </Button>
-        );
-    },
-);
-PopoverTrigger.displayName = "PopoverTrigger";
-
-// ============================================================================
-// Popover Content
-// ============================================================================
-
-interface PopoverContentProps
-    extends Omit<AriaPopoverProps, "popoverRef" | "triggerRef"> {
-    className?: string;
-    children: ReactNode;
-    asChild?: boolean;
-}
-
-const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
-    ({ asChild, className, children, ...props }, ref) => {
-        const ctx = useContext(PopoverContext);
-
-        if (!ctx) throw new Error("PopoverContent must be inside <Popover>");
-        const { state, triggerRef } = ctx;
-
-        const popoverRef = useRef<HTMLDivElement>(null);
-        const mergedRef = (node: HTMLDivElement | null) => {
-            popoverRef.current = node;
-            if (typeof ref === "function") {
-                ref(node);
-            } else if (ref) {
-                /* eslint-disable */
-                (ref as any).current = node;
-            }
-        };
-
-        // 🔹 Add overlayProps for dismissal behavior
-        const { overlayProps } = useOverlay(
-            {
-                onClose: state.close,
-                isOpen: state.isOpen,
-                isDismissable: true,
-                shouldCloseOnBlur: true,
-            },
-            popoverRef,
-        );
-
-        const { popoverProps, underlayProps } = usePopover(
-            {
-                ...props,
-                popoverRef,
-                triggerRef,
-                offset: props.offset ?? 8,
-                placement: props.placement ?? "bottom",
-                isNonModal: !ctx.modal,
-            },
-            state,
-        );
-
-        const dataState = state.isOpen ? "open" : "closed";
-        const side = props.placement?.split(" ")[0] ?? "bottom";
-
-        const animationClasses =
-            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95" +
-            " data-[side=bottom]:slide-in-from-top-2" +
-            " data-[side=top]:slide-in-from-bottom-2" +
-            " data-[side=left]:slide-in-from-right-2" +
-            " data-[side=right]:slide-in-from-left-2";
-
-        const content = asChild ? (
-            <Slot
-                {...mergeProps(popoverProps, overlayProps)}
-                ref={mergedRef}
-                data-state={dataState}
-                data-side={side}
-                className={cn(animationClasses, className)}
-            >
-                {children}
-            </Slot>
-        ) : (
-            <div
-                id="testing"
-                {...mergeProps(popoverProps, overlayProps)}
-                ref={mergedRef}
-                data-state={dataState}
-                data-side={side}
-                className={cn(
-                    animationClasses,
-                    "bg-popover text-popover-foreground absolute z-50 w-72 rounded-md border p-4 shadow-md outline-none",
-                    className,
-                )}
-            >
-                {children}
-                <DismissButton onDismiss={state.close} />
-            </div>
-        );
-
-        if (!state.isOpen) return null;
-
-        return (
-            <Overlay>
-                {!ctx.modal && (
-                    <div {...underlayProps} className="fixed inset-0 z-40" />
-                )}
-                {content}
-            </Overlay>
-        );
-    },
-);
-PopoverContent.displayName = "PopoverContent";
-
-// ============================================================================
-// Popover Header (Optional)
-// ============================================================================
-
-interface PopoverHeaderProps {
-    children: React.ReactNode;
-    className?: string;
-}
-
-const PopoverHeader: React.FC<PopoverHeaderProps> = ({
+export const PopoverHeader: React.FC<PopoverHeaderProps> = ({
     children,
     className,
 }) => {
     return (
-        <div className={cn("px-4 pb-2 pt-4", className)}>
+        <div className={cn("pb-2", className)}>
             <h3 className="text-sm font-semibold leading-none">{children}</h3>
         </div>
     );
 };
 
 // ============================================================================
-// Popover Body (Optional)
+// PopoverBody
 // ============================================================================
 
-interface PopoverBodyProps {
-    children: React.ReactNode;
-    className?: string;
-}
-
-const PopoverBody: React.FC<PopoverBodyProps> = ({ children, className }) => {
-    return <div className={cn("px-4 py-3", className)}>{children}</div>;
-};
-
-// ============================================================================
-// Popover Footer (Optional)
-// ============================================================================
-
-interface PopoverFooterProps {
-    children: React.ReactNode;
-    className?: string;
-}
-
-const PopoverFooter: React.FC<PopoverFooterProps> = ({
+export interface PopoverBodyProps extends React.ComponentProps<"div"> {}
+export const PopoverBody: React.FC<PopoverBodyProps> = ({
     children,
     className,
 }) => {
-    return (
-        <div
-            className={cn(
-                "flex items-center gap-2 border-t px-4 pb-4 pt-2",
-                className,
-            )}
-        >
-            {children}
-        </div>
-    );
+    return <div className={cn("py-2", className)}>{children}</div>;
 };
 
-export {
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-};
+// ============================================================================
+// PopoverFooter
+// ============================================================================
 
-// <Popover>
-//     <PopoverTrigger></PopoverTrigger>
-//     <PopoverContent>
-//         <PopoverHeader></PopoverHeader>
-//         <PopoverBody></PopoverBody>
-//         <PopoverFooter></PopoverFooter>
-//     </PopoverContent>
-// </Popover>
+export interface PopoverFooterProps extends React.ComponentProps<"div"> {}
+
+export const PopoverFooter: React.FC<PopoverFooterProps> = ({
+    children,
+    className,
+}) => {
+    return <div className={cn("border-t pt-2", className)}>{children}</div>;
+};

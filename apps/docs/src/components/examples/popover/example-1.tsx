@@ -8,15 +8,13 @@ import {
     PopoverTrigger,
 } from "@repo/ui/components/popover";
 
-interface Example1Props {}
-
-export const Example1: React.FC<Example1Props> = ({}) => {
+export const Example1: React.FC = () => {
     return (
         <Popover>
-            <PopoverTrigger asChild>
-                <Button variant="outline">Open popover</Button>
+            <PopoverTrigger>
+                <Button>Open popover</Button>
             </PopoverTrigger>
-            <PopoverContent className="bg-fd-card w-80">
+            <PopoverContent className="w-80">
                 <PopoverBody>
                     <div className="grid gap-4">
                         <div className="space-y-2">

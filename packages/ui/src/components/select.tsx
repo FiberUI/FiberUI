@@ -150,6 +150,7 @@ export const SelectItem = ({
     className,
     children,
     value,
+    id,
     ...props
 }: SelectItemProps) => {
     return (
@@ -164,7 +165,7 @@ export const SelectItem = ({
                 className,
             )}
             {...props}
-            id={value}
+            id={id == undefined ? value : id}
         >
             {composeRenderProps(children, (children, { isSelected }) => (
                 <>
