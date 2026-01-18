@@ -1,26 +1,32 @@
-import { cn } from "@repo/ui/lib/utils";
-import { SeparatorProps, useSeparator } from "react-aria";
-import {} from "react-aria/i18n";
+"use client";
+import {
+    Separator as AriaSeparator,
+    SeparatorProps,
+} from "react-aria-components";
+import { tv } from "tailwind-variants";
 
-interface SeparatorComponentProps extends SeparatorProps {
-    className?: string;
-}
+const separatorStyles = tv({
+    base: "bg-border",
+    variants: {
+        orientation: {
+            horizontal: "h-px w-full",
+            vertical: "h-full min-h-8 w-px",
+        },
+    },
+    defaultVariants: {
+        orientation: "horizontal",
+    },
+});
 
-export const Separator: React.FC<SeparatorComponentProps> = (props) => {
-    const { separatorProps } = useSeparator(props);
-
+export const Separator = (props: SeparatorProps) => {
     return (
-        <div
-            {...separatorProps}
-            className={cn(
-                "shrink-0 bg-gray-500",
-
-                props.orientation === "vertical"
-                    ? "mx-2 my-0 h-full w-px"
-                    : "mx-0 my-2 h-px w-full",
-
-                props.className,
-            )}
+        <AriaSeparator
+            data-slot="separator"
+            {...props}
+            className={separatorStyles({
+                orientation: props.orientation,
+                className: props.className,
+            })}
         />
     );
 };

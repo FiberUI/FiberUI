@@ -9,14 +9,12 @@ import {
     PopoverFooter,
 } from "@repo/ui/components/popover";
 
-interface Example3Props {}
-
-export const Example3: React.FC<Example3Props> = ({}) => {
+export const Example3: React.FC = () => {
     return (
         <div className="flex min-h-[400px] items-center justify-center">
             <Popover>
-                <PopoverTrigger asChild>
-                    <Button variant="outline">Open Popover</Button>
+                <PopoverTrigger>
+                    <Button>Open Popover</Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-80">
                     <PopoverHeader>

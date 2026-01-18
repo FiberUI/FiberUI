@@ -12,7 +12,7 @@ export const Example1 = () => {
                 <Checkbox id="terms-2" defaultSelected />
                 <div className="space-y-2">
                     <Label htmlFor="terms-2">Accept terms and conditions</Label>
-                    <p className="text-muted-foreground not-prose text-sm">
+                    <p className="text-muted-foreground text-sm">
                         By clicking this checkbox, you agree to the terms and
                         conditions.
                     </p>
@@ -31,7 +31,7 @@ export const Example1 = () => {
                     defaultSelected
                     className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
                 />
-                <div className="not-prose grid gap-1.5 font-normal">
+                <div className="grid gap-1.5 font-normal">
                     <p className="text-sm font-medium leading-none">
                         Enable notifications
                     </p>

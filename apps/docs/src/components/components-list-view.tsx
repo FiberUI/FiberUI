@@ -99,6 +99,11 @@ const COMPONENTS_LIST = [
         href: "tabs",
         description: "Organize content into switchable panels.",
     },
+    {
+        name: "Tooltip",
+        href: "tooltip",
+        description: "Popup that displays information on hover or focus.",
+    },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 
 export const ComponentsListView = () => {

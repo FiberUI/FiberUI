@@ -25,6 +25,7 @@ import * as SelectExamples from "./components/examples/select";
 import * as SliderExamples from "./components/examples/slider";
 import * as SwitchExamples from "./components/examples/switch";
 import * as TabsExamples from "./components/examples/tabs";
+import * as TooltipExamples from "./components/examples/tooltip";
 
 /* ------------------------------------*/
 
@@ -58,8 +59,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...SliderExamples,
         ...SwitchExamples,
         ...TabsExamples,
-
-        /* ------------------------------*/
+        ...TooltipExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
