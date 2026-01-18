@@ -40,9 +40,7 @@ export default function ShowcasePage() {
                 {/* Hero */}
                 <div className="mb-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                            Fiber UI
-                        </span>
+                        <span className="text-gradient">Fiber UI</span>
                     </h1>
                     <p className="text-muted-foreground mt-3 text-lg">
                         Beautiful, accessible React components built with React

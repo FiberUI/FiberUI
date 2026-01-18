@@ -15,7 +15,7 @@ export function baseOptions(): BaseLayoutProps {
             title: (
                 <>
                     <FiberUILogo />
-                    FiberUI
+                    <span className="font-serif">FiberUI</span>
                 </>
             ),
         },
