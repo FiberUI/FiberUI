@@ -1,3 +1,5 @@
+// import "@repo/ui/globals.css";
+
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
