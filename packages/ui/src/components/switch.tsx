@@ -4,8 +4,8 @@ import {
     SwitchProps as AriaSwitchProps,
     SwitchRenderProps,
 } from "react-aria-components";
-import { tv } from "tailwind-variants";
-import { cn, focusRing } from "@repo/ui/lib/utils";
+import { tv, cn } from "tailwind-variants";
+import { focusRing } from "@repo/ui/lib/utils";
 
 export interface SwitchProps extends Omit<AriaSwitchProps, "children"> {}
 

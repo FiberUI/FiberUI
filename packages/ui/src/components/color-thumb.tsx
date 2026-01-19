@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
     ColorThumb as AriaColorThumb,
     ColorThumbProps as AriaColorThumbProps,

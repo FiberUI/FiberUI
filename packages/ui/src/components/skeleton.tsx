@@ -1,8 +1,8 @@
 "use client";
 
 import { forwardRef } from "react";
-import { cn } from "@repo/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "tailwind-variants";
 
 export const skeletonVariants = cva("bg-muted relative overflow-hidden", {
     variants: {

@@ -5,7 +5,7 @@ import {
     SliderThumb,
     SliderTrack,
 } from "react-aria-components";
-import { cn } from "@repo/ui/lib/utils";
+import { cn } from "tailwind-variants";
 
 export interface SliderProps<T> extends AriaSliderProps<T> {
     label?: string;

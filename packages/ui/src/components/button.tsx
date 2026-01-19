@@ -1,11 +1,13 @@
 "use client";
 
-// import { cn } from "@repo/ui/lib/utils";
-import { forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
+
 import {
     Button as AriaButton,
     ButtonProps as AriaButtonProps,
+    ButtonContext as AriaButtonContext,
 } from "react-aria-components";
+
 import { tv, type VariantProps, cn } from "tailwind-variants";
 
 export const buttonVariants = tv({
@@ -46,22 +48,33 @@ export const buttonVariants = tv({
 });
 
 interface ButtonProps
-    extends AriaButtonProps,
-        VariantProps<typeof buttonVariants> {}
+    extends Omit<AriaButtonProps, "children">,
+        VariantProps<typeof buttonVariants> {
+    asChild?: boolean;
+    children: ReactNode;
+}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (props, ref) => {
-        const { variant, size, className, children, ...restProps } = props;
+        const { variant, size, className, children, asChild, ...restProps } =
+            props;
 
-        return (
-            <AriaButton
-                {...restProps}
-                ref={ref}
-                className={cn(buttonVariants({ variant, size }), className)}
-            >
-                {children}
-            </AriaButton>
-        );
+        const finalProps = {
+            ...restProps,
+            ref,
+            className: cn(buttonVariants({ variant, size }), className),
+            children,
+        };
+
+        if (asChild) {
+            return (
+                <AriaButtonContext value={finalProps}>
+                    {children}
+                </AriaButtonContext>
+            );
+        }
+
+        return <AriaButton {...finalProps}>{children}</AriaButton>;
     },
 );
 

@@ -24,13 +24,9 @@ export const Example1 = () => {
             </div>
             <Label
                 htmlFor="toggle-2"
-                className="hover:bg-accent/50 has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950 flex items-start gap-3 rounded-lg border p-3"
+                className="hover:bg-accent/50 has-aria-checked:border-primary has-aria-checked:bg-primary/20 dark:has-aria-checked:border-primary flex items-start gap-3 rounded-lg border p-3"
             >
-                <Checkbox
-                    id="toggle-2"
-                    defaultSelected
-                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
-                />
+                <Checkbox id="toggle-2" defaultSelected className="" />
                 <div className="grid gap-1.5 font-normal">
                     <p className="text-sm font-medium leading-none">
                         Enable notifications

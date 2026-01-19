@@ -1,0 +1,57 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "fiberui",
+  "homepage": "https://fiberui.com",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Utility functions for Fiber UI components including cn() for class merging and focusRing for accessibility.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge",
+        "tailwind-variants"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A button component built with React Aria for accessibility and Tailwind Variants for styling. Includes multiple variants: default, gradient, destructive, outline, secondary, ghost, link, adobe, and instagram.",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "An accessible switch/toggle component built with React Aria. Supports disabled states and focus ring for accessibility.",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A popover component with arrow support, header, body, and footer sections. Built with React Aria for accessibility.",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    }
+  ]
+}

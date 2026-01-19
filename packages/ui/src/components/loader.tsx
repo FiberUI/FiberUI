@@ -1,6 +1,6 @@
 "use client";
-import { cn } from "@repo/ui/lib/utils";
 import { motion } from "motion/react";
+import { cn } from "tailwind-variants";
 
 interface LoaderProps {}
 

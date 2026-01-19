@@ -1,80 +1,54 @@
 "use client";
 
 import { cn } from "@repo/ui/lib/utils";
-import { forwardRef, useRef } from "react";
-import { AriaCheckboxProps, useCheckbox, useFocusRing } from "react-aria";
-import { useToggleState } from "react-stately";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
+import {
+    Checkbox as AriaCheckbox,
+    CheckboxProps as AriaCheckboxProps,
+    composeRenderProps,
+} from "react-aria-components";
 
-// type CheckboxComponentProps = ComponentProps<"input">;
-
-// interface CheckboxProps
-//     extends CheckboxComponentProps,
-//         Omit<AriaCheckboxProps, keyof CheckboxComponentProps> {
-//     className?: string;
-// }
-
-interface CheckboxProps extends AriaCheckboxProps {
+export interface CheckboxProps extends Omit<AriaCheckboxProps, "children"> {
     className?: string;
 }
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-    ({ className, ...restProps }, forwardedRef) => {
-        const localRef = useRef<HTMLInputElement>(null);
 
-        const mergedRef = (node: HTMLInputElement | null) => {
-            if (!node) return;
-            localRef.current = node;
-            if (typeof forwardedRef === "function") {
-                forwardedRef(node);
-            } else if (forwardedRef) {
-                forwardedRef.current = node;
-            }
-        };
-
-        const state = useToggleState(restProps as AriaCheckboxProps);
-        const { inputProps, isSelected, isDisabled, labelProps } = useCheckbox(
-            restProps as AriaCheckboxProps,
-            state,
-            localRef,
-        );
-        const { focusProps, isFocusVisible, isFocused } = useFocusRing();
-
-        return (
-            <>
-                <input
-                    role="checkbox"
-                    {...inputProps}
-                    {...focusProps}
-                    ref={mergedRef}
-                    type="checkbox"
-                    className="peer sr-only"
-                    aria-checked={isSelected}
-                    data-disabled={isDisabled || undefined}
-                    disabled={isDisabled} // Add this
-                />
-                <label
-                    htmlFor={restProps.id}
-                    {...labelProps}
+export function Checkbox({ className, ...restProps }: CheckboxProps) {
+    return (
+        <AriaCheckbox
+            {...restProps}
+            className={composeRenderProps(
+                className,
+                (className, { isDisabled }) =>
+                    cn(
+                        "group flex items-center gap-2 text-sm transition [-webkit-tap-highlight-color:transparent]",
+                        isDisabled && "cursor-not-allowed opacity-50",
+                        className,
+                    ),
+            )}
+        >
+            {({ isSelected, isIndeterminate }) => (
+                <span
                     className={cn(
                         "peer inline-flex items-center gap-2",
                         "border-primary ring-offset-background h-4 w-4 shrink-0 rounded-sm border",
                         "flex items-center justify-center overflow-hidden",
-                        (isFocusVisible || isFocused) &&
-                            "ring-ring outline-none ring-2 ring-offset-2",
-                        isSelected && "bg-primary text-primary-foreground",
-                        isDisabled && "cursor-not-allowed opacity-50",
-                        className,
+                        "group-data-[focus-visible]:ring-ring group-data-[focus-visible]:outline-none group-data-[focus-visible]:ring-2 group-data-[focus-visible]:ring-offset-2",
+                        (isSelected || isIndeterminate) &&
+                            "bg-primary text-primary-foreground",
                     )}
-                    data-disabled={isDisabled || undefined}
-                    aria-disabled={isDisabled || undefined}
-                    aria-hidden="true" // Decorative, input handles semantics
                     data-state={isSelected ? "checked" : null}
+                    aria-checked={isSelected}
+                    aria-hidden="true"
                 >
-                    {isSelected && <Check className="h-4 w-4" />}
-                </label>
-            </>
-        );
-    },
-);
+                    {isIndeterminate ? (
+                        <Minus className="h-4 w-4" />
+                    ) : isSelected ? (
+                        <Check className="h-4 w-4" />
+                    ) : null}
+                </span>
+            )}
+        </AriaCheckbox>
+    );
+}
 
 Checkbox.displayName = "Checkbox";

@@ -9,7 +9,8 @@ import {
     composeRenderProps,
 } from "react-aria-components";
 import { tv } from "tailwind-variants";
-import { cn } from "@repo/ui/lib/utils";
+
+import { cn } from "tailwind-variants";
 
 const tooltipStyles = tv({
     base: "bg-secondary text-secondary-foreground z-50 rounded-md px-3 py-1.5 text-xs shadow-md",
@@ -41,8 +42,10 @@ export const TooltipContent = ({
             data-slot="tooltip"
             offset={8}
             {...props}
-            className={composeRenderProps(className, (className, renderProps) =>
-                cn(tooltipStyles({ ...renderProps }), className),
+            className={composeRenderProps(
+                className,
+                (className, renderProps) =>
+                    cn(tooltipStyles({ ...renderProps }), className) || "",
             )}
         >
             <OverlayArrow>

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "A button component built with React Aria for accessibility and Tailwind Variants for styling. Includes multiple variants: default, gradient, destructive, outline, secondary, ghost, link, adobe, and instagram.",
+  "dependencies": [
+    "react-aria-components",
+    "tailwind-variants"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/button.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\";\n\nimport { forwardRef } from \"react\";\nimport {\n    Button as AriaButton,\n    ButtonProps as AriaButtonProps,\n} from \"react-aria-components\";\nimport { tv, type VariantProps, cn } from \"tailwind-variants\";\n\nexport const buttonVariants = tv({\n    base: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium outline-none transition-colors focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0\",\n    variants: {\n        variant: {\n            default:\n                \"bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40\",\n            gradient:\n                \"text-primary-foreground shadow-xs hover:bg-primary/90 bg-linear-to-br from-indigo-600 to-purple-600 hover:from-purple-600 hover:to-indigo-600\",\n            destructive:\n                \"bg-destructive shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white\",\n            outline:\n                \"bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border\",\n            secondary:\n                \"bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80\",\n            ghost: \"hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50\",\n            link: \"text-primary underline-offset-4 hover:underline\",\n\n            adobe: \"rounded-full bg-[#3B63FB] font-semibold text-white shadow-sm hover:bg-[#274dea] focus-visible:ring-1 focus-visible:ring-[#274dea]/40 focus-visible:ring-offset-0 active:bg-[#274dea]\",\n\n            instagram:\n                \"bg-linear-to-tr rounded-full from-[#F58529] via-[#DD2A7B] to-[#515BD4] font-semibold text-white shadow-sm hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2 active:opacity-80\",\n        },\n        size: {\n            default: \"h-9 px-4 py-2 has-[>svg]:px-3\",\n            sm: \"h-8 gap-1.5 px-3 has-[>svg]:px-2.5\",\n            lg: \"h-11 px-6 has-[>svg]:px-4\",\n            icon: \"h-9 w-9\",\n            \"icon-sm\": \"h-8 w-8\",\n            \"icon-lg\": \"h-10 w-10\",\n        },\n    },\n    defaultVariants: {\n        variant: \"default\",\n        size: \"default\",\n    },\n});\n\ninterface ButtonProps\n    extends AriaButtonProps,\n        VariantProps<typeof buttonVariants> {}\n\nexport const Button = forwardRef<HTMLButtonElement, ButtonProps>(\n    (props, ref) => {\n        const { variant, size, className, children, ...restProps } = props;\n\n        return (\n            <AriaButton\n                {...restProps}\n                ref={ref}\n                className={cn(buttonVariants({ variant, size }), className)}\n            >\n                {children}\n            </AriaButton>\n        );\n    },\n);\n\nButton.displayName = \"Button\";\n"
+    }
+  ]
+}
