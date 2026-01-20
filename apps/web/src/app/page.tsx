@@ -10,7 +10,7 @@ import {
     ReactAriaSection,
 } from "./components/home";
 
-const DOCS_LINK = "https://docs.fiberui.com/docs";
+const DOCS_LINK = "https://docs.fiberui.com";
 const DOCS_COMPONENTS_LINK = DOCS_LINK + "/components";
 
 const GITHUB_LINK = "https://github.com/FiberUI/FiberUI";
@@ -20,7 +20,7 @@ const LICENSE_LINK =
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 via-neutral-50 to-zinc-50 font-sans text-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <div className="bg-linear-to-b min-h-screen from-slate-50 via-neutral-50 to-zinc-50 font-sans text-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             <NavigationSection githubLink={GITHUB_LINK} />
 
             <HeroSection
