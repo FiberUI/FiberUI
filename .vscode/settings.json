@@ -7,5 +7,15 @@
     "typescript.tsdk": "node_modules/typescript/lib",
 
     "tailwindCSS.classFunctions": ["tv", "cn"],
-    "tailwindCSS.experimental.classRegex": [["(`.*?`)", "(\".*?\")", "('.*?')"]]
+    "tailwindCSS.experimental.classRegex": [
+        ["(`.*?`)", "(\".*?\")", "('.*?')"]
+    ],
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "tailwindCSS.experimental.configFile": {
+        "packages/ui/src/styles/globals.css": "packages/ui/src/**",
+        "apps/docs/src/app/global.css": "apps/docs/src/**",
+        "apps/web/src/app/global.css": "apps/web/src/**"
+    }
 }

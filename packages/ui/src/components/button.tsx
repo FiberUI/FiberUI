@@ -11,7 +11,7 @@ import {
 import { tv, type VariantProps, cn } from "tailwind-variants";
 
 export const buttonVariants = tv({
-    base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium outline-none transition-colors focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium outline-none transition-transform duration-200 ease-in-out hover:scale-105 focus-visible:ring-[3px] active:scale-100 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     variants: {
         variant: {
             default:
@@ -33,12 +33,12 @@ export const buttonVariants = tv({
                 "bg-linear-to-tr rounded-full from-[#F58529] via-[#DD2A7B] to-[#515BD4] font-semibold text-white shadow-sm hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#DD2A7B]/40 focus-visible:ring-offset-2 active:opacity-80",
         },
         size: {
-            default: "h-9 px-4 py-2 has-[>svg]:px-3",
-            sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5",
-            lg: "h-11 px-6 has-[>svg]:px-4",
-            icon: "h-9 w-9",
-            "icon-sm": "h-8 w-8",
-            "icon-lg": "h-10 w-10",
+            default: "h-10 px-6 has-[>svg]:px-3",
+            sm: "h-9 gap-1.5 px-5 has-[>svg]:px-2.5",
+            lg: "h-12 px-7 has-[>svg]:px-4",
+            icon: "h-10 w-10",
+            "icon-sm": "h-9 w-9",
+            "icon-lg": "h-11 w-11",
         },
     },
     defaultVariants: {
