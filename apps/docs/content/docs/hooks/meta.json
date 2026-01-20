@@ -1,6 +1,13 @@
 {
     "title": "Hooks",
-    "url": "/docs/hooks",
-    "description": "Custom React hooks ",
-    "root": true
+    "description": "Custom React hooks",
+    "root": true,
+    "pages": [
+        "---Getting Started---",
+        "index",
+        "---Hooks---",
+        "use-local-storage-state",
+        "use-session-storage-state",
+        "use-is-mounted"
+    ]
 }

@@ -1,5 +1,6 @@
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { baseOptions } from "@/lib/layout.shared";
+import { Code2, Component } from "lucide-react";
 
 export default function Layout({ children }: LayoutProps<"/">) {
     return (
@@ -7,16 +8,14 @@ export default function Layout({ children }: LayoutProps<"/">) {
             {...baseOptions()}
             links={[
                 {
-                    text: "Showcase",
-                    url: "/",
-                },
-                {
                     text: "Components",
                     url: "/docs/components",
+                    icon: <Component />,
                 },
                 {
-                    text: "Documentation",
-                    url: "/docs",
+                    text: "React Hooks",
+                    url: "/docs/hooks",
+                    icon: <Code2 />,
                 },
             ]}
         >
