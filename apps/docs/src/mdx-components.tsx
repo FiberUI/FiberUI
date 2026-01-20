@@ -29,9 +29,18 @@ import * as SwitchExamples from "./components/examples/switch";
 import * as TabsExamples from "./components/examples/tabs";
 import * as TooltipExamples from "./components/examples/tooltip";
 
+/* Fiber UI Hooks Examples IMPORT */
+import * as UseLocalStorageStateExamples from "./hooks/examples/use-local-storage-state";
+import * as UseSessionStorageStateExamples from "./hooks/examples/use-session-storage-state";
+import * as UseIsMountedExamples from "./hooks/examples/use-is-mounted";
+
 /* ------------------------------------*/
 
 import { ComponentsListView } from "./components/components-list-view";
+import {
+    HookCodeFromFile,
+    HookExampleCodeFromFile,
+} from "./components/hook-code-from-file";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
     return {
@@ -65,8 +74,15 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...TabsExamples,
         ...TooltipExamples,
 
+        /* Fiber UI Hooks Examples */
+        ...UseLocalStorageStateExamples,
+        ...UseSessionStorageStateExamples,
+        ...UseIsMountedExamples,
+
         Code: CodeFromFile,
         CodeFromFile,
         ComponentCode: ComponentCodeFromFile,
+        HookExampleCodeFromFile,
+        HookCodeFromFile,
     };
 }

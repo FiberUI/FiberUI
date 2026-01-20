@@ -1,0 +1,162 @@
+---
+title: useSessionStorageState
+description: A React hook that syncs state with sessionStorage
+---
+
+A React hook that persists state to `sessionStorage`, keeping data for the duration of the browser session. Unlike `localStorage`, the data is automatically cleared when the tab is closed, making it ideal for temporary state that shouldn't persist permanently.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **SSR Safe** - Returns `initialValue` during server-side rendering, hydrates on mount
+- **Type Safe** - Full TypeScript support with generics for type inference
+- **Session Scoped** - Data persists only for the current tab session
+- **Error Handling** - Graceful fallback with console warnings on storage errors
+- **Loading State** - `isLoading` boolean to handle hydration and prevent flash of incorrect content
+- **Functional Updates** - Supports both direct values and updater functions like `useState`
+
+## When to Use
+
+Use `useSessionStorageState` when you want to:
+
+- **Preserve form data during navigation** - User fills a form, navigates away, comes back - data is still there
+- **Store wizard/checkout progress** - Multi-step flows that should reset on new visits
+- **Keep filter/sort preferences** - Temporary UI state for the current browsing session
+- **Cache expensive computations** - Results that are valid for the session but should refresh on new visits
+
+<Callout type="info" title="Key Difference from localStorage">
+    Unlike `localStorage`, `sessionStorage` is **not shared across tabs**. Each
+    tab has its own isolated storage, and **data is cleared when the tab
+    closes**.
+</Callout>
+
+---
+
+## Basic Usage
+
+The simplest way to use `useSessionStorageState` - preserving form data across page navigations:
+
+<Callout type="success" title="Try it out!">
+    Fill in the form, then **navigate to another page and come back** - your
+    data will still be there! But if you **close the tab**, it resets.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSessionStorageStateExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-session-storage-state" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Multi-step Wizard
+
+Perfect for preserving wizard or checkout flow progress. Users can navigate away and return without losing their place:
+
+<Callout type="success" title="Try it out!">
+    Click through the steps, then **navigate away and come back** - your
+    progress is preserved for this session!
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSessionStorageStateExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-session-storage-state" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Session Filters
+
+Store temporary filter and sort state that resets when the user starts a new browsing session:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSessionStorageStateExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-session-storage-state" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Handling the Loading State
+
+Just like `useLocalStorageState`, the `isLoading` parameter helps prevent hydration mismatches in SSR applications:
+
+```tsx
+const [step, setStep, isLoading] = useSessionStorageState("wizard-step", 1);
+
+if (isLoading) {
+    return <Skeleton />; // Prevent flash of wrong step
+}
+
+return <WizardStep step={step} />;
+```
+
+---
+
+## API Reference
+
+```tsx
+function useSessionStorageState<T>(
+    key: string,
+    initialValue: T,
+): [T, (value: T | ((prev: T) => T)) => void, boolean];
+```
+
+### Parameters
+
+| Parameter      | Type     | Description                                                            |
+| -------------- | -------- | ---------------------------------------------------------------------- |
+| `key`          | `string` | The sessionStorage key to sync with. Should be unique across your app. |
+| `initialValue` | `T`      | Default value when no stored value exists or during SSR.               |
+
+### Returns
+
+A tuple `[value, setValue, isLoading]`:
+
+| Index | Type                                   | Description                                                    |
+| ----- | -------------------------------------- | -------------------------------------------------------------- |
+| `0`   | `T`                                    | The current stored value                                       |
+| `1`   | `(value: T \| (prev: T) => T) => void` | Function to update the value (also updates sessionStorage)     |
+| `2`   | `boolean`                              | `true` during initial hydration, `false` after mount completes |
+
+---
+
+## Comparison with useLocalStorageState
+
+| Feature         | `useLocalStorageState`         | `useSessionStorageState`     |
+| --------------- | ------------------------------ | ---------------------------- |
+| **Persistence** | Forever until manually cleared | Until tab closes             |
+| **Cross-tab**   | ✅ Syncs across tabs           | ❌ Isolated per tab          |
+| **Page reload** | ✅ Persists                    | ✅ Persists                  |
+| **Close tab**   | ✅ Persists                    | ❌ Clears                    |
+| **New tab**     | ✅ Shared                      | ❌ Fresh state               |
+| **Use case**    | User prefs, auth tokens        | Forms, wizards, temp filters |
+
+---
+
+## Best Practices
+
+1. **Use for temporary state** - Only store data that should be forgotten when the user closes the tab
+2. **Handle loading state** - Always show a loading indicator while `isLoading` is true to prevent hydration mismatches
+3. **Consider the tab lifecycle** - Remember that each tab has its own isolated storage
+4. **Use unique keys** - Prefix keys to avoid conflicts: `"checkout-step"`, `"product-filters"`
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-session-storage-state" />

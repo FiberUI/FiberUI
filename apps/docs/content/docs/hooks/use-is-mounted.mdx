@@ -1,0 +1,126 @@
+---
+title: useIsMounted
+description: A hook to detect if a component has mounted on the client
+---
+
+A simple hook that returns `true` after the component has mounted on the client. Essential for preventing React hydration mismatches when rendering client-only content.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **SSR Safe** - Returns `false` during server-side rendering
+- **Hydration Safe** - Prevents mismatches between server and client renders
+- **Simple API** - Just returns a boolean, no configuration needed
+- **Zero Dependencies** - Uses only React's built-in hooks
+
+## When to Use
+
+Use `useIsMounted` when you need to:
+
+- **Access browser APIs** - `window`, `document`, `navigator`, etc.
+- **Render dynamic content** - Content that differs between server and client
+- **Prevent hydration warnings** - Any scenario where SSR output differs from client
+- **Show loading states** - Display skeletons until client-side data is available
+
+<Callout type="warn" title="Performance Note">
+    Using `useIsMounted` causes an extra render after mount. For simple cases,
+    consider using CSS to hide/show content instead.
+</Callout>
+
+---
+
+## Basic Usage
+
+The hook returns `false` during SSR and `true` after the component mounts:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIsMountedExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-is-mounted" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Client-Only Content
+
+Perfect for rendering content that depends on browser APIs like `window`:
+
+<Callout type="success" title="Try it out!">
+    This example accesses `window.innerWidth`, but without the use of
+    `useIsMounted` hook in `SSR` environment, this would cause a hydration
+    error!
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIsMountedExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-is-mounted" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Common Patterns
+
+### With Skeleton Loading
+
+```tsx
+const isMounted = useIsMounted();
+
+if (!isMounted) {
+    return <Skeleton className="h-10 w-full" />;
+}
+
+return <ClientComponent />;
+```
+
+### Conditional Rendering
+
+```tsx
+const isMounted = useIsMounted();
+
+return (
+    <div>
+        <p>This renders on both server and client</p>
+        {isMounted && <p>This only renders on client</p>}
+    </div>
+);
+```
+
+### With Browser APIs
+
+```tsx
+const isMounted = useIsMounted();
+
+const userAgent = isMounted ? navigator.userAgent : "Unknown";
+const screenWidth = isMounted ? window.innerWidth : 0;
+```
+
+---
+
+## API Reference
+
+```tsx
+function useIsMounted(): boolean;
+```
+
+### Returns
+
+| Type      | Description                                       |
+| --------- | ------------------------------------------------- |
+| `boolean` | `false` during SSR, `true` after component mounts |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-is-mounted" />

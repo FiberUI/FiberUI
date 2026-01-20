@@ -1,0 +1,159 @@
+---
+title: useLocalStorageState
+description: A React hook that syncs state with localStorage
+---
+
+A React hook that persists state to `localStorage`, automatically syncing across browser tabs and surviving page refreshes. Perfect for storing user preferences, theme settings, authentication tokens, and any data that should persist between sessions.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **SSR Safe** - Returns `initialValue` during server-side rendering, hydrates on mount
+- **Type Safe** - Full TypeScript support with generics for type inference
+- **Cross-tab Sync** - Automatically syncs state when localStorage changes in other tabs
+- **Error Handling** - Graceful fallback with console warnings on storage errors
+- **Loading State** - `isLoading` boolean to handle hydration and prevent flash of incorrect content
+- **Functional Updates** - Supports both direct values and updater functions like `useState`
+
+---
+
+## Basic Usage
+
+The simplest way to use `useLocalStorageState` is just like `useState`, but with a storage key:
+
+<Callout type="success" title="Try it out!">
+    Click the button to change its color, then **reload this page** - your color
+    preference persists!
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseLocalStorageStateExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-local-storage-state" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## With TypeScript Generics
+
+For complex objects, use TypeScript generics to get full type safety. The hook will automatically serialize and deserialize JSON:
+
+<Callout type="success" title="Try it out!">
+    Click Login, then **reload** or **open this page in a new tab** - you'll
+    stay logged in!
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseLocalStorageStateExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-local-storage-state" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Functional Updates
+
+Just like `useState`, you can pass a function to `setValue` that receives the previous value. This is useful when the new state depends on the previous state:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseLocalStorageStateExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-local-storage-state" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Array State
+
+The hook handles arrays seamlessly. Perfect for persisting lists, todos, shopping carts, recently viewed items, and more:
+
+<Callout type="success" title="Try it out!">
+    Add some todos, then **close and reopen the browser** - they'll still be
+    there!
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseLocalStorageStateExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-local-storage-state" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Handling the Loading State
+
+The `isLoading` parameter is crucial for SSR applications. During server-side rendering, the hook returns `initialValue` because `localStorage` is not available. After the component mounts, it hydrates with the actual stored value.
+
+```tsx
+const [theme, setTheme, isLoading] = useLocalStorageState("theme", "light");
+
+if (isLoading) {
+    return <Skeleton />; // Prevent flash of wrong content
+}
+
+return <div className={theme}>...</div>;
+```
+
+<Callout type="warn" title="Hydration Mismatch">
+    Always handle `isLoading` to prevent React hydration mismatches. If you
+    render different content on server vs client, React will throw warnings.
+</Callout>
+
+---
+
+## API Reference
+
+```tsx
+function useLocalStorageState<T>(
+    key: string,
+    initialValue: T,
+): [T, (value: T | ((prev: T) => T)) => void, boolean];
+```
+
+### Parameters
+
+| Parameter      | Type     | Description                                                          |
+| -------------- | -------- | -------------------------------------------------------------------- |
+| `key`          | `string` | The localStorage key to sync with. Should be unique across your app. |
+| `initialValue` | `T`      | Default value when no stored value exists or during SSR.             |
+
+### Returns
+
+A tuple `[value, setValue, isLoading]`:
+
+| Index | Type                                   | Description                                                    |
+| ----- | -------------------------------------- | -------------------------------------------------------------- |
+| `0`   | `T`                                    | The current stored value                                       |
+| `1`   | `(value: T \| (prev: T) => T) => void` | Function to update the value (also updates localStorage)       |
+| `2`   | `boolean`                              | `true` during initial hydration, `false` after mount completes |
+
+---
+
+## Best Practices
+
+1. **Use unique keys** - Prefix keys with your app name to avoid conflicts: `"myapp-theme"`, `"myapp-user"`
+2. **Handle loading state** - Always show a loading indicator or skeleton while `isLoading` is true
+3. **Don't store sensitive data** - localStorage is not encrypted and accessible via JavaScript
+4. **Consider storage limits** - localStorage typically has a 5-10MB limit per origin
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-local-storage-state" />

@@ -38,7 +38,7 @@ export default function ShowcasePage() {
         <main className="min-h-screen py-12">
             <div className="container mx-auto px-4">
                 {/* Hero */}
-                <div className="mb-8 text-center">
+                <div className="text-center">
                     <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
                         <span className="text-gradient">Fiber UI</span>
                     </h1>
@@ -46,6 +46,22 @@ export default function ShowcasePage() {
                         Beautiful, accessible React components built with React
                         Aria
                     </p>
+                </div>
+
+                {/* Header CTA */}
+                <div className="mx-auto my-16 max-w-2xl text-center">
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <Link href="/docs/components">
+                            <Button variant="default" size="lg">
+                                Browse Components
+                            </Button>
+                        </Link>
+                        <Link href="/docs/hooks">
+                            <Button variant="default" size="lg">
+                                Browse Hooks
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Tabbed Showcase */}
@@ -128,20 +144,6 @@ export default function ShowcasePage() {
                         </div>
                     </TabPanel>
                 </Tabs>
-
-                {/* Footer CTA */}
-                <div className="mx-auto mt-16 max-w-2xl text-center">
-                    <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/docs">
-                            <Button size="lg">Get Started</Button>
-                        </Link>
-                        <Link href="/docs/components">
-                            <Button variant="outline" size="lg">
-                                Browse Components
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
             </div>
         </main>
     );
