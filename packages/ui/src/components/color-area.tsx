@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
 import {
     ColorArea as AriaColorArea,
     ColorAreaProps as AriaColorAreaProps,
 } from "react-aria-components";
-import { ColorThumb } from "./color-thumb";
-import { cn } from "@repo/ui/lib/utils";
+import { ColorThumb } from "@repo/ui/components/color-thumb";
+import { cn } from "tailwind-variants";
 
 export interface ColorAreaProps extends AriaColorAreaProps {}
 

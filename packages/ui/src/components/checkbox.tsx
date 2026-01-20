@@ -1,80 +1,91 @@
 "use client";
 
-import { cn } from "@repo/ui/lib/utils";
-import { forwardRef, useRef } from "react";
-import { AriaCheckboxProps, useCheckbox, useFocusRing } from "react-aria";
-import { useToggleState } from "react-stately";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
+import {
+    Checkbox as AriaCheckbox,
+    CheckboxProps as AriaCheckboxProps,
+    composeRenderProps,
+} from "react-aria-components";
+import { tv, type VariantProps, cn } from "tailwind-variants";
 
-// type CheckboxComponentProps = ComponentProps<"input">;
+const checkboxVariants = tv({
+    base: "ring-offset-background group-data-focus-visible:ring-ring border-primary group-data-focus-visible:outline-none group-data-focus-visible:ring-2 group-data-focus-visible:ring-offset-2 flex h-5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-md border",
+    variants: {
+        size: {
+            default: "h-5 w-5",
+            sm: "h-4 w-4",
+            lg: "h-6 w-6",
+        },
+    },
+    defaultVariants: {
+        size: "default",
+    },
+});
 
-// interface CheckboxProps
-//     extends CheckboxComponentProps,
-//         Omit<AriaCheckboxProps, keyof CheckboxComponentProps> {
-//     className?: string;
-// }
+const checkboxIconVariants = tv({
+    base: "animate-in fade-in zoom-in transition-all duration-200 ease-out",
+    variants: {
+        size: {
+            default: "h-4 w-4",
+            sm: "h-3 w-3",
+            lg: "h-5 w-5",
+        },
+    },
+    defaultVariants: {
+        size: "default",
+    },
+});
 
-interface CheckboxProps extends AriaCheckboxProps {
+export interface CheckboxProps
+    extends Omit<AriaCheckboxProps, "children">,
+        VariantProps<typeof checkboxVariants> {
     className?: string;
 }
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-    ({ className, ...restProps }, forwardedRef) => {
-        const localRef = useRef<HTMLInputElement>(null);
 
-        const mergedRef = (node: HTMLInputElement | null) => {
-            if (!node) return;
-            localRef.current = node;
-            if (typeof forwardedRef === "function") {
-                forwardedRef(node);
-            } else if (forwardedRef) {
-                forwardedRef.current = node;
-            }
-        };
-
-        const state = useToggleState(restProps as AriaCheckboxProps);
-        const { inputProps, isSelected, isDisabled, labelProps } = useCheckbox(
-            restProps as AriaCheckboxProps,
-            state,
-            localRef,
-        );
-        const { focusProps, isFocusVisible, isFocused } = useFocusRing();
-
-        return (
-            <>
-                <input
-                    role="checkbox"
-                    {...inputProps}
-                    {...focusProps}
-                    ref={mergedRef}
-                    type="checkbox"
-                    className="peer sr-only"
-                    aria-checked={isSelected}
-                    data-disabled={isDisabled || undefined}
-                    disabled={isDisabled} // Add this
-                />
-                <label
-                    htmlFor={restProps.id}
-                    {...labelProps}
-                    className={cn(
-                        "peer inline-flex items-center gap-2",
-                        "border-primary ring-offset-background h-4 w-4 shrink-0 rounded-sm border",
-                        "flex items-center justify-center overflow-hidden",
-                        (isFocusVisible || isFocused) &&
-                            "ring-ring outline-none ring-2 ring-offset-2",
-                        isSelected && "bg-primary text-primary-foreground",
+export const Checkbox: React.FC<CheckboxProps> = (props) => {
+    const { className, size, ...restProps } = props;
+    return (
+        <AriaCheckbox
+            {...restProps}
+            className={composeRenderProps(
+                className,
+                (className, { isDisabled }) =>
+                    cn(
+                        "group flex cursor-pointer items-center gap-2 text-sm [-webkit-tap-highlight-color:transparent]",
                         isDisabled && "cursor-not-allowed opacity-50",
                         className,
+                    ) || "",
+            )}
+        >
+            {({
+                isHovered,
+                isPressed,
+                isDisabled,
+                isSelected,
+                isIndeterminate,
+            }) => (
+                <span
+                    className={cn(
+                        checkboxVariants({ size }),
+                        (isSelected || isIndeterminate) &&
+                            "bg-primary text-primary-foreground",
                     )}
-                    data-disabled={isDisabled || undefined}
-                    aria-disabled={isDisabled || undefined}
-                    aria-hidden="true" // Decorative, input handles semantics
+                    data-hovered={isHovered}
+                    data-pressed={isPressed}
+                    data-disabled={isDisabled}
                     data-state={isSelected ? "checked" : null}
+                    aria-checked={isSelected}
+                    aria-hidden="true"
                 >
-                    {isSelected && <Check className="h-4 w-4" />}
-                </label>
-            </>
-        );
-    },
-);
+                    {isIndeterminate ? (
+                        <Minus className={checkboxIconVariants({ size })} />
+                    ) : isSelected ? (
+                        <Check className={checkboxIconVariants({ size })} />
+                    ) : null}
+                </span>
+            )}
+        </AriaCheckbox>
+    );
+};
 
 Checkbox.displayName = "Checkbox";

@@ -1,19 +1,12 @@
 "use client";
 
-import React, {
-    forwardRef,
-    useRef,
-    useCallback,
-    useMemo,
-    useState,
-} from "react";
+import { forwardRef, useRef, useCallback, useMemo, useState } from "react";
 import {
     AriaButtonProps,
     useButton,
     useFocusRing,
     mergeProps,
 } from "react-aria";
-import { cn } from "@repo/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
     ChevronLeftIcon,
@@ -23,6 +16,7 @@ import {
     MoreHorizontalIcon,
 } from "lucide-react";
 import { Slot } from "@repo/ui/components/slot";
+import { cn } from "tailwind-variants";
 
 export interface PaginationState {
     /** Total number of items */
@@ -201,7 +195,7 @@ export function usePagination({
 const paginationButtonVariants = cva(
     cn(
         "inline-flex items-center justify-center rounded-lg text-sm font-medium",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         "disabled:pointer-events-none disabled:opacity-50",
         "cursor-pointer select-none",
     ),

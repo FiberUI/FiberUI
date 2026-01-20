@@ -1,0 +1,7 @@
+{
+    "title": "Components",
+    "url": "/docs/components",
+    "description": "Reusabale UI components based on React Aria and Tailwind CSS",
+    "root": true,
+    "pages": ["index", "..."]
+}

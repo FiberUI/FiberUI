@@ -11,8 +11,7 @@ import {
     Dialog,
 } from "react-aria-components";
 import React from "react";
-import { tv } from "tailwind-variants";
-import { cn } from "@repo/ui/lib/utils";
+import { tv, cn } from "tailwind-variants";
 
 const popoverStyles = tv({
     base: "bg-popover text-popover-foreground z-50 rounded-md border p-4 shadow-md outline-none",
@@ -70,8 +69,10 @@ export const PopoverContent: React.FC<PopoverContentProps> = ({
             data-slot="popover-content"
             offset={offset}
             {...props}
-            className={composeRenderProps(className, (className, renderProps) =>
-                cn(popoverStyles({ ...renderProps }), className),
+            className={composeRenderProps(
+                className,
+                (className, renderProps) =>
+                    cn(popoverStyles({ ...renderProps }), className) || "",
             )}
         >
             {showArrow && (

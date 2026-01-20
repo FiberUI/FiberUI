@@ -23,6 +23,10 @@ export const CodeFromFile = async ({
 
     const rendered = await highlight(codeSnippet, {
         lang: "tsx",
+        themes: {
+            light: "one-light",
+            dark: "plastic",
+        },
 
         components: {
             pre: (props) => (
@@ -49,6 +53,10 @@ export const ComponentCodeFromFile = async ({ name }: { name: string }) => {
 
     const rendered = await highlight(codeSnippet, {
         lang: "tsx",
+        themes: {
+            light: "one-light",
+            dark: "plastic",
+        },
 
         components: {
             pre: (props) => (
@@ -59,8 +67,8 @@ export const ComponentCodeFromFile = async ({ name }: { name: string }) => {
 
     return (
         <Base.CodeBlock
-            id="test-code-block-rajat"
-            className="border bg-transparent shadow"
+            id="test-code-block-file-rajat"
+            className="border shadow"
             data-line-numbers
         >
             {rendered}
