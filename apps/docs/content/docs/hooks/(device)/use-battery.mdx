@@ -1,0 +1,136 @@
+---
+title: useBattery
+description: A hook to access real-time battery information
+---
+
+A React hook that provides real-time access to the device's battery status using the Battery Status API. Includes formatted time displays, status indicators, and low/critical battery detection.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Browser Support">
+    The Battery Status API is only supported in **Chromium-based browsers**
+    (Chrome, Edge, Opera). It is not available in Firefox or Safari due to
+    privacy concerns.
+</Callout>
+
+## Features
+
+- **Real-time Updates** - Automatically updates when battery status changes
+- **SSR Safe** - Returns loading state during server-side rendering
+- **Formatted Times** - Human-readable strings like "1h 30m" for charge/discharge times
+- **Status Detection** - `charging`, `discharging`, `full`, or `unknown`
+- **Low Battery Alerts** - `isLow` (< 20%) and `isCritical` (< 10%) flags
+- **Percentage Helper** - `levelPercent` for easy display (0-100)
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Battery Status API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API"
+        description="Documentation on the Battery Status API and BatteryManager interface"
+    />
+</Cards>
+
+---
+
+## Basic Usage
+
+Display battery level with a visual indicator:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseBatteryExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-battery" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Detailed Information
+
+Show all available battery properties:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseBatteryExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-battery" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+```tsx
+function useBattery(): BatteryState;
+```
+
+### BatteryState
+
+| Property                   | Type                                                 | Description                                   |
+| -------------------------- | ---------------------------------------------------- | --------------------------------------------- |
+| `isSupported`              | `boolean`                                            | Whether Battery API is available              |
+| `isLoading`                | `boolean`                                            | `true` while fetching battery info            |
+| `level`                    | `number \| null`                                     | Battery level from 0 to 1                     |
+| `levelPercent`             | `number \| null`                                     | Battery level as percentage (0-100)           |
+| `isCharging`               | `boolean \| null`                                    | Whether device is charging                    |
+| `chargingTime`             | `number \| null`                                     | Seconds until full (Infinity if not charging) |
+| `dischargingTime`          | `number \| null`                                     | Seconds until empty (Infinity if charging)    |
+| `chargingTimeFormatted`    | `string \| null`                                     | Human-readable time to full (e.g., "1h 30m")  |
+| `dischargingTimeFormatted` | `string \| null`                                     | Human-readable time remaining                 |
+| `status`                   | `"charging" \| "discharging" \| "full" \| "unknown"` | Current battery status                        |
+| `isLow`                    | `boolean`                                            | `true` if level < 20%                         |
+| `isCritical`               | `boolean`                                            | `true` if level < 10%                         |
+
+---
+
+## Common Patterns
+
+### Low Battery Warning
+
+```tsx
+const battery = useBattery();
+
+if (battery.isCritical) {
+    return <Alert variant="destructive">Battery critically low!</Alert>;
+}
+
+if (battery.isLow) {
+    return <Alert variant="warning">Battery low, consider charging</Alert>;
+}
+```
+
+### Conditional Features
+
+```tsx
+const battery = useBattery();
+
+// Disable heavy features on low battery
+const enableAnimations = !battery.isLow;
+const enableAutoSync = battery.isCharging || (battery.levelPercent ?? 0) > 50;
+```
+
+### Unsupported Browser Fallback
+
+```tsx
+const battery = useBattery();
+
+if (!battery.isSupported) {
+    return null; // Hide battery indicator on unsupported browsers
+}
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-battery" folder="device" />

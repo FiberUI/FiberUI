@@ -33,6 +33,8 @@ import * as TooltipExamples from "./components/examples/tooltip";
 import * as UseLocalStorageStateExamples from "./hooks/examples/use-local-storage-state";
 import * as UseSessionStorageStateExamples from "./hooks/examples/use-session-storage-state";
 import * as UseIsMountedExamples from "./hooks/examples/use-is-mounted";
+import * as UseBatteryExamples from "./hooks/examples/use-battery";
+import * as UseIndexedDBExamples from "./hooks/examples/use-indexed-db";
 
 /* ------------------------------------*/
 
@@ -41,6 +43,12 @@ import {
     HookCodeFromFile,
     HookExampleCodeFromFile,
 } from "./components/hook-code-from-file";
+import {
+    MdnIcon,
+    WebDevIcon,
+    ReactIcon,
+    NextjsIcon,
+} from "./components/external-icons";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
     return {
@@ -78,11 +86,17 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseLocalStorageStateExamples,
         ...UseSessionStorageStateExamples,
         ...UseIsMountedExamples,
+        ...UseBatteryExamples,
+        ...UseIndexedDBExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
         ComponentCode: ComponentCodeFromFile,
         HookExampleCodeFromFile,
         HookCodeFromFile,
+        MdnIcon,
+        WebDevIcon,
+        ReactIcon,
+        NextjsIcon,
     };
 }

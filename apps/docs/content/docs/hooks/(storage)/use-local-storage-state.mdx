@@ -19,6 +19,23 @@ A React hook that persists state to `localStorage`, automatically syncing across
 - **Loading State** - `isLoading` boolean to handle hydration and prevent flash of incorrect content
 - **Functional Updates** - Supports both direct values and updater functions like `useState`
 
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Web Storage API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API"
+        description="Complete documentation on localStorage and sessionStorage"
+    />
+    <Card
+        icon={<WebDevIcon />}
+        title="web.dev: Storage"
+        href="https://web.dev/articles/storage-for-the-web"
+        description="Guide to choosing the right storage API for your use case"
+    />
+</Cards>
+
 ---
 
 ## Basic Usage
@@ -156,4 +173,4 @@ A tuple `[value, setValue, isLoading]`:
 
 ## Hook Source Code
 
-<HookCodeFromFile name="use-local-storage-state" />
+<HookCodeFromFile name="use-local-storage-state" folder="storage" />

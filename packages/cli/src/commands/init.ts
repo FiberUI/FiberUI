@@ -17,7 +17,7 @@ export const initCmd = (program: Command) => {
         .command("init")
         .description("Initialize FiberUI in your project")
         .action(async () => {
-            console.log(chalk.bold("\n🚀 Welcome to FiberUI!\n"));
+            console.log(chalk.bold("\nWelcome to FiberUI!\n"));
 
             // Check if config already exists
             if (configExists()) {
@@ -129,7 +129,7 @@ export const initCmd = (program: Command) => {
             try {
                 // Write config file
                 await writeConfig(config);
-                console.log(chalk.green("\n✅ fiberui.config.json created!"));
+                console.log(chalk.green("\n[OK] fiberui.config.json created!"));
 
                 // Create components directory
                 await createComponentsDirectory(answers.componentsAlias);
@@ -139,10 +139,10 @@ export const initCmd = (program: Command) => {
                     answers.utilsAlias,
                     answers.typescript,
                 );
-                console.log(chalk.green(`✅ Created ${utilsFile}`));
+                console.log(chalk.green(`[OK] Created ${utilsFile}`));
 
                 // Success message
-                console.log(chalk.bold.green("\n✨ FiberUI initialized!\n"));
+                console.log(chalk.bold.green("\nFiberUI initialized!\n"));
                 console.log(chalk.gray("Next steps:"));
                 console.log(
                     chalk.cyan(
@@ -152,10 +152,10 @@ export const initCmd = (program: Command) => {
                 console.log(
                     chalk.cyan("  2. Add components: npx fibercli add button"),
                 );
-                console.log(chalk.cyan("  3. Start building! 🎉\n"));
+                console.log(chalk.cyan("  3. Start building!\n"));
             } catch (error) {
                 console.error(
-                    chalk.red("\n❌ Error during initialization:"),
+                    chalk.red("\n[ERROR] Error during initialization:"),
                     error,
                 );
                 process.exit(1);

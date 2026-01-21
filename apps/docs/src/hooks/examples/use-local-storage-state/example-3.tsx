@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocalStorageState } from "@repo/hooks/use-local-storage-state";
+import { useLocalStorageState } from "@repo/hooks/storage/use-local-storage-state";
 
 /* FUNCTIONAL UPDATES - Counter */
 export const Example3 = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLocalStorageState } from "@repo/hooks/use-local-storage-state";
+import { useLocalStorageState } from "@repo/hooks/storage/use-local-storage-state";
 
 interface TodoItem {
     id: number;

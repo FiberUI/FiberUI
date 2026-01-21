@@ -19,6 +19,23 @@ A React hook that persists state to `sessionStorage`, keeping data for the durat
 - **Loading State** - `isLoading` boolean to handle hydration and prevent flash of incorrect content
 - **Functional Updates** - Supports both direct values and updater functions like `useState`
 
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: sessionStorage"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage"
+        description="Complete documentation on the sessionStorage API"
+    />
+    <Card
+        icon={<WebDevIcon />}
+        title="web.dev: Storage"
+        href="https://web.dev/articles/storage-for-the-web"
+        description="Guide to choosing the right storage API for your use case"
+    />
+</Cards>
+
 ## When to Use
 
 Use `useSessionStorageState` when you want to:
@@ -140,10 +157,10 @@ A tuple `[value, setValue, isLoading]`:
 | Feature         | `useLocalStorageState`         | `useSessionStorageState`     |
 | --------------- | ------------------------------ | ---------------------------- |
 | **Persistence** | Forever until manually cleared | Until tab closes             |
-| **Cross-tab**   | ✅ Syncs across tabs           | ❌ Isolated per tab          |
-| **Page reload** | ✅ Persists                    | ✅ Persists                  |
-| **Close tab**   | ✅ Persists                    | ❌ Clears                    |
-| **New tab**     | ✅ Shared                      | ❌ Fresh state               |
+| **Cross-tab**   | Syncs across tabs              | Isolated per tab             |
+| **Page reload** | Persists                       | Persists                     |
+| **Close tab**   | Persists                       | Clears                       |
+| **New tab**     | Shared                         | Fresh state                  |
 | **Use case**    | User prefs, auth tokens        | Forms, wizards, temp filters |
 
 ---
@@ -159,4 +176,4 @@ A tuple `[value, setValue, isLoading]`:
 
 ## Hook Source Code
 
-<HookCodeFromFile name="use-session-storage-state" />
+<HookCodeFromFile name="use-session-storage-state" folder="storage" />

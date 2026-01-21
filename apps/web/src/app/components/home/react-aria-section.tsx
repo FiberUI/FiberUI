@@ -41,7 +41,7 @@ const LeftBlock = () => {
 
                 <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4">
                     <p className="mb-2 font-semibold text-emerald-400">
-                        ✨ Key Benefit
+                        Key Benefit
                     </p>
                     <p className="text-slate-300">
                         You own the code. You own the accessibility layer. No
@@ -78,7 +78,7 @@ const RightBlock = () => {
                     </div>
 
                     <div className="text-emerald-400">
-                        ✅ Button component added!
+                        Done! Button component added!
                     </div>
 
                     <div className="mt-4 text-slate-500">

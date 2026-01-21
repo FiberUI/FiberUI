@@ -3,6 +3,15 @@ import { useState, useEffect, useCallback } from "react";
 type SetValue<T> = T | ((prevValue: T) => T);
 
 /**
+ * Return type for useSessionStorageState hook
+ */
+export type UseSessionStorageStateReturn<T> = [
+    T,
+    (value: SetValue<T>) => void,
+    boolean,
+];
+
+/**
  * A React hook that syncs state with sessionStorage.
  * - SSR safe: Returns initialValue during server-side rendering
  * - Type-safe: Accepts generic type parameter
@@ -18,7 +27,7 @@ type SetValue<T> = T | ((prevValue: T) => T);
 export function useSessionStorageState<T>(
     key: string,
     initialValue: T,
-): [T, (value: SetValue<T>) => void, boolean] {
+): UseSessionStorageStateReturn<T> {
     const [isLoading, setIsLoading] = useState(true);
     const [storedValue, setStoredValue] = useState<T>(initialValue);
 

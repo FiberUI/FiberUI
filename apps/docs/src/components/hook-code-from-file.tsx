@@ -43,9 +43,17 @@ export const HookExampleCodeFromFile = async ({
     );
 };
 
-export const HookCodeFromFile = async ({ name }: { name: string }) => {
-    const pathToFile = "../../packages/hooks/src/" + name + ".ts";
-    const filePath = path.join(process.cwd(), pathToFile);
+export const HookCodeFromFile = async ({
+    name,
+    folder,
+}: {
+    name: string;
+    folder?: string;
+}) => {
+    const basePath = folder
+        ? `../../packages/hooks/src/${folder}/${name}.ts`
+        : `../../packages/hooks/src/${name}.ts`;
+    const filePath = path.join(process.cwd(), basePath);
     const codeSnippet = fs.readFileSync(filePath, "utf8");
 
     const rendered = await highlight(codeSnippet, {

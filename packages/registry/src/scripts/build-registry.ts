@@ -71,7 +71,7 @@ function buildRegistryItem(item: RegistryItem): RegistryItem {
 function ensureOutputDir(): void {
     if (!fs.existsSync(OUTPUT_PATH)) {
         fs.mkdirSync(OUTPUT_PATH, { recursive: true });
-        console.log(`📁 Created output directory: ${OUTPUT_PATH}`);
+        console.log(`Created output directory: ${OUTPUT_PATH}`);
     }
 }
 
@@ -82,7 +82,7 @@ function writeRegistryItem(item: RegistryItem): void {
     const outputFile = path.join(OUTPUT_PATH, `${item.name}.json`);
     const content = JSON.stringify(item, null, 2);
     fs.writeFileSync(outputFile, content);
-    console.log(`✅ Generated: ${item.name}.json`);
+    console.log(`[OK] Generated: ${item.name}.json`);
 }
 
 /**
@@ -105,16 +105,16 @@ function buildRegistryIndex(): void {
 
     const outputFile = path.join(OUTPUT_PATH, "index.json");
     fs.writeFileSync(outputFile, JSON.stringify(registry, null, 2));
-    console.log(`✅ Generated: index.json (registry index)`);
+    console.log(`[OK] Generated: index.json (registry index)`);
 }
 
 /**
  * Main build function
  */
 function build(): void {
-    console.log("\n🚀 Building Fiber UI Registry...\n");
-    console.log(`📂 Source: ${SOURCE_PATH}`);
-    console.log(`📂 Output: ${OUTPUT_PATH}\n`);
+    console.log("\nBuilding Fiber UI Registry...\n");
+    console.log(`Source: ${SOURCE_PATH}`);
+    console.log(`Output: ${OUTPUT_PATH}\n`);
 
     try {
         ensureOutputDir();
@@ -129,10 +129,10 @@ function build(): void {
         buildRegistryIndex();
 
         console.log(
-            `\n✨ Registry build complete! ${FIBER_UI_COMPONENTS.length} items generated.\n`,
+            `\nRegistry build complete! ${FIBER_UI_COMPONENTS.length} items generated.\n`,
         );
     } catch (error) {
-        console.error("\n❌ Build failed:", error);
+        console.error("\n[ERROR] Build failed:", error);
         process.exit(1);
     }
 }

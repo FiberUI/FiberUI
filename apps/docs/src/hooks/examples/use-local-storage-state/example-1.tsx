@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocalStorageState } from "@repo/hooks/use-local-storage-state";
+import { useLocalStorageState } from "@repo/hooks/storage/use-local-storage-state";
 
 const colors = ["blue", "green", "purple", "orange", "pink"] as const;
 type ButtonColor = (typeof colors)[number];

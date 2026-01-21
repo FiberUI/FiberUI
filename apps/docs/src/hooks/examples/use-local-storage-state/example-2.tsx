@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocalStorageState } from "@repo/hooks/use-local-storage-state";
+import { useLocalStorageState } from "@repo/hooks/storage/use-local-storage-state";
 
 interface User {
     id: string;
@@ -34,7 +34,7 @@ export const Example2 = () => {
     return (
         <div className="flex items-center gap-4">
             {user ? (
-                <>
+                <div className="flex flex-col items-center gap-2">
                     <span className="text-sm">Welcome, {user.name}!</span>
                     <button
                         className="bg-destructive text-destructive-foreground rounded-md px-4 py-2 text-sm"
@@ -42,7 +42,7 @@ export const Example2 = () => {
                     >
                         Logout
                     </button>
-                </>
+                </div>
             ) : (
                 <button
                     className="bg-primary text-primary-foreground rounded-md px-4 py-2 text-sm"
