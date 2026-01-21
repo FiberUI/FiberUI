@@ -35,6 +35,7 @@ import * as UseSessionStorageStateExamples from "./hooks/examples/use-session-st
 import * as UseIsMountedExamples from "./hooks/examples/use-is-mounted";
 import * as UseBatteryExamples from "./hooks/examples/use-battery";
 import * as UseIndexedDBExamples from "./hooks/examples/use-indexed-db";
+import * as UseMediaDevicesExamples from "./hooks/examples/use-media-devices";
 
 /* ------------------------------------*/
 
@@ -88,6 +89,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseIsMountedExamples,
         ...UseBatteryExamples,
         ...UseIndexedDBExamples,
+        ...UseMediaDevicesExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
