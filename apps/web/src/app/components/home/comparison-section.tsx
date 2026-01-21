@@ -38,7 +38,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({}) => {
                         title="What Makes Fiber UI Different"
                         titleClass="text-blue-400"
                         containerClass="rounded-xl border border-blue-500/30 bg-blue-500/10 p-6"
-                        icon="✨"
+                        icon="+"
                         features={[
                             <>
                                 Built with <strong>React Aria hooks</strong>{" "}
@@ -55,7 +55,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({}) => {
 };
 
 {
-    /* ✅ Reusable Card Component */
+    /* Reusable Card Component */
 }
 const FeatureCard = ({
     title,

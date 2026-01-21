@@ -1,6 +1,6 @@
 "use client";
 
-import { useSessionStorageState } from "@repo/hooks/use-session-storage-state";
+import { useSessionStorageState } from "@repo/hooks/storage/use-session-storage-state";
 
 type WizardStep = "personal" | "address" | "review";
 

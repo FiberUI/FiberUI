@@ -17,6 +17,23 @@ A simple hook that returns `true` after the component has mounted on the client.
 - **Simple API** - Just returns a boolean, no configuration needed
 - **Zero Dependencies** - Uses only React's built-in hooks
 
+## Learn More
+
+<Cards>
+    <Card
+        icon={<ReactIcon />}
+        title="React: Hydration"
+        href="https://react.dev/reference/react-dom/client/hydrateRoot#hydrating-server-rendered-html"
+        description="Understanding React hydration and avoiding mismatches"
+    />
+    <Card
+        icon={<NextjsIcon />}
+        title="Next.js: Client Components"
+        href="https://nextjs.org/docs/app/building-your-application/rendering/client-components"
+        description="When and how to use client-only rendering in Next.js"
+    />
+</Cards>
+
 ## When to Use
 
 Use `useIsMounted` when you need to:
@@ -123,4 +140,4 @@ function useIsMounted(): boolean;
 
 ## Hook Source Code
 
-<HookCodeFromFile name="use-is-mounted" />
+<HookCodeFromFile name="use-is-mounted" folder="utility" />

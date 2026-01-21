@@ -1,0 +1,218 @@
+---
+title: useIndexedDB
+description: A hook for storing large amounts of structured data in IndexedDB
+---
+
+A React hook that provides CRUD operations for IndexedDB, the browser's built-in database for storing large amounts of structured data. Unlike `localStorage` which is limited to ~5MB of string data, IndexedDB can store gigabytes of any data type including objects, arrays, files, and blobs.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## What is IndexedDB?
+
+IndexedDB is a low-level API for client-side storage of structured data. It's perfect for:
+
+- **Offline-first applications** - Cache API responses for offline access
+- **Large datasets** - Store thousands of records without hitting size limits
+- **Complex data** - Store objects with nested structures, arrays, and relationships
+- **Binary data** - Store files, images, and blobs directly
+
+<Callout type="success" title="Verify in DevTools!">
+    Open Chrome DevTools → **Application** tab → **IndexedDB** (under Storage)
+    to see your data. You can view, edit, and delete records directly!
+</Callout>
+
+## Features
+
+- **Full CRUD** - `add`, `update`, `remove`, `getByKey`, `clear` operations
+- **SSR Safe** - Checks for IndexedDB support before initialization
+- **Type Safe** - Full TypeScript support with generics
+- **Auto Refresh** - Automatically refreshes data after mutations
+- **Error Handling** - Comprehensive error state management
+- **Large Data** - Handle megabytes of data (not limited like localStorage)
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: IndexedDB API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API"
+        description="Complete IndexedDB documentation and tutorials"
+    />
+    <Card
+        icon={<WebDevIcon />}
+        title="web.dev: IndexedDB"
+        href="https://web.dev/articles/indexeddb"
+        description="Best practices for using IndexedDB in web apps"
+    />
+</Cards>
+
+---
+
+## Basic Usage - Notes App
+
+A simple notes application that persists notes to IndexedDB:
+
+<Callout type="success" title="Try it out!">
+    Add some notes, then **close the browser completely and reopen** - your
+    notes persist! Check **DevTools → Application → IndexedDB → notesApp** to
+    see the stored data.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIndexedDBExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-indexed-db" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Shopping Cart
+
+A persistent shopping cart that survives browser restarts. Demonstrates `add`, `update`, `remove`, and `clear` operations:
+
+<Callout type="success" title="Try it out!">
+    Add products to cart, adjust quantities, then **reload the page** - your
+    cart is preserved! View the data in **DevTools → Application → IndexedDB →
+    shopApp → cart**.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIndexedDBExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-indexed-db" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Bookmarks with Tags
+
+A bookmarks manager demonstrating complex object updates with arrays:
+
+<Callout type="success" title="Try it out!">
+    Add bookmarks and toggle tags. The `update` function replaces the entire
+    object, allowing you to modify nested data like tag arrays.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIndexedDBExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-indexed-db" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## How It Works
+
+### Database Structure
+
+IndexedDB organizes data in a hierarchy:
+
+```
+Database (dbName: "myApp")
+  └── Object Store (storeName: "users")
+        ├── Record { id: "1", name: "Alice", ... }
+        ├── Record { id: "2", name: "Bob", ... }
+        └── Record { id: "3", name: "Charlie", ... }
+```
+
+### Key Path
+
+The `keyPath` option defines which property is used as the primary key:
+
+```tsx
+// Using "id" as the key (default)
+useIndexedDB<User>({
+    dbName: "myApp",
+    storeName: "users",
+    keyPath: "id", // Each record must have an "id" property
+});
+```
+
+### Version Management
+
+Increment `version` when you need to modify the store structure:
+
+```tsx
+useIndexedDB<User>({
+    dbName: "myApp",
+    storeName: "users",
+    version: 2, // Triggers onupgradeneeded event
+});
+```
+
+---
+
+## API Reference
+
+```tsx
+function useIndexedDB<T>(options: UseIndexedDBOptions): UseIndexedDBReturn<T>;
+```
+
+### Options
+
+| Property    | Type     | Default | Description                                      |
+| ----------- | -------- | ------- | ------------------------------------------------ |
+| `dbName`    | `string` | -       | Name of the IndexedDB database                   |
+| `storeName` | `string` | -       | Name of the object store within the database     |
+| `version`   | `number` | `1`     | Database version (increment to trigger upgrades) |
+| `keyPath`   | `string` | `"id"`  | Property used as the primary key for records     |
+
+### Return Value
+
+| Property      | Type                                      | Description                           |
+| ------------- | ----------------------------------------- | ------------------------------------- |
+| `data`        | `T[]`                                     | All items currently in the store      |
+| `isLoading`   | `boolean`                                 | `true` while database is initializing |
+| `error`       | `string \| null`                          | Error message if an operation failed  |
+| `isSupported` | `boolean`                                 | `false` if IndexedDB is unavailable   |
+| `add`         | `(item: T) => Promise<IDBValidKey\|null>` | Insert a new item into the store      |
+| `update`      | `(item: T) => Promise<IDBValidKey\|null>` | Replace an existing item (by key)     |
+| `remove`      | `(key: IDBValidKey) => Promise<boolean>`  | Delete an item by its key             |
+| `getByKey`    | `(key: IDBValidKey) => Promise<T\|null>`  | Fetch a single item by key            |
+| `clear`       | `() => Promise<boolean>`                  | Remove all items from the store       |
+| `refresh`     | `() => Promise<void>`                     | Manually reload data from the store   |
+
+---
+
+## When to Use Each Storage Hook
+
+| Scenario                 | Recommended Hook         | Reason                              |
+| ------------------------ | ------------------------ | ----------------------------------- |
+| User preferences (theme) | `useLocalStorageState`   | Simple, synchronous, small data     |
+| Form data during session | `useSessionStorageState` | Clears when tab closes              |
+| Shopping cart            | `useIndexedDB`           | Complex objects, survives restarts  |
+| Offline data cache       | `useIndexedDB`           | Large datasets, fast queries        |
+| User documents/notes     | `useIndexedDB`           | Persistent, structured data         |
+| Temporary filters        | `useSessionStorageState` | Session-scoped, resets on new visit |
+
+---
+
+## Comparison with Other Storage
+
+| Feature           | localStorage        | sessionStorage      | IndexedDB            |
+| ----------------- | ------------------- | ------------------- | -------------------- |
+| **Storage Limit** | ~5MB                | ~5MB                | GBs (quota-based)    |
+| **Data Types**    | Strings only        | Strings only        | Any (objects, blobs) |
+| **API Style**     | Synchronous         | Synchronous         | Asynchronous         |
+| **Persistence**   | Forever             | Until tab closes    | Forever              |
+| **Cross-tab**     | Shared              | Isolated            | Shared               |
+| **Performance**   | Fast for small data | Fast for small data | Fast for any size    |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-indexed-db" folder="storage" />

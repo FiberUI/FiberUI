@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted } from "@repo/hooks/use-is-mounted";
+import { useIsMounted } from "@repo/hooks/utility/use-is-mounted";
 
 /* CLIENT-ONLY CONTENT - Window Dimensions */
 export const Example2 = () => {

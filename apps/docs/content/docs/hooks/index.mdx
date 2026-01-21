@@ -3,12 +3,41 @@ title: Hooks
 description: Reusable React hooks for common patterns
 ---
 
-A collection of type-safe, SSR-compatible React hooks.
+A collection of type-safe, SSR-compatible React hooks organized by category.
 
-## Available Hooks
+## Storage
+
+Hooks for persisting data in browser storage:
 
 | Hook                                                            | Description                               |
 | --------------------------------------------------------------- | ----------------------------------------- |
-| [useLocalStorageState](/docs/hooks/use-local-storage-state)     | Sync state with localStorage              |
-| [useSessionStorageState](/docs/hooks/use-session-storage-state) | Sync state with sessionStorage            |
-| [useIsMounted](/docs/hooks/use-is-mounted)                      | Detect if component is mounted (SSR safe) |
+| [useLocalStorageState](/docs/hooks/use-local-storage-state)     | Sync state with localStorage (persistent) |
+| [useSessionStorageState](/docs/hooks/use-session-storage-state) | Sync state with sessionStorage (per-tab)  |
+| [useIndexedDB](/docs/hooks/use-indexed-db)                      | Store large data in IndexedDB             |
+
+### Comparison
+
+| Feature           | `useLocalStorageState` | `useSessionStorageState` | `useIndexedDB`       |
+| ----------------- | ---------------------- | ------------------------ | -------------------- |
+| **Storage Limit** | ~5MB per origin        | ~5MB per origin          | GBs (quota-based)    |
+| **Data Types**    | JSON serializable      | JSON serializable        | Any (objects, blobs) |
+| **Persistence**   | Forever                | Until tab closes         | Forever              |
+| **Cross-tab**     | Syncs                  | Isolated                 | Shared               |
+| **API Style**     | Synchronous            | Synchronous              | Asynchronous         |
+| **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  |
+
+## Utility
+
+General-purpose utility hooks:
+
+| Hook                                       | Description                               |
+| ------------------------------------------ | ----------------------------------------- |
+| [useIsMounted](/docs/hooks/use-is-mounted) | Detect if component is mounted (SSR safe) |
+
+## Device
+
+Hooks for accessing device capabilities:
+
+| Hook                                  | Description                          |
+| ------------------------------------- | ------------------------------------ |
+| [useBattery](/docs/hooks/use-battery) | Access real-time battery information |

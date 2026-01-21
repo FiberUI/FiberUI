@@ -3,6 +3,15 @@ import { useState, useEffect, useCallback, useRef } from "react";
 type SetValue<T> = T | ((prevValue: T) => T);
 
 /**
+ * Return type for useLocalStorageState hook
+ */
+export type UseLocalStorageStateReturn<T> = [
+    T,
+    (value: SetValue<T>) => void,
+    boolean,
+];
+
+/**
  * A React hook that syncs state with localStorage.
  * - SSR safe: Returns initialValue during server-side rendering
  * - Type-safe: Accepts generic type parameter
@@ -15,7 +24,7 @@ type SetValue<T> = T | ((prevValue: T) => T);
 export function useLocalStorageState<T>(
     key: string,
     initialValue: T,
-): [T, (value: SetValue<T>) => void, boolean] {
+): UseLocalStorageStateReturn<T> {
     const initialValueRef = useRef(initialValue);
     const [isLoading, setIsLoading] = useState(true);
     const [storedValue, setStoredValue] = useState<T>(initialValue);

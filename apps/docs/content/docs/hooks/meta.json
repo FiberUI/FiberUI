@@ -5,9 +5,11 @@
     "pages": [
         "---Getting Started---",
         "index",
-        "---Hooks---",
-        "use-local-storage-state",
-        "use-session-storage-state",
-        "use-is-mounted"
+        "---Storage---",
+        "...(storage)",
+        "---Utilities---",
+        "...(utility)",
+        "---Device---",
+        "...(device)"
     ]
 }

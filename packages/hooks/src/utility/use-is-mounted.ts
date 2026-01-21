@@ -26,3 +26,5 @@ export function useIsMounted(): boolean {
 
     return isMounted;
 }
+
+export default useIsMounted;
