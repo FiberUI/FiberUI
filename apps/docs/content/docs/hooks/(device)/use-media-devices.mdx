@@ -1,0 +1,99 @@
+---
+title: useMediaDevices
+description: A hook for tracking connected media input and output devices
+---
+
+A React hook that provides a list of connected media input and output devices (cameras, microphones, speakers) using the MediaDevices API. It automatically updates when devices are connected or disconnected.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Permission Required">
+    While you can list devices without permission, the `label` property (e.g.,
+    "Internal Microphone") will be empty until the user grants access to the
+    microphone or camera.
+</Callout>
+
+## Features
+
+- **Real-time Updates** - Listen for `devicechange` events to auto-update the list
+- **SSR Safe** - Gracefully handles server-side rendering
+- **Type Safe** - Returns standard `MediaDeviceInfo[]` objects
+- **Loading State** - Includes `isLoading` flag for async enumeration
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: MediaDevices API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices"
+        description="Documentation on accessing connected media hardware"
+    />
+</Cards>
+
+---
+
+## Basic Usage
+
+List all connected input and output devices grouped by type:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseMediaDevicesExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-media-devices" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Filtering Devices
+
+Filter the list to show only specific devices, like cameras:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseMediaDevicesExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-media-devices" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+```tsx
+function useMediaDevices(): UseMediaDevicesReturn;
+```
+
+### Return Value
+
+| Property      | Type                | Description                           |
+| ------------- | ------------------- | ------------------------------------- |
+| `devices`     | `MediaDeviceInfo[]` | Array of connected devices            |
+| `isLoading`   | `boolean`           | `true` while enumerating devices      |
+| `error`       | `Error \| null`     | Error object if enumeration fails     |
+| `isSupported` | `boolean`           | Whether MediaDevices API is supported |
+
+### MediaDeviceInfo
+
+Standard interface returned by the browser:
+
+| Property   | Type     | Description                                                                 |
+| ---------- | -------- | --------------------------------------------------------------------------- |
+| `deviceId` | `string` | Unique identifier for the device                                            |
+| `kind`     | `string` | `audioinput`, `audiooutput`, or `videoinput`                                |
+| `label`    | `string` | Human-readable name (requires permission)                                   |
+| `groupId`  | `string` | Group identifier (two devices in same group belong to same physical device) |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-media-devices" folder="device" />

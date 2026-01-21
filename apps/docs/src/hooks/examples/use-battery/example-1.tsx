@@ -27,7 +27,7 @@ export const Example1 = () => {
         <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
                 <div
-                    className={`w-25 flex h-10 items-center justify-end rounded-xl border-2 p-0.5 pr-0.5 ${
+                    className={`h-25 flex w-10 flex-col items-center justify-end rounded-xl border-2 p-0.5 pr-0.5 ${
                         battery.isCharging
                             ? "border-green-500"
                             : battery.isCritical
@@ -38,7 +38,7 @@ export const Example1 = () => {
                     }`}
                 >
                     <div
-                        className={`h-full rounded-lg transition-all ${
+                        className={`w-full rounded-lg transition-all ${
                             battery.isCharging
                                 ? "bg-green-500"
                                 : battery.isCritical
@@ -47,7 +47,7 @@ export const Example1 = () => {
                                     ? "bg-yellow-500"
                                     : "bg-primary"
                         }`}
-                        style={{ width: `${battery.levelPercent}%` }}
+                        style={{ height: `${battery.levelPercent}%` }}
                     />
                 </div>
                 <span className="text-2xl font-bold">
