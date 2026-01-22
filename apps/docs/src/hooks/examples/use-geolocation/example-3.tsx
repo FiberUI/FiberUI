@@ -149,7 +149,7 @@ export const Example3 = () => {
             </div>
 
             {/* Refresh Button */}
-            <Button onClick={refetch} disabled={isLoading} className="gap-2">
+            <Button onClick={refetch} isDisabled={isLoading} className="gap-2">
                 <RefreshCw
                     className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
                 />
