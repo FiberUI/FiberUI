@@ -26,6 +26,16 @@ Hooks for persisting data in browser storage:
 | **API Style**     | Synchronous            | Synchronous              | Asynchronous         |
 | **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  |
 
+## Device
+
+Hooks for accessing device capabilities and hardware:
+
+| Hook                                             | Description                             |
+| ------------------------------------------------ | --------------------------------------- |
+| [useBattery](/docs/hooks/use-battery)            | Access real-time battery information    |
+| [useMediaDevices](/docs/hooks/use-media-devices) | List cameras, microphones, and speakers |
+| [useGeolocation](/docs/hooks/use-geolocation)    | Get device location using GPS or Wi-Fi  |
+
 ## Utility
 
 General-purpose utility hooks:
@@ -33,11 +43,3 @@ General-purpose utility hooks:
 | Hook                                       | Description                               |
 | ------------------------------------------ | ----------------------------------------- |
 | [useIsMounted](/docs/hooks/use-is-mounted) | Detect if component is mounted (SSR safe) |
-
-## Device
-
-Hooks for accessing device capabilities:
-
-| Hook                                  | Description                          |
-| ------------------------------------- | ------------------------------------ |
-| [useBattery](/docs/hooks/use-battery) | Access real-time battery information |

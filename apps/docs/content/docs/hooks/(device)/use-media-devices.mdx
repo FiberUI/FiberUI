@@ -3,7 +3,7 @@ title: useMediaDevices
 description: A hook for tracking connected media input and output devices
 ---
 
-A React hook that provides a list of connected media input and output devices (cameras, microphones, speakers) using the MediaDevices API. It automatically updates when devices are connected or disconnected.
+A React hook that provides a list of connected media input and output devices (cameras, microphones, speakers) using the [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices). It automatically updates when devices are connected or disconnected, making it perfect for building video conferencing apps, audio recording tools, or any application that needs to interact with media hardware.
 
 <Callout type="info" title="Source Code">
     View the full hook implementation in the [Hook Source
@@ -11,17 +11,20 @@ A React hook that provides a list of connected media input and output devices (c
 </Callout>
 
 <Callout type="warn" title="Permission Required">
-    While you can list devices without permission, the `label` property (e.g.,
-    "Internal Microphone") will be empty until the user grants access to the
-    microphone or camera.
+    **Important:** While you can enumerate devices without permission, the
+    `label` property (e.g., "Internal Microphone", "FaceTime HD Camera") will be
+    **empty** until the user grants access to the microphone or camera. Use the
+    built-in `requestPermission` function to prompt the user for access.
 </Callout>
 
 ## Features
 
-- **Real-time Updates** - Listen for `devicechange` events to auto-update the list
-- **SSR Safe** - Gracefully handles server-side rendering
-- **Type Safe** - Returns standard `MediaDeviceInfo[]` objects
-- **Loading State** - Includes `isLoading` flag for async enumeration
+- **Real-time Updates** - Automatically listens for `devicechange` events to keep the device list current when users plug in or remove devices
+- **SSR Safe** - Gracefully handles server-side rendering environments where `navigator` is unavailable
+- **Type Safe** - Full TypeScript support with properly typed `MediaDeviceInfo[]` arrays
+- **Options API** - Filter devices by kind (`audioinput`, `audiooutput`, `videoinput`) to get only the devices you need
+- **Permission Handling** - Built-in `requestPermission` function to request camera/microphone access and reveal device labels
+- **Manual Refresh** - `refetch` function to manually update the device list on demand
 
 ## Learn More
 
@@ -30,15 +33,17 @@ A React hook that provides a list of connected media input and output devices (c
         icon={<MdnIcon />}
         title="MDN: MediaDevices API"
         href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices"
-        description="Documentation on accessing connected media hardware"
+        description="Comprehensive documentation on accessing and managing connected media hardware in web browsers"
     />
 </Cards>
 
 ---
 
-## Basic Usage
+## Request Permissions
 
-List all connected input and output devices grouped by type:
+Before you can see device labels (like "MacBook Pro Microphone" or "FaceTime HD Camera"), you need to request permission from the user. This example shows how to use the built-in `requestPermission` function to prompt for camera and microphone access.
+
+The `hasPermission` state tells you whether the user has already granted access - if `true`, device labels will be visible.
 
 <ComponentShowcaseTabs>
     <ComponentPreviewTab>
@@ -53,7 +58,9 @@ List all connected input and output devices grouped by type:
 
 ## Filtering Devices
 
-Filter the list to show only specific devices, like cameras:
+Often you don't need all devices - just cameras, or just microphones. Use the `kind` option to filter the device list. This example shows only video input devices (cameras).
+
+You can pass a single kind (`'videoinput'`) or an array of kinds (`['audioinput', 'audiooutput']`) to filter multiple types at once.
 
 <ComponentShowcaseTabs>
     <ComponentPreviewTab>
@@ -66,31 +73,100 @@ Filter the list to show only specific devices, like cameras:
 
 ---
 
+## List All Devices
+
+This example shows how to display all connected devices grouped by their type: microphones (audio input), speakers (audio output), and cameras (video input).
+
+Each device includes a `deviceId` (unique identifier), `kind` (type of device), `label` (human-readable name), and `groupId` (devices in the same group belong to the same physical hardware).
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseMediaDevicesExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-media-devices" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Device Selector
+
+Build dropdown menus that let users choose their preferred microphone, speaker, and camera. This is a common pattern in video conferencing apps where users need to switch between devices.
+
+The `deviceId` from the selected device can be passed to `getUserMedia()` constraints to use that specific device for audio/video capture.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseMediaDevicesExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-media-devices" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Audio Level Meter
+
+An advanced example that combines device selection with real-time audio visualization. Select a microphone and see a live audio level meter that responds to your voice.
+
+This uses the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) to analyze the audio stream and display the volume level - useful for helping users test their microphone before a call.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseMediaDevicesExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-media-devices" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
 ## API Reference
 
+### Hook Signature
+
 ```tsx
-function useMediaDevices(): UseMediaDevicesReturn;
+function useMediaDevices(
+    options?: UseMediaDevicesOptions,
+): UseMediaDevicesReturn;
 ```
+
+### Options
+
+Configure the hook behavior by passing an options object:
+
+| Property                   | Type                                   | Default | Description                                                                                   |
+| -------------------------- | -------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `kind`                     | `MediaDeviceKind \| MediaDeviceKind[]` | -       | Filter devices to specific types. Use `'audioinput'`, `'audiooutput'`, or `'videoinput'`      |
+| `requestPermissionOnMount` | `boolean`                              | `false` | When `true`, automatically prompts for camera/microphone permission when the component mounts |
 
 ### Return Value
 
-| Property      | Type                | Description                           |
-| ------------- | ------------------- | ------------------------------------- |
-| `devices`     | `MediaDeviceInfo[]` | Array of connected devices            |
-| `isLoading`   | `boolean`           | `true` while enumerating devices      |
-| `error`       | `Error \| null`     | Error object if enumeration fails     |
-| `isSupported` | `boolean`           | Whether MediaDevices API is supported |
+The hook returns an object with the following properties:
+
+| Property            | Type                                 | Description                                                                                                                                         |
+| ------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `devices`           | `MediaDeviceInfo[]`                  | Array of connected devices. If `kind` option is set, this is filtered to only matching device types                                                 |
+| `isLoading`         | `boolean`                            | `true` while the initial device enumeration is in progress                                                                                          |
+| `error`             | `Error \| null`                      | Contains an `Error` object if device enumeration failed, otherwise `null`                                                                           |
+| `isSupported`       | `boolean`                            | `false` if the MediaDevices API is not available (e.g., older browsers or non-HTTPS contexts)                                                       |
+| `hasPermission`     | `boolean`                            | `true` if at least one device has a non-empty label, indicating the user has granted media access                                                   |
+| `refetch`           | `() => Promise<void>`                | Call this function to manually refresh the device list. Useful after programmatically changing devices                                              |
+| `requestPermission` | `(constraints?) => Promise<boolean>` | Prompts the user for media access. Pass `{ audio: true }` or `{ video: true }` to request specific access. Returns `true` if permission was granted |
 
 ### MediaDeviceInfo
 
-Standard interface returned by the browser:
+Each device in the `devices` array is a standard [MediaDeviceInfo](https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo) object from the browser:
 
-| Property   | Type     | Description                                                                 |
-| ---------- | -------- | --------------------------------------------------------------------------- |
-| `deviceId` | `string` | Unique identifier for the device                                            |
-| `kind`     | `string` | `audioinput`, `audiooutput`, or `videoinput`                                |
-| `label`    | `string` | Human-readable name (requires permission)                                   |
-| `groupId`  | `string` | Group identifier (two devices in same group belong to same physical device) |
+| Property   | Type     | Description                                                                                                      |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| `deviceId` | `string` | A unique identifier for the device. Use this when specifying a device in `getUserMedia()` constraints            |
+| `kind`     | `string` | The type of device: `'audioinput'` (microphone), `'audiooutput'` (speaker), or `'videoinput'` (camera)           |
+| `label`    | `string` | Human-readable name like "MacBook Pro Microphone". **Empty string until permission is granted**                  |
+| `groupId`  | `string` | Devices with the same `groupId` belong to the same physical device (e.g., built-in mic and speakers on a laptop) |
 
 ---
 
