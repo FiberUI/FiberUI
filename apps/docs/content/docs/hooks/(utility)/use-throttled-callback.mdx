@@ -1,0 +1,148 @@
+---
+title: useThrottledCallback
+description: A hook for throttling callback functions
+---
+
+A React hook that returns a throttled version of a callback function. The callback executes at most once per interval, regardless of how many times it's called. Perfect for scroll handlers, resize observers, and any high-frequency event handler.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need to throttle a value instead of a function? See
+    [useThrottledState](/docs/hooks/use-throttled-state).
+</Callout>
+
+## Features
+
+- **Callback Throttling** - Limits how often a function can execute
+- **Trailing Edge** - Optionally execute one final time when throttle period ends
+- **Cancel** - Cancel any pending trailing execution
+- **Throttling State** - `isThrottling` tells you when in a throttle period
+- **SSR Safe** - No issues with server-side rendering
+
+---
+
+## Basic Usage
+
+Throttle a scroll handler to improve performance. Notice the dramatic reduction in function calls:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseThrottledCallbackExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-throttled-callback" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Button Spam Protection
+
+With `trailing: false`, rapid clicks only execute once per interval - perfect for preventing accidental double-submits:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseThrottledCallbackExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-throttled-callback" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useThrottledCallback<T extends (...args: any[]) => any>(
+    callback: T,
+    options?: UseThrottledCallbackOptions,
+): UseThrottledCallbackReturn<T>;
+```
+
+### Options
+
+| Property   | Type      | Default | Description                                              |
+| ---------- | --------- | ------- | -------------------------------------------------------- |
+| `interval` | `number`  | `500`   | Minimum time in milliseconds between function executions |
+| `trailing` | `boolean` | `true`  | If true, also execute when the throttle period ends      |
+
+### Return Value
+
+| Property       | Type                               | Description                            |
+| -------------- | ---------------------------------- | -------------------------------------- |
+| `throttledFn`  | `(...args: Parameters<T>) => void` | The throttled version of your callback |
+| `isThrottling` | `boolean`                          | `true` when in a throttle period       |
+| `cancel`       | `() => void`                       | Cancel any pending trailing execution  |
+
+---
+
+## Common Patterns
+
+### Scroll Handler
+
+```tsx
+const { throttledFn: handleScroll } = useThrottledCallback(
+    () => {
+        updateParallaxEffect(window.scrollY);
+    },
+    { interval: 16 }, // ~60fps
+);
+
+useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+}, [handleScroll]);
+```
+
+### Resize Handler
+
+```tsx
+const { throttledFn: handleResize } = useThrottledCallback(
+    () => {
+        recalculateLayout();
+    },
+    { interval: 100 },
+);
+
+useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+}, [handleResize]);
+```
+
+### Submit Button
+
+```tsx
+const { throttledFn: handleSubmit, isThrottling } = useThrottledCallback(
+    async () => {
+        await submitForm();
+    },
+    { interval: 2000, trailing: false },
+);
+
+<button onClick={handleSubmit} disabled={isThrottling}>
+    {isThrottling ? "Please wait..." : "Submit"}
+</button>;
+```
+
+---
+
+## Debounce vs Throttle
+
+| Technique    | Behavior                                  | Best For                       |
+| ------------ | ----------------------------------------- | ------------------------------ |
+| **Debounce** | Waits for pause in activity before firing | Search inputs, form validation |
+| **Throttle** | Fires at most once per interval           | Scroll handlers, resize events |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-throttled-callback" folder="utility" />
