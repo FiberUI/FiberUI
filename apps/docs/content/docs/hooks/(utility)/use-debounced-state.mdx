@@ -1,0 +1,136 @@
+---
+title: useDebouncedState
+description: A hook for debouncing state values
+---
+
+A React hook that debounces a value. The debounced value will only update after the specified delay has passed without the value changing. Perfect for search inputs, form validation, and any scenario where you want to reduce update frequency.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need to debounce a function instead of a value? See
+    [useDebouncedCallback](/docs/hooks/use-debounced-callback).
+</Callout>
+
+## Features
+
+- **Value Debouncing** - Creates a debounced version of any value
+- **Pending State** - `isPending` tells you when a debounce is waiting to fire
+- **Cancel & Flush** - `cancel()` discards pending updates, `flush()` applies them immediately
+- **Leading Edge** - Optional immediate first update, then debounce subsequent changes
+- **SSR Safe** - No issues with server-side rendering
+
+---
+
+## Basic Usage
+
+Debounce an input value to reduce updates. Notice how the debounced value only changes after you stop typing:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDebouncedStateExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-debounced-state" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Cancel and Flush
+
+Use `cancel()` to discard a pending update or `flush()` to apply it immediately. This example uses a longer 2-second delay to make the controls easier to test:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDebouncedStateExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-debounced-state" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Leading Edge
+
+By default, debounce uses "trailing edge" - updating after the delay. With `leading: true`, it updates immediately on the first change, then debounces subsequent changes:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDebouncedStateExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-debounced-state" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useDebouncedState<T>(
+    value: T,
+    options?: UseDebouncedStateOptions,
+): UseDebouncedStateReturn<T>;
+```
+
+### Options
+
+| Property  | Type      | Default | Description                                              |
+| --------- | --------- | ------- | -------------------------------------------------------- |
+| `delay`   | `number`  | `500`   | Delay in milliseconds before the debounced value updates |
+| `leading` | `boolean` | `false` | If true, update immediately on first change              |
+
+### Return Value
+
+| Property         | Type         | Description                                   |
+| ---------------- | ------------ | --------------------------------------------- |
+| `debouncedValue` | `T`          | The debounced value                           |
+| `isPending`      | `boolean`    | `true` when a debounce is waiting to fire     |
+| `cancel`         | `() => void` | Cancel the pending update, keep current value |
+| `flush`          | `() => void` | Immediately apply the pending value           |
+
+---
+
+## Common Patterns
+
+### Search Input
+
+```tsx
+const [query, setQuery] = useState("");
+const { debouncedValue } = useDebouncedState(query, { delay: 300 });
+
+useEffect(() => {
+    if (debouncedValue) {
+        fetchSearchResults(debouncedValue);
+    }
+}, [debouncedValue]);
+```
+
+### Form Validation
+
+```tsx
+const [email, setEmail] = useState("");
+const { debouncedValue: debouncedEmail } = useDebouncedState(email, {
+    delay: 500,
+});
+
+useEffect(() => {
+    if (debouncedEmail) {
+        validateEmail(debouncedEmail);
+    }
+}, [debouncedEmail]);
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-debounced-state" folder="utility" />
