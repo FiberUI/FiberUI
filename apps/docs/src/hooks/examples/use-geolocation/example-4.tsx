@@ -160,7 +160,7 @@ export const Example4 = () => {
             {/* Refresh Button */}
             <Button
                 onClick={refetch}
-                disabled={isLoading}
+                isDisabled={isLoading}
                 variant="outline"
                 className="gap-2"
             >
