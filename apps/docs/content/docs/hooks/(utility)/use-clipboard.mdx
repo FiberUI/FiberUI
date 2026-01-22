@@ -1,0 +1,182 @@
+---
+title: useClipboard
+description: A hook for copying and reading text from the clipboard
+---
+
+A React hook that provides clipboard read/write functionality using the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API). Includes copy state management for showing feedback to users like "Copied!" buttons.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Permission Notes">
+    **Writing** to the clipboard works in most modern browsers without explicit
+    permission (on HTTPS). **Reading** from the clipboard requires user
+    permission and may be blocked by some browsers for security reasons.
+</Callout>
+
+## Features
+
+- **Copy to Clipboard** - Write text to the system clipboard
+- **Read from Clipboard** - Read text from clipboard (with permission)
+- **Copy State** - `hasCopied` boolean with auto-reset after configurable timeout
+- **Last Value** - Track the last copied value with `copiedValue`
+- **SSR Safe** - Gracefully handles server-side rendering
+- **Error Handling** - Comprehensive error state for failed operations
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Clipboard API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API"
+        description="Complete documentation on the Clipboard API for reading and writing"
+    />
+</Cards>
+
+---
+
+## Basic Usage
+
+A simple copy button that shows "Copied!" feedback after clicking:
+
+<Callout type="success" title="Try it out!">
+    Click the Copy button - it will show "Copied!" for 2 seconds, then reset.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClipboardExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-clipboard" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Copy Input Value
+
+Copy dynamic content from an input field with a custom 3-second timeout:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClipboardExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-clipboard" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Code Block Copy
+
+A common pattern for documentation - copy buttons for code snippets. Uses `copiedValue` to track which specific snippet was copied:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClipboardExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-clipboard" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Read from Clipboard
+
+Read text from the user's clipboard. This requires explicit permission and may be blocked by some browsers:
+
+<Callout type="warn" title="Browser Permissions">
+    Reading from clipboard is more restricted than writing. Users will see a
+    permission prompt, and some browsers (especially on mobile) may not support
+    this feature at all.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClipboardExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-clipboard" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useClipboard(options?: UseClipboardOptions): UseClipboardReturn;
+```
+
+### Options
+
+| Property  | Type     | Default | Description                                                   |
+| --------- | -------- | ------- | ------------------------------------------------------------- |
+| `timeout` | `number` | `2000`  | Duration in milliseconds before `hasCopied` resets to `false` |
+
+### Return Value
+
+| Property      | Type                                 | Description                                         |
+| ------------- | ------------------------------------ | --------------------------------------------------- |
+| `copy`        | `(text: string) => Promise<boolean>` | Copy text to clipboard. Returns `true` on success   |
+| `read`        | `() => Promise<string \| null>`      | Read text from clipboard. Requires permission       |
+| `isCopying`   | `boolean`                            | `true` while a copy operation is in progress        |
+| `hasCopied`   | `boolean`                            | `true` after successful copy, resets after timeout  |
+| `copiedValue` | `string \| null`                     | The last successfully copied text                   |
+| `error`       | `Error \| null`                      | Error object if the last operation failed           |
+| `isSupported` | `boolean`                            | `false` if the Clipboard API is not available       |
+| `reset`       | `() => void`                         | Manually reset `hasCopied` and `copiedValue` states |
+
+---
+
+## Common Patterns
+
+### Copy with Toast Notification
+
+```tsx
+const { copy } = useClipboard();
+
+const handleCopy = async () => {
+    const success = await copy("text to copy");
+    if (success) {
+        toast.success("Copied to clipboard!");
+    } else {
+        toast.error("Failed to copy");
+    }
+};
+```
+
+### Copy Current URL
+
+```tsx
+const { copy, hasCopied } = useClipboard();
+
+<button onClick={() => copy(window.location.href)}>
+    {hasCopied ? "Link Copied!" : "Share Link"}
+</button>;
+```
+
+### Persistent Copy State
+
+If you need to keep the copied state indefinitely (until manual reset):
+
+```tsx
+const { copy, hasCopied, reset } = useClipboard({ timeout: 0 });
+
+// hasCopied stays true until you call reset()
+<button onClick={reset}>Clear</button>;
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-clipboard" folder="utility" />
