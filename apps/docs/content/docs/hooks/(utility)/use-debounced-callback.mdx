@@ -1,0 +1,141 @@
+---
+title: useDebouncedCallback
+description: A hook for debouncing callback functions
+---
+
+A React hook that returns a debounced version of a callback function. The callback will only be invoked after the specified delay has passed without being called again. Perfect for API calls, event handlers, and any function you want to limit.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need to debounce a value instead of a function? See
+    [useDebouncedState](/docs/hooks/use-debounced-state).
+</Callout>
+
+## Features
+
+- **Callback Debouncing** - Wraps functions to debounce their execution
+- **Pending State** - `isPending` tells you when a call is waiting to execute
+- **Cancel & Flush** - `cancel()` discards pending calls, `flush()` executes immediately
+- **Leading Edge** - Optional immediate first execution, then debounce subsequent calls
+- **SSR Safe** - No issues with server-side rendering
+
+---
+
+## Basic Usage
+
+Use `useDebouncedCallback` when you want to debounce a function instead of a value. This is ideal for API calls - notice how the call counter only increases after you stop typing:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDebouncedCallbackExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-debounced-callback" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Cancel and Flush
+
+Use `cancel()` to prevent a pending callback from executing, or `flush()` to execute it immediately:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDebouncedCallbackExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-debounced-callback" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useDebouncedCallback<T extends (...args: any[]) => any>(
+    callback: T,
+    options?: UseDebouncedCallbackOptions,
+): UseDebouncedCallbackReturn<T>;
+```
+
+### Options
+
+| Property  | Type      | Default | Description                                        |
+| --------- | --------- | ------- | -------------------------------------------------- |
+| `delay`   | `number`  | `500`   | Delay in milliseconds before the callback executes |
+| `leading` | `boolean` | `false` | If true, execute immediately on first call         |
+
+### Return Value
+
+| Property      | Type                               | Description                                 |
+| ------------- | ---------------------------------- | ------------------------------------------- |
+| `debouncedFn` | `(...args: Parameters<T>) => void` | The debounced version of your callback      |
+| `isPending`   | `boolean`                          | `true` when a call is waiting to execute    |
+| `cancel`      | `() => void`                       | Cancel the pending call                     |
+| `flush`       | `() => void`                       | Immediately execute with the last arguments |
+
+---
+
+## Common Patterns
+
+### API Search
+
+```tsx
+const { debouncedFn: search } = useDebouncedCallback(
+    async (query: string) => {
+        const results = await fetch(`/api/search?q=${query}`);
+        setResults(await results.json());
+    },
+    { delay: 300 },
+);
+
+<input onChange={(e) => search(e.target.value)} />;
+```
+
+### Form Auto-Save
+
+```tsx
+const { debouncedFn: autoSave } = useDebouncedCallback(
+    (data: FormData) => saveToServer(data),
+    { delay: 1000 },
+);
+
+// Call autoSave on every change, but it only saves after 1s of inactivity
+```
+
+### Window Resize Handler
+
+```tsx
+const { debouncedFn: handleResize } = useDebouncedCallback(
+    () => recalculateLayout(),
+    { delay: 150 },
+);
+
+useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+}, [handleResize]);
+```
+
+---
+
+## Debounce vs Throttle
+
+| Technique    | Behavior                                          | Best For                       |
+| ------------ | ------------------------------------------------- | ------------------------------ |
+| **Debounce** | Waits for pause in activity before firing         | Search inputs, form validation |
+| **Throttle** | Fires at most once per interval, ignores the rest | Scroll handlers, resize events |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-debounced-callback" folder="utility" />

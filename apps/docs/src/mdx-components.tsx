@@ -37,6 +37,9 @@ import * as UseBatteryExamples from "./hooks/examples/use-battery";
 import * as UseIndexedDBExamples from "./hooks/examples/use-indexed-db";
 import * as UseMediaDevicesExamples from "./hooks/examples/use-media-devices";
 import * as UseGeolocationExamples from "./hooks/examples/use-geolocation";
+import * as UseClipboardExamples from "./hooks/examples/use-clipboard";
+import * as UseDebouncedStateExamples from "./hooks/examples/use-debounced-state";
+import * as UseDebouncedCallbackExamples from "./hooks/examples/use-debounced-callback";
 
 /* ------------------------------------*/
 
@@ -92,6 +95,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseIndexedDBExamples,
         ...UseMediaDevicesExamples,
         ...UseGeolocationExamples,
+        ...UseClipboardExamples,
+        ...UseDebouncedStateExamples,
+        ...UseDebouncedCallbackExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
