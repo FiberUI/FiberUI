@@ -1,0 +1,126 @@
+---
+title: useThrottledState
+description: A hook for throttling state values
+---
+
+A React hook that throttles a value. The throttled value updates at most once per interval, regardless of how often the source value changes. Perfect for high-frequency events like mouse movements, scroll positions, and real-time sensor data.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need to throttle a function instead of a value? See
+    [useThrottledCallback](/docs/hooks/use-throttled-callback).
+</Callout>
+
+## Features
+
+- **Value Throttling** - Limits how often a value can update
+- **Trailing Edge** - Optionally capture the final value when throttle period ends
+- **Throttling State** - `isThrottling` tells you when in a throttle period
+- **SSR Safe** - No issues with server-side rendering
+
+---
+
+## Basic Usage
+
+Track mouse position with throttling. Notice how many fewer updates the throttled value receives:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseThrottledStateExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-throttled-state" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Slider with Trailing Edge
+
+With `trailing: true`, the throttled value also captures the final value when you stop:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseThrottledStateExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-throttled-state" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useThrottledState<T>(
+    value: T,
+    options?: UseThrottledStateOptions,
+): UseThrottledStateReturn<T>;
+```
+
+### Options
+
+| Property   | Type      | Default | Description                                        |
+| ---------- | --------- | ------- | -------------------------------------------------- |
+| `interval` | `number`  | `500`   | Minimum time in milliseconds between value updates |
+| `trailing` | `boolean` | `true`  | If true, also update when the throttle period ends |
+
+### Return Value
+
+| Property         | Type      | Description                      |
+| ---------------- | --------- | -------------------------------- |
+| `throttledValue` | `T`       | The throttled value              |
+| `isThrottling`   | `boolean` | `true` when in a throttle period |
+
+---
+
+## Debounce vs Throttle
+
+| Technique    | Behavior                                  | Best For                       |
+| ------------ | ----------------------------------------- | ------------------------------ |
+| **Debounce** | Waits for pause in activity before firing | Search inputs, form validation |
+| **Throttle** | Fires at most once per interval           | Scroll handlers, resize events |
+
+### Visual Comparison
+
+```
+Input:    ──●●●●●●●●●──────●●●●●●●●●──
+             ↓
+Debounce: ──────────●──────────────●──  (fires after pause)
+Throttle: ──●───●───●──────●───●───●──  (fires at intervals)
+```
+
+---
+
+## Common Patterns
+
+### Scroll Position
+
+```tsx
+const [scrollY, setScrollY] = useState(0);
+const { throttledValue } = useThrottledState(scrollY, { interval: 100 });
+
+// Use throttledValue for expensive calculations
+```
+
+### Mouse Tracking
+
+```tsx
+const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+const { throttledValue } = useThrottledState(mousePos, { interval: 50 });
+
+// Use throttledValue for smooth animations
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-throttled-state" folder="utility" />

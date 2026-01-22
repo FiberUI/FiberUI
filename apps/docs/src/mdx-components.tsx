@@ -40,6 +40,8 @@ import * as UseGeolocationExamples from "./hooks/examples/use-geolocation";
 import * as UseClipboardExamples from "./hooks/examples/use-clipboard";
 import * as UseDebouncedStateExamples from "./hooks/examples/use-debounced-state";
 import * as UseDebouncedCallbackExamples from "./hooks/examples/use-debounced-callback";
+import * as UseThrottledStateExamples from "./hooks/examples/use-throttled-state";
+import * as UseThrottledCallbackExamples from "./hooks/examples/use-throttled-callback";
 
 /* ------------------------------------*/
 
@@ -98,6 +100,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseClipboardExamples,
         ...UseDebouncedStateExamples,
         ...UseDebouncedCallbackExamples,
+        ...UseThrottledStateExamples,
+        ...UseThrottledCallbackExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
