@@ -1,0 +1,161 @@
+---
+title: useGeolocation
+description: A hook for accessing device location using the Geolocation API
+---
+
+A React hook that provides the device's current geographic location using the [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API). Perfect for building location-aware apps like maps, delivery tracking, fitness apps, or any feature that needs to know where the user is.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Permission Required">
+    **Important:** The browser will prompt the user for permission before
+    accessing their location. If the user denies permission, the `error` object
+    will contain a `PERMISSION_DENIED` code. Always handle this gracefully in
+    your UI.
+</Callout>
+
+## Features
+
+- **One-time & Watch Mode** - Get location once or continuously track position changes
+- **High Accuracy Option** - Choose between GPS (precise but slow) or Wi-Fi/Cell (fast but less accurate)
+- **Configurable Timeouts** - Set custom timeout and cache age for position requests
+- **Error Handling** - Typed errors with human-readable messages for common failure cases
+- **Manual Refresh** - `refetch` function to update position on demand
+- **Watch Control** - `clearWatch` to stop continuous tracking when needed
+- **SSR Safe** - Gracefully handles server-side rendering environments
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Geolocation API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API"
+        description="Comprehensive documentation on accessing device location in web browsers"
+    />
+</Cards>
+
+---
+
+## Request Location
+
+The simplest usage - get the user's current location when the component mounts. The `refetch` function lets users manually update their position. The `errorMessage` provides a human-readable description of any errors.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseGeolocationExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-geolocation" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Watch Mode
+
+Enable continuous position updates by setting `watch: true`. This is useful for tracking movement in real-time, like in a fitness or delivery app. The position history shows how coordinates change as you move.
+
+Use `clearWatch()` to stop tracking and save battery when you're done.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseGeolocationExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-geolocation" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## High Accuracy Mode
+
+Toggle between high accuracy (GPS) and low power (Wi-Fi/Cell) modes. High accuracy uses GPS for precise positioning but is slower and uses more battery. Low power mode uses nearby Wi-Fi networks and cell towers for a faster but less accurate fix.
+
+The accuracy indicator shows how reliable the current position is - green for excellent (±10m), blue for good, yellow for fair, and red for poor accuracy.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseGeolocationExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-geolocation" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Distance Calculator
+
+A practical example that calculates the distance between your current location and famous landmarks around the world using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula). This demonstrates how to combine geolocation data with custom calculations.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseGeolocationExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-geolocation" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useGeolocation(options?: UseGeolocationOptions): GeolocationState;
+```
+
+### Options
+
+Configure the hook behavior by passing an options object:
+
+| Property             | Type      | Default    | Description                                                                                      |
+| -------------------- | --------- | ---------- | ------------------------------------------------------------------------------------------------ |
+| `watch`              | `boolean` | `false`    | When `true`, continuously track position changes instead of a one-time request                   |
+| `enableHighAccuracy` | `boolean` | `false`    | When `true`, use GPS for precise location (slower, more battery). Otherwise uses Wi-Fi/Cell data |
+| `timeout`            | `number`  | `Infinity` | Maximum time in milliseconds to wait for a position before timing out                            |
+| `maximumAge`         | `number`  | `0`        | Maximum age in milliseconds of a cached position. Set to `0` to always fetch fresh               |
+
+### Return Value
+
+The hook returns an object with position data and control functions:
+
+| Property           | Type                               | Description                                                      |
+| ------------------ | ---------------------------------- | ---------------------------------------------------------------- |
+| `latitude`         | `number \| null`                   | Latitude in decimal degrees (e.g., 37.7749 for San Francisco)    |
+| `longitude`        | `number \| null`                   | Longitude in decimal degrees (e.g., -122.4194 for San Francisco) |
+| `accuracy`         | `number \| null`                   | Position accuracy in meters (lower is better)                    |
+| `altitude`         | `number \| null`                   | Altitude in meters above sea level (null if not available)       |
+| `altitudeAccuracy` | `number \| null`                   | Accuracy of the altitude value in meters                         |
+| `heading`          | `number \| null`                   | Direction of travel in degrees (0-360, null if stationary)       |
+| `speed`            | `number \| null`                   | Speed in meters per second (null if stationary)                  |
+| `timestamp`        | `number \| null`                   | Unix timestamp when the position was acquired                    |
+| `isLoading`        | `boolean`                          | `true` while waiting for a position                              |
+| `isSupported`      | `boolean`                          | `false` if Geolocation API is not available                      |
+| `error`            | `GeolocationPositionError \| null` | Browser error object if position request failed                  |
+| `errorMessage`     | `string \| null`                   | Human-readable error message for common error codes              |
+| `refetch`          | `() => void`                       | Manually request a position update                               |
+| `clearWatch`       | `() => void`                       | Stop watching for position changes (only in watch mode)          |
+
+### Error Codes
+
+When an error occurs, the `error` object contains a `code` property:
+
+| Code                   | Value | Description                                                 |
+| ---------------------- | ----- | ----------------------------------------------------------- |
+| `PERMISSION_DENIED`    | 1     | User denied the location permission request                 |
+| `POSITION_UNAVAILABLE` | 2     | Device cannot determine position (no GPS, no network, etc.) |
+| `TIMEOUT`              | 3     | Position request timed out before a fix could be obtained   |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-geolocation" folder="device" />

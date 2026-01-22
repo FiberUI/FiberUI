@@ -36,6 +36,7 @@ import * as UseIsMountedExamples from "./hooks/examples/use-is-mounted";
 import * as UseBatteryExamples from "./hooks/examples/use-battery";
 import * as UseIndexedDBExamples from "./hooks/examples/use-indexed-db";
 import * as UseMediaDevicesExamples from "./hooks/examples/use-media-devices";
+import * as UseGeolocationExamples from "./hooks/examples/use-geolocation";
 
 /* ------------------------------------*/
 
@@ -90,6 +91,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseBatteryExamples,
         ...UseIndexedDBExamples,
         ...UseMediaDevicesExamples,
+        ...UseGeolocationExamples,
 
         Code: CodeFromFile,
         CodeFromFile,
