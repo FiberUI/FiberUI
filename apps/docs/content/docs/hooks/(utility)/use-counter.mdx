@@ -1,0 +1,90 @@
+---
+title: useCounter
+description: Manage counter state with increment, decrement, and reset functionality.
+---
+
+A simple yet powerful hook for managing numeric state. It handles common counter operations like incrementing, decrementing, resetting, and step-based updates.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Basic Counter
+
+A simple counter with increment, decrement, and reset functionality.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCounterExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-counter" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Quantity Selector
+
+Using limits to create a robust quantity selector for e-commerce.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCounterExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-counter" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Pagination Controls
+
+Implementing pagination logic using `incrementBy` and `decrementBy`.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCounterExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-counter" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useCounter(
+    initialCount?: number,
+    options?: UseCounterOpts,
+): UseCounterReturn;
+```
+
+### UseCounterOpts
+
+| Name           | Type     | Default     | Description                        |
+| -------------- | -------- | ----------- | ---------------------------------- |
+| `initialCount` | `number` | `0`         | The starting value of the counter. |
+| `step`         | `number` | `1`         | The amount to change the count by. |
+| `min`          | `number` | `undefined` | Minimum value limit.               |
+| `max`          | `number` | `undefined` | Maximum value limit.               |
+
+### UseCounterReturn
+
+| Name           | Type                      | Description                                          |
+| -------------- | ------------------------- | ---------------------------------------------------- |
+| `count`        | `number`                  | The current value of the counter.                    |
+| `increment`    | `() => void`              | Increases the count by the step value.               |
+| `decrement`    | `() => void`              | Decreases the count by the step value.               |
+| `reset`        | `() => void`              | Resets the count to the initial value.               |
+| `setCount`     | `(value: number) => void` | Sets the counter to a specific value.                |
+| `incrementBy`  | `(value: number) => void` | Increases the count by the specified value.          |
+| `decrementBy`  | `(value: number) => void` | Decreases the count by the specified value.          |
+| `canIncrement` | `boolean`                 | Whether the counter can be incremented (not at max). |
+| `canDecrement` | `boolean`                 | Whether the counter can be decremented (not at min). |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-counter" folder="utility" />

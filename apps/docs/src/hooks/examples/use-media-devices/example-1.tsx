@@ -107,7 +107,7 @@ export const Example1 = () => {
             {/* Device List */}
             <div className="divide-y rounded-lg border">
                 {devices.slice(0, 5).map((device, i) => (
-                    <div key={device.deviceId || i} className="p-3 text-sm">
+                    <div key={device.deviceId + i} className="p-3 text-sm">
                         <div className="truncate font-medium">
                             {device.label || (
                                 <span className="text-muted-foreground italic">

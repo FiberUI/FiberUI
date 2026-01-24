@@ -1,0 +1,123 @@
+---
+title: useUserMedia
+description: A hook for accessing camera and microphone using getUserMedia
+---
+
+A React hook for accessing the user's camera and microphone using the `getUserMedia` API. Provides controls for starting, stopping, and switching devices.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hooks">
+    Use with [useMediaDevices](/docs/hooks/use-media-devices) to let users
+    select specific cameras/microphones.
+</Callout>
+
+## Features
+
+- **Stream Management** - Start/stop media streams with proper cleanup
+- **Device Switching** - Switch between cameras and microphones on the fly
+- **Constraint Support** - Pass custom MediaTrackConstraints for resolution, frame rate, etc.
+- **SSR Safe** - No issues with server-side rendering
+- **Auto Cleanup** - Tracks are automatically stopped on unmount
+
+---
+
+## Basic Usage
+
+Simple camera preview with start/stop controls:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseUserMediaExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-user-media" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Device Selection
+
+Combine with `useMediaDevices` to let users pick their camera and microphone:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseUserMediaExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-user-media" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Mute Controls
+
+Use with `useTrackToggle` for mute/unmute functionality:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseUserMediaExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-user-media" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Audio Level Detection
+
+Combine with `useAudioLevel` for speaking indicators:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseUserMediaExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-user-media" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useUserMedia(options?: UseUserMediaOptions): UseUserMediaReturn;
+```
+
+### Options
+
+| Property      | Type                      | Default                      | Description                         |
+| ------------- | ------------------------- | ---------------------------- | ----------------------------------- |
+| `constraints` | `UseUserMediaConstraints` | `{audio: true, video: true}` | Initial media constraints           |
+| `autoStart`   | `boolean`                 | `false`                      | Start stream automatically on mount |
+
+### Return Value
+
+| Property            | Type                                 | Description                          |
+| ------------------- | ------------------------------------ | ------------------------------------ |
+| `stream`            | `MediaStream \| null`                | The active media stream              |
+| `isLoading`         | `boolean`                            | Whether stream is being acquired     |
+| `isActive`          | `boolean`                            | Whether a stream is currently active |
+| `error`             | `Error \| null`                      | Error if stream acquisition failed   |
+| `isSupported`       | `boolean`                            | Whether getUserMedia is supported    |
+| `start`             | `(constraints?) => Promise<boolean>` | Start the stream                     |
+| `stop`              | `() => void`                         | Stop all tracks                      |
+| `switchAudioDevice` | `(deviceId) => Promise<boolean>`     | Switch microphone                    |
+| `switchVideoDevice` | `(deviceId) => Promise<boolean>`     | Switch camera                        |
+| `audioTrack`        | `MediaStreamTrack \| null`           | Current audio track                  |
+| `videoTrack`        | `MediaStreamTrack \| null`           | Current video track                  |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-user-media" folder="webrtc" />

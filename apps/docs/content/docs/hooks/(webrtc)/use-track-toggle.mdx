@@ -1,0 +1,82 @@
+---
+title: useTrackToggle
+description: A hook for muting/unmuting audio and video tracks
+---
+
+A React hook for controlling the enabled state of audio and video tracks. Provides mute/unmute functionality for media streams.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Instant Toggle">
+    Unlike stopping tracks, toggling `enabled` is instant and doesn't require
+    re-acquiring the stream.
+</Callout>
+
+## Features
+
+- **Instant Mute** - Toggle track enabled state without stopping
+- **Independent Controls** - Separate audio and video toggles
+- **Bulk Operations** - `muteAll()` and `unmuteAll()` helpers
+- **State Sync** - Automatically syncs with actual track state
+
+---
+
+## Keyboard Shortcuts
+
+Control audio/video with keyboard shortcuts:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseTrackToggleExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-track-toggle" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Meeting Controls UI
+
+Video call style control bar:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseTrackToggleExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-track-toggle" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useTrackToggle(stream: MediaStream | null): UseTrackToggleReturn;
+```
+
+### Return Value
+
+| Property          | Type                | Description                 |
+| ----------------- | ------------------- | --------------------------- |
+| `isAudioEnabled`  | `boolean`           | Audio track enabled state   |
+| `isVideoEnabled`  | `boolean`           | Video track enabled state   |
+| `toggleAudio`     | `() => void`        | Toggle audio on/off         |
+| `toggleVideo`     | `() => void`        | Toggle video on/off         |
+| `setAudioEnabled` | `(enabled) => void` | Set audio state directly    |
+| `setVideoEnabled` | `(enabled) => void` | Set video state directly    |
+| `muteAll`         | `() => void`        | Mute both audio and video   |
+| `unmuteAll`       | `() => void`        | Unmute both audio and video |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-track-toggle" folder="webrtc" />

@@ -1,0 +1,131 @@
+---
+title: usePeerConnection
+description: A hook for managing WebRTC peer connections
+---
+
+A React hook for managing `RTCPeerConnection` lifecycle. Handles SDP negotiation, ICE candidates, and media tracks for peer-to-peer connections.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warning" title="Signaling Required">
+    This hook manages the connection, but you need a signaling server to
+    exchange SDP offers/answers and ICE candidates between peers.
+</Callout>
+
+## Features
+
+- **Connection Management** - Full RTCPeerConnection lifecycle
+- **SDP Negotiation** - Create offers/answers, set descriptions
+- **ICE Handling** - Add ICE candidates, track gathering state
+- **Track Management** - Add/remove media tracks
+- **Data Channels** - Create data channels for messaging
+- **State Tracking** - Monitor connection, ICE, and signaling states
+
+---
+
+## Cross-Tab Video Call (Manual Signaling)
+
+Simulate a real P2P video call between two browser tabs. Since there is no signaling server, you will manually copy/paste the SDP offers and answers.
+
+### Tab A: The Caller (Starts Call)
+
+Open this example in **Tab A**. It will request camera access and generate an offer.
+
+1. Click **Start Call** and copy the offer JSON.
+2. Paste it into Tab B (Example 2) and create an answer.
+3. Paste the answer back here to connect.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePeerConnectionExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-peer-connection" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+### Tab B: The Callee (Joins Call)
+
+Open this example in **Tab B** (side-by-side with Tab A).
+
+1. Paste the offer from Tab A.
+2. Click **Join Call** to generate an answer.
+3. Paste the answer back into Tab A.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePeerConnectionExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-peer-connection" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Manual Signaling Tester (Example 3)
+
+A powerful debugging tool that lets you understand exactly how WebRTC connections are established step-by-step. Toggle between **Caller** and **Receiver** roles to simulate a connection manually.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePeerConnectionExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-peer-connection" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function usePeerConnection(
+    options?: UsePeerConnectionOptions,
+): UsePeerConnectionReturn;
+```
+
+### Options
+
+| Property                  | Type                  | Default     | Description                      |
+| ------------------------- | --------------------- | ----------- | -------------------------------- |
+| `iceServers`              | `IceServer[]`         | Google STUN | STUN/TURN servers                |
+| `iceTransportPolicy`      | `"all" \| "relay"`    | `"all"`     | ICE transport policy             |
+| `onTrack`                 | `(event) => void`     | -           | Called when remote track arrives |
+| `onIceCandidate`          | `(candidate) => void` | -           | Called for each ICE candidate    |
+| `onConnectionStateChange` | `(state) => void`     | -           | Called when connection changes   |
+| `onDataChannel`           | `(channel) => void`   | -           | Called when data channel opens   |
+
+### Return Value
+
+| Property               | Type                                               | Description             |
+| ---------------------- | -------------------------------------------------- | ----------------------- |
+| `peerConnection`       | `RTCPeerConnection \| null`                        | The connection instance |
+| `connectionState`      | `RTCPeerConnectionState`                           | Connection state        |
+| `iceConnectionState`   | `RTCIceConnectionState`                            | ICE connection state    |
+| `iceGatheringState`    | `RTCIceGatheringState`                             | ICE gathering state     |
+| `signalingState`       | `RTCSignalingState`                                | Signaling state         |
+| `localDescription`     | `RTCSessionDescription \| null`                    | Local SDP               |
+| `remoteDescription`    | `RTCSessionDescription \| null`                    | Remote SDP              |
+| `remoteStreams`        | `MediaStream[]`                                    | Received remote streams |
+| `createOffer`          | `() => Promise<RTCSessionDescriptionInit \| null>` | Create offer            |
+| `createAnswer`         | `() => Promise<RTCSessionDescriptionInit \| null>` | Create answer           |
+| `setRemoteDescription` | `(desc) => Promise<boolean>`                       | Set remote SDP          |
+| `addIceCandidate`      | `(candidate) => Promise<boolean>`                  | Add ICE candidate       |
+| `addTrack`             | `(track, ...streams) => RTCRtpSender \| null`      | Add track               |
+| `createDataChannel`    | `(label, options?) => RTCDataChannel \| null`      | Create channel          |
+| `close`                | `() => void`                                       | Close connection        |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-peer-connection" folder="webrtc" />
