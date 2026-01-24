@@ -39,6 +39,7 @@ https://r.fiberui.com/docs/hooks/use-counter
 https://r.fiberui.com/docs/hooks/use-debounced-callback
 https://r.fiberui.com/docs/hooks/use-debounced-state
 https://r.fiberui.com/docs/hooks/use-is-mounted
+https://r.fiberui.com/docs/hooks/use-network
 https://r.fiberui.com/docs/hooks/use-throttled-callback
 https://r.fiberui.com/docs/hooks/use-throttled-state
 https://r.fiberui.com/docs/hooks/use-battery
