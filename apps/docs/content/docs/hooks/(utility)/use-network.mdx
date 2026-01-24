@@ -1,0 +1,70 @@
+---
+title: useNetwork
+description: Track network status and connection details.
+---
+
+A hook to monitor the user's network connection state. It provides online/offline status and estimates for bandwidth, latency, and connection type (where supported by the browser).
+
+<Callout type="info" title="Browser Support">
+    The `online` status is widely supported. However, connection details
+    (`downlink`, `rtt`, etc.) are primarily supported in Chromium-based browsers
+    via the [Network Information
+    API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API).
+</Callout>
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Basic Status Indicator
+
+A simple online/offline indicator using the `online` property.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseNetworkExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-network" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Network Dashboard
+
+Visualizing detailed connection metrics like bandwidth estimate and effective connection type.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseNetworkExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-network" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useNetwork(): NetworkState;
+```
+
+### NetworkState
+
+| Name            | Type                     | Description                                                                |
+| --------------- | ------------------------ | -------------------------------------------------------------------------- |
+| `online`        | `boolean`                | `true` if the device is connected to the internet, `false` otherwise.      |
+| `downlink`      | `number` \| `undefined`  | Effective bandwidth estimate in megabits per second.                       |
+| `downlinkMax`   | `number` \| `undefined`  | Maximum downlink speed of the underlying connection technology.            |
+| `effectiveType` | `string` \| `undefined`  | Effective connection type: `'slow-2g'`, `'2g'`, `'3g'`, or `'4g'`.         |
+| `rtt`           | `number` \| `undefined`  | Estimated effective round-trip time in milliseconds.                       |
+| `saveData`      | `boolean` \| `undefined` | `true` if the user has requested a reduced data usage mode.                |
+| `type`          | `string` \| `undefined`  | Theoretical connection type (e.g., `'bluetooth'`, `'cellular'`, `'wifi'`). |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-network" folder="utility" />
