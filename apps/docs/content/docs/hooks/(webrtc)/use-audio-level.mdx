@@ -1,0 +1,105 @@
+---
+title: useAudioLevel
+description: A hook for detecting audio volume levels
+---
+
+A React hook for detecting audio volume from a media stream. Uses the Web Audio API to analyze audio levels for speaking indicators and visualizations.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **Volume Detection** - Real-time audio level (0-1 scale)
+- **Speaking Detection** - Threshold-based `isSpeaking` state
+- **Peak Tracking** - Track peak level with reset
+- **Configurable** - Adjust threshold, sample rate, smoothing
+- **Auto Start** - Automatically starts monitoring when stream is available
+
+---
+
+## Volume Meter
+
+Bar graph visualization with speaking detection:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseAudioLevelExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-audio-level" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Speaking Indicator Ring
+
+Green ring around avatar when speaking:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseAudioLevelExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-audio-level" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Threshold Configuration
+
+Adjust sensitivity settings:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseAudioLevelExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-audio-level" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useAudioLevel(
+    stream: MediaStream | null,
+    options?: UseAudioLevelOptions,
+): UseAudioLevelReturn;
+```
+
+### Options
+
+| Property            | Type      | Default | Description                                |
+| ------------------- | --------- | ------- | ------------------------------------------ |
+| `speakingThreshold` | `number`  | `0.01`  | Level (0-1) above which isSpeaking is true |
+| `sampleInterval`    | `number`  | `100`   | How often to sample in milliseconds        |
+| `smoothingFactor`   | `number`  | `0.8`   | Smoothing for level transitions (0-1)      |
+| `autoStart`         | `boolean` | `true`  | Auto-start when stream is available        |
+
+### Return Value
+
+| Property       | Type         | Description                        |
+| -------------- | ------------ | ---------------------------------- |
+| `level`        | `number`     | Current audio level (0-1)          |
+| `isSpeaking`   | `boolean`    | Whether level exceeds threshold    |
+| `peak`         | `number`     | Peak level since last reset        |
+| `resetPeak`    | `() => void` | Reset peak level                   |
+| `start`        | `() => void` | Start monitoring                   |
+| `stop`         | `() => void` | Stop monitoring                    |
+| `isMonitoring` | `boolean`    | Whether currently monitoring       |
+| `isSupported`  | `boolean`    | Whether Web Audio API is supported |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-audio-level" folder="webrtc" />

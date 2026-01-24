@@ -1,0 +1,236 @@
+---
+title: Intro to WebRTC Hooks
+description: A complete, composable WebRTC stack for React.
+---
+
+Fiber UI provides a production-grade suite of React hooks for building real-time communication apps. These hooks abstract the complexity of the [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) while giving you full control over the connection lifecycle.
+
+## The WebRTC Architecture
+
+Our stack separates concerns into three layers: **Capture**, **Connection**, and **Data/Control**. This composable approach makes it easier to build complex apps like video conferencing, file sharing, or screen sharing tools.
+
+```text
++---------------------------------------------------------------------+
+|                        Your React App                               |
++-------------------+----------------------------+--------------------+
+|   Media Capture   |      Core Connection       |   Controls         |
++-------------------+----------------------------+--------------------+
+|                   |                            |                    |
+|  [useUserMedia] --+--> [usePeerConnection] <---+-- [useDataChannel] |
+|       ^           |           ^    ^           |                    |
+|       |           |           |    |           |                    |
+| [useMediaDevices] |           |    +-----------+-- [useTrackToggle] |
+|                   |           |                |                    |
+| [useScreenShare] -+           v                |                    |
+|                   |      [Signaling]           | [useAudioLevel]    |
+|                   |     (Socket/HTTP)          |                    |
++-------------------+----------------------------+--------------------+
+```
+
+## Available Hooks
+
+| Hook                                                     | Purpose                                                            | MDN Reference                                                                                                   |
+| -------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| **[usePeerConnection](/docs/hooks/use-peer-connection)** | Managing `RTCPeerConnection`, SDP negotiation, and ICE candidates. | [RTCPeerConnection](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection)                         |
+| **[useUserMedia](/docs/hooks/use-user-media)**           | Capturing camera/mic streams with `getUserMedia`.                  | [MediaDevices.getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)         |
+| **[useScreenShare](/docs/hooks/use-screen-share)**       | Capturing screen content with `getDisplayMedia`.                   | [MediaDevices.getDisplayMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia)   |
+| **[useDataChannel](/docs/hooks/use-data-channel)**       | Low-latency P2P data transfer (text, binary, JSON).                | [RTCDataChannel](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel)                               |
+| **[useTrackToggle](/docs/hooks/use-track-toggle)**       | Muting and unmuting specific media tracks.                         | [MediaStreamTrack.enabled](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/enabled)           |
+| **[useAudioLevel](/docs/hooks/use-audio-level)**         | Audio visualization and speaking detection.                        | [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)                                 |
+| **[useMediaDevices](/docs/hooks/use-media-devices)**     | Listing and selecting input/output devices.                        | [MediaDevices.enumerateDevices](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices) |
+
+## Hook Flow Map
+
+This diagram illustrates how data flows between the hooks and what role each one plays in the lifecycle of a connection.
+
+```text
+                                  [ User Input ]
+                                        |
++---------------------------------------v--------------------------------------+
+|                           Device Selection Layer                             |
+|                                                                              |
+|  [useMediaDevices] <----(Enumerates)----(Microphones / Cameras / Speakers)   |
+|         |                                                                    |
++---------+--------------------------------------------------------------------+
+          | (Select Device ID)
+          v
++---------+--------------------------+  +--------------------------------------+
+|      Media Capture Layer           |  |           Screen Share Layer         |
+|                                    |  |                                      |
+|   [useUserMedia]                   |  |   [useScreenShare]                   |
+|         |                          |  |         |                            |
+|         +----(Analyzes)------------+--+---------+-----> [useAudioLevel]      |
+|         |                          |  |         |       (Visualizer)         |
+|         +----(Controls)------------+--+---------+-----> [useTrackToggle]     |
+|         |                          |  |         |       (Mute/Unmute)        |
++---------+--------------------------+  +---------+----------------------------+
+          |                                       |
+          | (MediaStream)                         | (MediaStream)
+          v                                       v
++------------------------------------------------------------------------------+
+|                           Connection Layer                                   |
+|                                                                              |
+|                         [usePeerConnection]                                  |
+|                                  ^                                           |
+|                                  |                                           |
+|                               (Data)                                         |
+|                                  |                                           |
+|                                  v                                           |
+|                          [useDataChannel]                                    |
+|                       (Chat / File Transfer)                                 |
++------------------------------------------------------------------------------+
+                                   ^
+                                   | (SDP / ICE)
+                                   v
+                           [Signaling Server]
+```
+
+## Core Concepts
+
+### 1. The Signaling Process
+
+WebRTC connections cannot be established without a "signaling service" to exchange connection information. **Fiber UI hooks are agnostic to your signaling method.** You can use WebSockets (Socket.io), Firebase, HTTP polling, or even manual copy-paste.
+
+The signaling flow involves exchanging two types of data:
+
+1.  **Session Description Protocol (SDP)**: Describes the media capabilities (codecs, formats).
+2.  **ICE Candidates**: Network paths (IP:Port) to reach the peer.
+
+#### The Offer/Answer Dance
+
+```text
+       Peer A (Caller)                     Peer B (Callee)
+             |                                   |
+    1. Create Offer                              |
+             |                                   |
+             +---[ Send Offer SDP (via Signal) ]-->
+             |                                   |
+             |                            2. Set Remote Desc
+             |                                   |
+             |                            3. Create Answer
+             |                                   |
+    4. Set Remote Desc <---[ Send Answer SDP ]---+
+             |                                   |
+             |                                   |
+    5. ICE Candidates <----[ Exchange ICE ]-----> ICE Candidates
+             |                                   |
+             v                                   v
+      [ P2P Connection Established (Media & Data Flowing) ]
+```
+
+> **Read more:** [Signaling and Video Calling (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling)
+
+### 2. ICE Candidates (Connectivity)
+
+**ICE (Interactive Connectivity Establishment)** is how WebRTC traverses NATs and Firewalls.
+
+- **Components**: The protocol gathers candidates (host IP, server reflex IP, relay IP).
+- **Trickle ICE**: The modern standard where candidates are sent as soon as they are discovered, rather than waiting for all of them. `usePeerConnection` supports Trickle ICE out of the box.
+
+> **Read more:** [WebRTC Connectivity (WebRTC.org)](https://webrtc.org/getting-started/peer-connections#ice-candidates)
+
+### 3. Tracks vs. Streams
+
+Understanding the difference is crucial for effective media control:
+
+- **[MediaStreamTrack](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack)**: A single media source (e.g., audio track from mic, video track from camera).
+- **[MediaStream](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)**: A synchronization container for multiple tracks.
+
+**Use Case:** `useTrackToggle` operates on _tracks_ to mute/unmute them without stopping the entire _stream_.
+
+## Implementation Guide
+
+### Step 1: Capture Media
+
+Use `useUserMedia` to get the local stream. This handles browser permissions and device selection.
+
+```tsx
+import { useUserMedia } from "@repo/hooks/webrtc/use-user-media";
+
+const { stream, start, error } = useUserMedia({
+    constraints: { audio: true, video: true },
+});
+
+// Start camera on mount
+useEffect(() => {
+    start();
+}, []);
+```
+
+### Step 2: Initialize Connection
+
+Pass the stream to `usePeerConnection`. This hook manages the complex `RTCPeerConnection` state machine.
+
+```tsx
+import { usePeerConnection } from "@repo/hooks/webrtc/use-peer-connection";
+
+const {
+    peerConnection,
+    createOffer,
+    createAnswer,
+    setRemoteDescription,
+    addIceCandidate,
+    connectionState,
+} = usePeerConnection({
+    // Automatic ICE handling
+    iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+
+    // Handle incoming remote stream
+    onTrack: (event) => {
+        remoteVideoRef.current.srcObject = event.streams[0];
+    },
+
+    // Send local candidates to your signaling server
+    onIceCandidate: (candidate) => {
+        if (candidate) signalingServer.send("ice-candidate", candidate);
+    },
+});
+```
+
+### Step 3: Add Media to Connection
+
+Once you have both the `stream` and the `peerConnection`, add the tracks.
+
+```tsx
+useEffect(() => {
+    if (stream && peerConnection) {
+        stream.getTracks().forEach((track) => {
+            // Use our wrapper to avoid duplicate track errors
+            addTrack(track, stream);
+        });
+    }
+}, [stream, peerConnection]);
+```
+
+### Step 4: Perform Signaling
+
+This part depends on your backend, but the hook provides the primitives:
+
+**Caller:**
+
+```tsx
+const startCall = async () => {
+    const offer = await createOffer();
+    signalingServer.send("offer", offer);
+};
+```
+
+**Callee:**
+
+```tsx
+// On receiving offer
+signalingServer.on("offer", async (remoteOffer) => {
+    await setRemoteDescription(remoteOffer);
+    const answer = await createAnswer();
+    signalingServer.send("answer", answer);
+});
+```
+
+## Best Practices
+
+1.  **Cleanup**: Always clean up media streams when components unmount. `useUserMedia` handles this automatically, but be mindful of side effects.
+2.  **State Management**: WebRTC is asynchronous. Use the `connectionState` and `iceConnectionState` returned by `usePeerConnection` to show loading spinners or status indicators.
+3.  **Error Handling**: Permissions can be denied, and networks can fail. Always check the `error` object returned by `useUserMedia` and handle `onConnectionStateChange` failures.
+4.  **Security**: WebRTC requires a Secure Context (HTTPS or localhost). It will not work on HTTP.
+
+> **Security Info:** [Why WebRTC Needs HTTPS (MDN)](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)

@@ -1,0 +1,113 @@
+---
+title: useDataChannel
+description: A hook for WebRTC data channels (P2P messaging)
+---
+
+A React hook for managing WebRTC data channels. Provides P2P messaging for chat, file transfer, or game state synchronization with low latency.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Low Latency">
+    Data channels use UDP-like transport, making them ideal for real-time
+    applications like gaming or live collaboration.
+</Callout>
+
+## Features
+
+- **Text Messaging** - Send/receive string messages
+- **Binary Data** - Send ArrayBuffer or Blob for files
+- **JSON Support** - Built-in JSON serialization with `sendJSON()`
+- **Message History** - Track all received messages
+- **Ready State** - Monitor channel open/closed state
+
+---
+
+## Cross-Tab Chat (Manual Signaling)
+
+Data channels require a signaling process (exchanging SDP offers/answers) to establish a connection. In a real app, this happens automatically via a server (like WebSocket).
+
+For this demo, we can test P2P communication between two browser tabs by manually copying and pasting the signaling data.
+
+### Tab A: The Caller (Offers Connection)
+
+Open this example in **Tab A**. It will generate an SDP offer that you need to copy.
+
+1. Click **Create Offer** and copy the generated JSON.
+2. Paste it into the "Paste Offer" box in Tab B (Example 2).
+3. Copy the answer from Tab B and paste it back here.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDataChannelExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-data-channel" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+### Tab B: The Callee (Answers Connection)
+
+Open this example in **Tab B** (side-by-side with Tab A).
+
+1. Paste the offer from Tab A.
+2. Click **Create Answer** and copy the generated JSON.
+3. Paste this answer back into Tab A to complete the connection.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDataChannelExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-data-channel" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useDataChannel(
+    peerConnection: RTCPeerConnection | null,
+    options: UseDataChannelOptions,
+): UseDataChannelReturn;
+```
+
+### Options
+
+| Property         | Type                 | Default  | Description                  |
+| ---------------- | -------------------- | -------- | ---------------------------- |
+| `label`          | `string`             | Required | Channel identifier           |
+| `channelOptions` | `RTCDataChannelInit` | -        | RTCDataChannel configuration |
+| `autoCreate`     | `boolean`            | `true`   | Create channel (for offerer) |
+| `onMessage`      | `(data) => void`     | -        | Called when message received |
+| `onOpen`         | `() => void`         | -        | Called when channel opens    |
+| `onClose`        | `() => void`         | -        | Called when channel closes   |
+
+### Return Value
+
+| Property         | Type                         | Description               |
+| ---------------- | ---------------------------- | ------------------------- |
+| `channel`        | `RTCDataChannel \| null`     | The data channel instance |
+| `readyState`     | `RTCDataChannelState`        | Channel state             |
+| `isOpen`         | `boolean`                    | Whether channel is open   |
+| `send`           | `(data: string) => boolean`  | Send text message         |
+| `sendBinary`     | `(data) => boolean`          | Send binary data          |
+| `sendJSON`       | `<T>(data: T) => boolean`    | Send JSON-serialized data |
+| `messages`       | `DataChannelMessage[]`       | Received messages         |
+| `lastMessage`    | `DataChannelMessage \| null` | Most recent message       |
+| `clearMessages`  | `() => void`                 | Clear message history     |
+| `bufferedAmount` | `number`                     | Bytes waiting to be sent  |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-data-channel" folder="webrtc" />

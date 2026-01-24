@@ -1,0 +1,105 @@
+---
+title: useScreenShare
+description: A hook for screen/window sharing using getDisplayMedia
+---
+
+A React hook for screen/window sharing using the `getDisplayMedia` API. Captures the user's screen, application window, or browser tab with optional system audio.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **Screen Capture** - Capture monitor, window, or browser tab
+- **System Audio** - Optionally capture system audio (tab/screen audio)
+- **Display Surface Detection** - Know if user selected monitor, window, or browser
+- **Auto-Stop** - Automatically stops when user ends share via browser UI
+- **SSR Safe** - No issues with server-side rendering
+
+---
+
+## Basic Usage
+
+Simple screen share with start/stop controls:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseScreenShareExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-screen-share" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Screen Share with Audio
+
+Capture system audio along with the screen:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseScreenShareExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-screen-share" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Picture-in-Picture Mode
+
+Combine screen share with camera for presentation mode:
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseScreenShareExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-screen-share" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useScreenShare(
+    defaultOptions?: UseScreenShareOptions,
+): UseScreenShareReturn;
+```
+
+### Options
+
+| Property        | Type                               | Default | Description                        |
+| --------------- | ---------------------------------- | ------- | ---------------------------------- |
+| `audio`         | `boolean`                          | `false` | Include system audio               |
+| `video`         | `boolean \| MediaTrackConstraints` | `true`  | Video constraints                  |
+| `autoStopOnEnd` | `boolean`                          | `true`  | Stop when user ends via browser UI |
+
+### Return Value
+
+| Property         | Type                             | Description                             |
+| ---------------- | -------------------------------- | --------------------------------------- |
+| `stream`         | `MediaStream \| null`            | The screen share stream                 |
+| `isSharing`      | `boolean`                        | Whether actively sharing                |
+| `isLoading`      | `boolean`                        | Whether share is being acquired         |
+| `error`          | `Error \| null`                  | Error if sharing failed                 |
+| `isSupported`    | `boolean`                        | Whether getDisplayMedia is supported    |
+| `start`          | `(options?) => Promise<boolean>` | Start screen sharing                    |
+| `stop`           | `() => void`                     | Stop sharing                            |
+| `videoTrack`     | `MediaStreamTrack \| null`       | Video track from share                  |
+| `audioTrack`     | `MediaStreamTrack \| null`       | Audio track (if included)               |
+| `displaySurface` | `string \| null`                 | Type: "monitor", "window", or "browser" |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-screen-share" folder="webrtc" />
