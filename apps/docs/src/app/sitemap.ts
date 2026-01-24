@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { source } from "@/lib/source";
+import { getPageImage, source } from "@/lib/source";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const url = "https://r.fiberui.com";
@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.8,
+        images: [getPageImage(page).url],
     }));
 
     return [

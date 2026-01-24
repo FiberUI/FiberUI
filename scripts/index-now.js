@@ -31,7 +31,9 @@ async function submitToIndexNow() {
 
         const endpoints = [
             "https://api.indexnow.org/indexnow",
+            "https://indexnow.amazonbot.amazon/indexnow",
             "https://www.bing.com/indexnow",
+            "https://searchadvisor.naver.com/indexnow",
             "https://search.seznam.cz/indexnow",
             "https://yandex.com/indexnow",
             "https://indexnow.yep.com/indexnow",
@@ -41,7 +43,7 @@ async function submitToIndexNow() {
 
         for (const endpoint of endpoints) {
             try {
-                const response = await fetch(endpoint, {
+                const response = await fetch(`${endpoint}?key=${key}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8",

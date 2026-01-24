@@ -32,10 +32,77 @@ import {
     EmailComposeBlock,
     EmailActionsBlock,
 } from "../../components/showcase/blocks";
+import {
+    WithContext as JsonLdSchema,
+    SoftwareApplication,
+    WebSite,
+} from "schema-dts";
+
+const baseUrl = "https://r.fiberui.com";
+
+const webAppJsonLd: JsonLdSchema<SoftwareApplication> = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "FiberUI",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "All",
+    url: baseUrl,
+    author: {
+        "@type": "Person",
+        name: "Rajat Verma",
+        url: "https://x.com/rajatverma3112",
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "FiberUI",
+        logo: {
+            "@type": "ImageObject",
+            url: `${baseUrl}/logo.svg`,
+        },
+    },
+    abstract:
+        "Fiber UI is a comprehensive library of accessible React components and production-ready hooks. Built with Tailwind CSS and React Aria, it provides a complete stack for building modern, type-safe web applications, including advanced WebRTC hooks for real-time communication.",
+};
+
+const webSiteJsonLd: JsonLdSchema<WebSite> = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "FiberUI",
+    url: baseUrl,
+    author: {
+        "@type": "Person",
+        name: "Rajat Verma",
+
+        url: "https://x.com/rajatverma3112",
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "FiberUI",
+        logo: {
+            "@type": "ImageObject",
+            url: `${baseUrl}/logo.svg`,
+        },
+    },
+
+    abstract:
+        "Fiber UI is a comprehensive library of accessible React components and production-ready hooks. Built with Tailwind CSS and React Aria, it provides a complete stack for building modern, type-safe web applications, including advanced WebRTC hooks for real-time communication.",
+};
 
 export default function ShowcasePage() {
     return (
         <main className="min-h-screen py-12">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(webAppJsonLd),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(webSiteJsonLd),
+                }}
+            />
             <div className="container mx-auto px-4">
                 {/* Hero */}
                 <div className="text-center">
