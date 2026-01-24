@@ -85,6 +85,8 @@ export const metadata: Metadata = {
         canonical: "/",
     },
 };
+
+// Removed JSON-LD schemas
 export default function Layout({ children }: LayoutProps<"/">) {
     return (
         <html
