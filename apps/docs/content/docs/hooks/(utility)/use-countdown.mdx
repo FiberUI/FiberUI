@@ -1,0 +1,93 @@
+---
+title: useCountdown
+description: Manage timer state for countdowns and intervals.
+---
+
+A hook for creating countdown timers, interval counters, and stopwatches. It handles start, stop, reset, and completion callbacks.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Basic Timer
+
+A simple 10-second countdown with start, stop, and reset controls.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCountdownExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-countdown" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## OTP Resend Timer
+
+A pattern often used in authentication flows. The implementation includes an `onComplete` callback.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCountdownExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-countdown" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Session Timer (Stopwatch)
+
+Using the `isIncrement` option to count up, simulating a live session timer.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseCountdownExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-countdown" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useCountdown(
+    countStart: number,
+    options?: UseCountdownOptions,
+): UseCountdownReturn;
+```
+
+### Parameters
+
+| Name         | Type                  | Description                                             |
+| ------------ | --------------------- | ------------------------------------------------------- |
+| `countStart` | `number`              | The starting value of the countdown (in seconds/units). |
+| `options`    | `UseCountdownOptions` | Configuration options for the countdown.                |
+
+### UseCountdownOptions
+
+| Name          | Type         | Default     | Description                                               |
+| ------------- | ------------ | ----------- | --------------------------------------------------------- |
+| `intervalMs`  | `number`     | `1000`      | The interval in milliseconds.                             |
+| `isIncrement` | `boolean`    | `false`     | Whether to increment (count up) instead of decrement.     |
+| `countStop`   | `number`     | `0`         | The value at which the countdown stops.                   |
+| `onComplete`  | `() => void` | `undefined` | Callback function triggered when the countdown completes. |
+
+### UseCountdownReturn
+
+| Name        | Type                         | Description                                                                     |
+| ----------- | ---------------------------- | ------------------------------------------------------------------------------- |
+| `count`     | `number`                     | The current value of the countdown.                                             |
+| `start`     | `(seconds?: number) => void` | Starts the countdown. Optionally accepts a value to override the current count. |
+| `stop`      | `() => void`                 | Pauses/Stops the countdown.                                                     |
+| `reset`     | `() => void`                 | Resets the countdown to the `countStart` value.                                 |
+| `isRunning` | `boolean`                    | Whether the countdown is currently active.                                      |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-countdown" folder="utility" />
