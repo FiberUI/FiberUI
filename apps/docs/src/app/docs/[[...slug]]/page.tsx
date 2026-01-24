@@ -47,8 +47,21 @@ export async function generateMetadata(
     return {
         title: page.data.title,
         description: page.data.description,
+        keywords: page.data.keywords,
         openGraph: {
             images: getPageImage(page).url,
+            title: page.data.title,
+            description: page.data.description,
+            creators: "Rajat Verma",
+            authors: "Rajat Verma",
+        },
+        twitter: {
+            card: "summary_large_image",
+            images: getPageImage(page).url,
+            title: page.data.title,
+            description: page.data.description,
+            creator: "Rajat Verma",
+            creatorId: "@rajatverma3112",
         },
     };
 }
