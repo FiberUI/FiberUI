@@ -1,6 +1,6 @@
 "use client";
 
-import { useNetwork } from "@repo/hooks/utility/use-network";
+import { useNetwork } from "@repo/hooks/device/use-network";
 import { Activity, Radio, Zap, Globe } from "lucide-react";
 
 export const Example2 = () => {

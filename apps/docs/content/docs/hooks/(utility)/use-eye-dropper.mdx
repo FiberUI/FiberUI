@@ -1,0 +1,70 @@
+---
+title: useEyeDropper
+description: A utility hook for selecting colors from anywhere on the screen using the EyeDropper API.
+keywords:
+    ["useEyeDropper", "react hook", "eyedropper api", "color picker", "pipette"]
+---
+
+A React hook that provides access to the [EyeDropper API](https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API), allowing users to sample colors from anywhere on their screen—even outside the browser window.
+
+<Callout type="info" title="Browser Support">
+    This API is currently supported primarily in Chromium-based browsers
+    (Chrome, Edge, Opera) on desktop. It is **not** supported on Firefox or
+    Safari yet. Use `isSupported` to provide a fallback.
+</Callout>
+
+## Features
+
+- **Pick Anywhere** - Select colors from other apps, desktop wallpaper, etc.
+- **Native UI** - Uses the browser's native magnifying glass UI
+- **Support Check** - `isSupported` flag for progressive enhancement
+- **Type Safe** - Fully typed for TypeScript
+
+---
+
+## Basic Usage
+
+A color picker button that samples any pixel on the screen.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEyeDropperExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-eye-dropper" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useEyeDropper(): UseEyeDropperReturn;
+```
+
+### Return Value
+
+| Property      | Type                                              | Description                                       |
+| ------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `open`        | `(options?) => Promise<EyeDropperResult \| null>` | Opens the eye dropper mode. Returns result object |
+| `isSupported` | `boolean`                                         | `true` if EyeDropper API is available             |
+| `isLoading`   | `boolean`                                         | `true` while selecting a color                    |
+| `color`       | `string \| null`                                  | The hex sRGB color string (e.g. `#ff0000`)        |
+| `error`       | `Error \| null`                                   | Error object if selection failed or cancelled     |
+
+### EyeDropperResult
+
+```tsx
+interface EyeDropperResult {
+    sRGBHex: string; // The selected color in hex format
+}
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-eye-dropper" folder="utility" />

@@ -45,6 +45,8 @@ import * as UseThrottledCallbackExamples from "./hooks/examples/use-throttled-ca
 import * as UseCounterExamples from "./hooks/examples/use-counter";
 import * as UseCountdownExamples from "./hooks/examples/use-countdown";
 import * as UseNetworkExamples from "./hooks/examples/use-network";
+import * as UseShareExamples from "./hooks/examples/use-share";
+import * as UseEyeDropperExamples from "./hooks/examples/use-eye-dropper";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -116,6 +118,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseCounterExamples,
         ...UseCountdownExamples,
         ...UseNetworkExamples,
+
+        ...UseShareExamples,
+        ...UseEyeDropperExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,
