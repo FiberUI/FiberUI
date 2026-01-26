@@ -1,20 +1,24 @@
 import { MetadataRoute } from "next";
 import { getPageImage, source } from "@/lib/source";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    const url = "https://r.fiberui.com";
+const BASE_URL = "https://r.fiberui.com";
 
+const getImageUrl = (imgUrl: string) => {
+    return `${BASE_URL}${imgUrl}`;
+};
+
+export default function sitemap(): MetadataRoute.Sitemap {
     const pages = source.getPages().map((page) => ({
-        url: `${url}${page.url}`,
+        url: `${BASE_URL}${page.url}`,
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.8,
-        images: [getPageImage(page).url],
+        images: [getImageUrl(getPageImage(page).url)],
     }));
 
     return [
         {
-            url: url,
+            url: BASE_URL,
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 1,
