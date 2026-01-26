@@ -47,6 +47,8 @@ import * as UseCountdownExamples from "./hooks/examples/use-countdown";
 import * as UseNetworkExamples from "./hooks/examples/use-network";
 import * as UseShareExamples from "./hooks/examples/use-share";
 import * as UseEyeDropperExamples from "./hooks/examples/use-eye-dropper";
+import * as UseDeviceOrientationExamples from "./hooks/examples/use-device-orientation";
+import * as UsePictureInPictureExamples from "./hooks/examples/use-picture-in-picture";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -121,6 +123,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 
         ...UseShareExamples,
         ...UseEyeDropperExamples,
+        ...UseDeviceOrientationExamples,
+        ...UsePictureInPictureExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,

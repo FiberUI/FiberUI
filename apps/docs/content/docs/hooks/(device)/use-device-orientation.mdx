@@ -1,0 +1,76 @@
+---
+title: useDeviceOrientation
+description: A hook to access the device's physical orientation (tilt) relative to the Earth's frame of reference.
+keywords:
+    [
+        "useDeviceOrientation",
+        "react hook",
+        "device orientation",
+        "gyroscope",
+        "tilt",
+        "accelerometer",
+    ]
+---
+
+A React hook that provides real-time access to the device's physical orientation using the [DeviceOrientation Event](https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent). Used for games, parallax effects, or augmented reality.
+
+<Callout type="info" title="Browser Support">
+    Checks for `isSupported`. Use `requestPermission` for iOS 13+ devices which
+    require user interaction to grant access to motion sensors.
+</Callout>
+
+## Features
+
+- **Real-time Updates** - Tracks alpha, beta, and gamma rotation values
+- **IOS Support** - Handles permission request flow for iOS 13+
+- **Type Safe** - Fully typed return values
+- **SSR Safe** - Works safely with server-side rendering
+
+---
+
+## Basic Usage
+
+Display the current device orientation data. (Try this on a mobile device!)
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseDeviceOrientationExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-device-orientation" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useDeviceOrientation(): UseDeviceOrientationReturn;
+```
+
+### Return Value
+
+| Property            | Type                     | Description                                           |
+| ------------------- | ------------------------ | ----------------------------------------------------- |
+| `orientation`       | `DeviceOrientationState` | Object containing `alpha`, `beta`, `gamma` values     |
+| `error`             | `Error \| null`          | Error object if permission denied or unsupported      |
+| `requestPermission` | `() => Promise<boolean>` | Request permission (iOS 13+). Returns true if granted |
+| `isSupported`       | `boolean`                | `true` if DeviceOrientation API is available          |
+
+### DeviceOrientationState
+
+```tsx
+interface DeviceOrientationState {
+    alpha: number | null; // Z axis (0 to 360)
+    beta: number | null; // X axis (-180 to 180) - Front/Back Tilt
+    gamma: number | null; // Y axis (-90 to 90) - Left/Right Tilt
+    absolute: boolean; // Whether values are absolute (Earth coords)
+}
+```
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-device-orientation" folder="device" />

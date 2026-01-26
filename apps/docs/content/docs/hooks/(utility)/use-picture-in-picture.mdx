@@ -1,0 +1,62 @@
+---
+title: usePictureInPicture
+description: A utility hook for managing Picture-in-Picture mode for video elements.
+keywords: ["usePictureInPicture", "react hook", "pip", "video", "media"]
+---
+
+A React hook that allows you to easily toggle Picture-in-Picture mode for HTML video elements, enabling a floating video window that stays on top of other content.
+
+<Callout type="info" title="Browser Support">
+    Supported by most modern desktop browsers (Chrome, Edge, Safari, Firefox).
+    Mobile support varies (especially on iOS where it's native behavior).
+</Callout>
+
+## Features
+
+- **Toggle Mode** - Easily enter or exit PiP mode
+- **State Tracking** - Tracks whether PiP is currently active
+- **Event Listeners** - Updates state even when PiP is toggled via browser UI
+- **Type Safe** - Fully typed for TypeScript
+- **SSR Safe** - Works safely with server-side rendering
+
+---
+
+## Basic Usage
+
+A simple video player with a custom button to toggle Picture-in-Picture mode.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePictureInPictureExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-picture-in-picture" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function usePictureInPicture(): UsePictureInPictureReturn;
+```
+
+### Return Value
+
+| Property      | Type                                     | Description                                             |
+| ------------- | ---------------------------------------- | ------------------------------------------------------- |
+| `isActive`    | `boolean`                                | `true` if Picture-in-Picture mode is active             |
+| `isSupported` | `boolean`                                | `true` if PiP API is supported by the browser           |
+| `toggle`      | `(element: HTMLVideoElement) => Promise` | Toggles PiP mode for the given video element            |
+| `enter`       | `(element: HTMLVideoElement) => Promise` | Enters PiP mode for the given video element             |
+| `exit`        | `() => Promise`                          | Exits PiP mode                                          |
+| `window`      | `PictureInPictureWindow \| null`         | The PiP window object (if active) containing dimensions |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-picture-in-picture" folder="utility" />
