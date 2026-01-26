@@ -1,6 +1,26 @@
 import { useState, useCallback, useEffect } from "react";
 
 /**
+ * Options for the useTrackToggle hook
+ */
+export interface UseTrackToggleOptions {
+    /**
+     * Mode for toggling tracks:
+     * - 'mute': Sets track.enabled (default, keeps hardware on, allows instant toggle)
+     * - 'stop': Stops track entirely (turns hardware off, requires restart via callback)
+     */
+    mode?: "mute" | "stop";
+    /** Callback to restart video when mode is 'stop' (must return Promise) */
+    onRestartVideo?: () => Promise<boolean>;
+    /** Callback to restart audio when mode is 'stop' */
+    onRestartAudio?: () => Promise<boolean>;
+    /** Callback when video is stopped in 'stop' mode */
+    onStopVideo?: () => void;
+    /** Callback when audio is stopped in 'stop' mode */
+    onStopAudio?: () => void;
+}
+
+/**
  * Return type for the useTrackToggle hook
  */
 export interface UseTrackToggleReturn {
@@ -48,9 +68,20 @@ export interface UseTrackToggleReturn {
  */
 export function useTrackToggle(
     stream: MediaStream | null,
+    options: UseTrackToggleOptions = {},
 ): UseTrackToggleReturn {
+    const {
+        mode = "mute",
+        onRestartVideo,
+        onRestartAudio,
+        onStopVideo,
+        onStopAudio,
+    } = options;
+
     const [isAudioEnabled, setIsAudioEnabled] = useState(true);
     const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+    const [isTogglingVideo, setIsTogglingVideo] = useState(false);
+    const [isTogglingAudio, setIsTogglingAudio] = useState(false);
 
     // Sync with actual track states when stream changes
     useEffect(() => {
@@ -65,49 +96,93 @@ export function useTrackToggle(
 
         if (audioTrack) {
             setIsAudioEnabled(audioTrack.enabled);
+        } else {
+            // No audio track means it's paused/stopped
+            setIsAudioEnabled(false);
         }
         if (videoTrack) {
             setIsVideoEnabled(videoTrack.enabled);
+        } else {
+            // No video track means it's paused/stopped
+            setIsVideoEnabled(false);
         }
     }, [stream]);
 
     // Set audio enabled state
     const setAudioEnabled = useCallback(
-        (enabled: boolean) => {
+        async (enabled: boolean) => {
             if (!stream) return;
 
-            const audioTracks = stream.getAudioTracks();
-            audioTracks.forEach((track) => {
-                track.enabled = enabled;
-            });
-            setIsAudioEnabled(enabled);
+            if (mode === "stop") {
+                // Stop mode: actually stop/restart tracks
+                if (!enabled) {
+                    const audioTracks = stream.getAudioTracks();
+                    audioTracks.forEach((track) => {
+                        track.stop();
+                    });
+                    onStopAudio?.();
+                    setIsAudioEnabled(false);
+                } else if (onRestartAudio) {
+                    setIsTogglingAudio(true);
+                    const success = await onRestartAudio();
+                    setIsAudioEnabled(success);
+                    setIsTogglingAudio(false);
+                }
+            } else {
+                // Mute mode: just toggle enabled property
+                const audioTracks = stream.getAudioTracks();
+                audioTracks.forEach((track) => {
+                    track.enabled = enabled;
+                });
+                setIsAudioEnabled(enabled);
+            }
         },
-        [stream],
+        [stream, mode, onRestartAudio, onStopAudio],
     );
 
     // Set video enabled state
     const setVideoEnabled = useCallback(
-        (enabled: boolean) => {
+        async (enabled: boolean) => {
             if (!stream) return;
 
-            const videoTracks = stream.getVideoTracks();
-            videoTracks.forEach((track) => {
-                track.enabled = enabled;
-            });
-            setIsVideoEnabled(enabled);
+            if (mode === "stop") {
+                // Stop mode: actually stop/restart tracks
+                if (!enabled) {
+                    const videoTracks = stream.getVideoTracks();
+                    videoTracks.forEach((track) => {
+                        track.stop();
+                    });
+                    onStopVideo?.();
+                    setIsVideoEnabled(false);
+                } else if (onRestartVideo) {
+                    setIsTogglingVideo(true);
+                    const success = await onRestartVideo();
+                    setIsVideoEnabled(success);
+                    setIsTogglingVideo(false);
+                }
+            } else {
+                // Mute mode: just toggle enabled property
+                const videoTracks = stream.getVideoTracks();
+                videoTracks.forEach((track) => {
+                    track.enabled = enabled;
+                });
+                setIsVideoEnabled(enabled);
+            }
         },
-        [stream],
+        [stream, mode, onRestartVideo, onStopVideo],
     );
 
     // Toggle audio
     const toggleAudio = useCallback(() => {
+        if (isTogglingAudio) return; // Prevent double-toggle during async restart
         setAudioEnabled(!isAudioEnabled);
-    }, [isAudioEnabled, setAudioEnabled]);
+    }, [isAudioEnabled, setAudioEnabled, isTogglingAudio]);
 
     // Toggle video
     const toggleVideo = useCallback(() => {
+        if (isTogglingVideo) return; // Prevent double-toggle during async restart
         setVideoEnabled(!isVideoEnabled);
-    }, [isVideoEnabled, setVideoEnabled]);
+    }, [isVideoEnabled, setVideoEnabled, isTogglingVideo]);
 
     // Mute all tracks
     const muteAll = useCallback(() => {

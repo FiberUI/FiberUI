@@ -1,0 +1,79 @@
+---
+title: useShare
+description: A utility hook for invoking the native mobile/desktop share sheet.
+keywords:
+    ["useShare", "react hook", "web share api", "share sheet", "mobile share"]
+---
+
+A React hook that provides access to the [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API), allowing you to trigger the native share mechanism of the device (like the share sheet on iOS/Android).
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Requirements">
+    - Requires **HTTPS** (secure context). - Requires **User Interaction**
+    (click handler) to trigger. - Support varies by browser/OS (mostly Mobile +
+    Safari desktop).
+</Callout>
+
+## Features
+
+- **Native Experience** - Triggers the system share sheet users are familiar with
+- **File Sharing** - Supports sharing files (images, pdfs, etc)
+- **Support Check** - `isSupported` flag to conditionally render UI
+- **Cancellation Handling** - Gracefully handles user cancellation
+- **SSR Safe** - Works safely with server-side rendering
+
+---
+
+## Basic Usage
+
+Share a title, text, and URL. This works on most mobile browsers and Safari on macOS.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseShareExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-share" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useShare(): UseShareReturn;
+```
+
+### ShareData Interface
+
+```tsx
+interface ShareData {
+    title?: string; // Title of the shared content
+    text?: string; // Description text
+    url?: string; // URL to share
+    files?: File[]; // Array of File objects to share
+}
+```
+
+### Return Value
+
+| Property      | Type                                    | Description                                            |
+| ------------- | --------------------------------------- | ------------------------------------------------------ |
+| `share`       | `(data: ShareData) => Promise<boolean>` | Triggers share sheet. Returns `true` if successful     |
+| `isSupported` | `boolean`                               | `true` if Web Share API is available on current device |
+| `isSharing`   | `boolean`                               | `true` while the share sheet is open (some browsers)   |
+| `canShare`    | `(data: ShareData) => boolean`          | Checks if specific data (like files) can be shared     |
+| `error`       | `Error \| null`                         | Error object if share failed or was cancelled          |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-share" folder="utility" />

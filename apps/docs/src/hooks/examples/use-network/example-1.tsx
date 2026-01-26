@@ -1,10 +1,10 @@
 "use client";
 
-import { useNetwork } from "@repo/hooks/utility/use-network";
+import { useNetwork } from "@repo/hooks/device/use-network";
 import { Wifi, WifiOff } from "lucide-react";
 
 export const Example1 = () => {
-    const { online, ...rest } = useNetwork();
+    const { online } = useNetwork();
 
     return (
         <div

@@ -130,6 +130,13 @@ export function useAudioLevel(
             const audioContext = new AudioContextClass();
             audioContextRef.current = audioContext;
 
+            // Resume context if suspended (browsers require user gesture)
+            if (audioContext.state === "suspended") {
+                audioContext.resume().catch(() => {
+                    console.warn("Failed to resume AudioContext");
+                });
+            }
+
             // Create analyser node
             const analyser = audioContext.createAnalyser();
             analyser.fftSize = 256;
@@ -143,6 +150,11 @@ export function useAudioLevel(
 
             // Start sampling at interval
             intervalRef.current = setInterval(() => {
+                // Ensure context is running
+                if (audioContextRef.current?.state === "suspended") {
+                    audioContextRef.current.resume().catch(() => {});
+                }
+
                 const rawLevel = calculateLevel();
 
                 // Apply smoothing

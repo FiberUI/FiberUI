@@ -35,6 +35,7 @@ import * as UseSessionStorageStateExamples from "./hooks/examples/use-session-st
 import * as UseIsMountedExamples from "./hooks/examples/use-is-mounted";
 import * as UseBatteryExamples from "./hooks/examples/use-battery";
 import * as UseIndexedDBExamples from "./hooks/examples/use-indexed-db";
+import * as UseFileSystemExamples from "./hooks/examples/use-file-system";
 import * as UseMediaDevicesExamples from "./hooks/examples/use-media-devices";
 import * as UseGeolocationExamples from "./hooks/examples/use-geolocation";
 import * as UseClipboardExamples from "./hooks/examples/use-clipboard";
@@ -45,6 +46,11 @@ import * as UseThrottledCallbackExamples from "./hooks/examples/use-throttled-ca
 import * as UseCounterExamples from "./hooks/examples/use-counter";
 import * as UseCountdownExamples from "./hooks/examples/use-countdown";
 import * as UseNetworkExamples from "./hooks/examples/use-network";
+import * as UseShareExamples from "./hooks/examples/use-share";
+import * as UseEyeDropperExamples from "./hooks/examples/use-eye-dropper";
+import * as UseDeviceOrientationExamples from "./hooks/examples/use-device-orientation";
+import * as UseWakeLockExamples from "./hooks/examples/use-wake-lock";
+import * as UsePictureInPictureExamples from "./hooks/examples/use-picture-in-picture";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -106,6 +112,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseIsMountedExamples,
         ...UseBatteryExamples,
         ...UseIndexedDBExamples,
+        ...UseFileSystemExamples,
         ...UseMediaDevicesExamples,
         ...UseGeolocationExamples,
         ...UseClipboardExamples,
@@ -116,6 +123,12 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseCounterExamples,
         ...UseCountdownExamples,
         ...UseNetworkExamples,
+
+        ...UseShareExamples,
+        ...UseEyeDropperExamples,
+        ...UseDeviceOrientationExamples,
+        ...UseWakeLockExamples,
+        ...UsePictureInPictureExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,

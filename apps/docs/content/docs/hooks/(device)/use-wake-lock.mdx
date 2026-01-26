@@ -1,0 +1,68 @@
+---
+title: useWakeLock
+description: A device hook for the Screen Wake Lock API to prevent the screen from turning off.
+keywords:
+    [
+        "useWakeLock",
+        "react hook",
+        "screen wake lock",
+        "prevent sleep",
+        "display",
+    ]
+---
+
+A React hook that provides access to the [Screen Wake Lock API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API), allowing you to prevent the device screen from dimming or locking. Perfect for recipe apps, presentation tools, or map navigation.
+
+<Callout type="info" title="Browser Support">
+    Checks for `isSupported`. Note that the lock is automatically released if
+    the page loses visibility (e.g., user switches tabs or minimizes window).
+</Callout>
+
+## Features
+
+- **Prevent Sleep** - Keep screen active
+- **Auto Release** - Detects when system releases lock (visibility change)
+- **Error Handling** - Handles permission denials or battery saver mode restrictions
+- **Type Safe** - Fully typed for TypeScript
+- **SSR Safe** - Works safely with server-side rendering
+
+---
+
+## Basic Usage
+
+A toggle to keep the screen awake.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWakeLockExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-wake-lock" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useWakeLock(): UseWakeLockReturn;
+```
+
+### Return Value
+
+| Property      | Type                     | Description                                     |
+| ------------- | ------------------------ | ----------------------------------------------- |
+| `isActive`    | `boolean`                | `true` if verify the wake lock is active        |
+| `isSupported` | `boolean`                | `true` if Screen Wake Lock API is supported     |
+| `request`     | `() => Promise<boolean>` | Requests the wake lock. Returns true if granted |
+| `release`     | `() => Promise<boolean>` | Manualy releases the wake lock                  |
+| `error`       | `Error \| null`          | Error object if request fails                   |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-wake-lock" folder="device" />
