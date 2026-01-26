@@ -1,5 +1,5 @@
 ---
-title: Hooks
+title: React Hooks
 description: Explore our collection of production-ready React hooks. Includes storage utilities, device hardware access, and a full suite of WebRTC primitives for real-time apps.
 keywords:
     ["react hooks", "hooks", "custom hooks", "library", "utility", "webrtc"]
@@ -28,6 +28,8 @@ Hooks for persisting data in browser storage:
 | **API Style**     | Synchronous            | Synchronous              | Asynchronous         |
 | **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  |
 
+---
+
 ## Device
 
 Hooks for accessing device capabilities and hardware:
@@ -37,6 +39,8 @@ Hooks for accessing device capabilities and hardware:
 | [useBattery](/docs/hooks/use-battery)            | Access real-time battery information    |
 | [useMediaDevices](/docs/hooks/use-media-devices) | List cameras, microphones, and speakers |
 | [useGeolocation](/docs/hooks/use-geolocation)    | Get device location using GPS or Wi-Fi  |
+
+---
 
 ## Utility
 
@@ -50,3 +54,32 @@ General-purpose utility hooks:
 | [useDebouncedCallback](/docs/hooks/use-debounced-callback) | Debounce callback functions               |
 | [useThrottledState](/docs/hooks/use-throttled-state)       | Throttle state values                     |
 | [useThrottledCallback](/docs/hooks/use-throttled-callback) | Throttle callback functions               |
+| [useCounter](/docs/hooks/use-counter)                      | Increment/decrement counter with bounds   |
+| [useCountdown](/docs/hooks/use-countdown)                  | Countdown timer with callbacks            |
+| [useNetwork](/docs/hooks/use-network)                      | Monitor network connection status         |
+
+---
+
+## WebRTC
+
+Hooks for building real-time communication apps:
+
+| Hook                                                 | Description                                 |
+| ---------------------------------------------------- | ------------------------------------------- |
+| [useUserMedia](/docs/hooks/use-user-media)           | Access camera and microphone                |
+| [usePeerConnection](/docs/hooks/use-peer-connection) | Manage WebRTC peer connections              |
+| [useTrackToggle](/docs/hooks/use-track-toggle)       | Mute/unmute audio and video tracks          |
+| [useScreenShare](/docs/hooks/use-screen-share)       | Share screen, window, or browser tab        |
+| [useAudioLevel](/docs/hooks/use-audio-level)         | Detect audio levels for speaking indicators |
+| [useDataChannel](/docs/hooks/use-data-channel)       | Send/receive data over peer connections     |
+
+### Comparison
+
+| Hook                | Purpose                  | Returns                         |
+| ------------------- | ------------------------ | ------------------------------- |
+| `useUserMedia`      | Get local camera/mic     | `stream`, `start`, `stop`       |
+| `usePeerConnection` | WebRTC signaling         | `createOffer`, `addTrack`, etc. |
+| `useTrackToggle`    | Mute controls            | `toggleAudio`, `toggleVideo`    |
+| `useScreenShare`    | Screen capture           | `stream`, `isSharing`           |
+| `useAudioLevel`     | Voice activity detection | `level`, `isSpeaking`           |
+| `useDataChannel`    | P2P messaging            | `send`, `messages`              |

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useUserMedia } from "@repo/hooks/webrtc/use-user-media";
-import { useMediaDevices } from "@repo/hooks/webrtc/use-media-devices";
+import { useMediaDevices } from "@repo/hooks/device/use-media-devices";
 import { Button } from "@repo/ui/components/button";
 import { Camera, Mic, RefreshCw } from "lucide-react";
 

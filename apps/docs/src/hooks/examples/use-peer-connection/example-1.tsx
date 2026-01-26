@@ -182,15 +182,16 @@ const CallerComponent = ({ onReset }: { onReset: () => void }) => {
             <div className="grid gap-4 md:grid-cols-2">
                 {/* Local Video */}
                 <div className="relative aspect-video overflow-hidden rounded-lg bg-zinc-900">
-                    {isActive && isVideoEnabled ? (
-                        <video
-                            ref={localVideoRef}
-                            autoPlay
-                            playsInline
-                            muted
-                            className="h-full w-full scale-x-[-1] object-cover"
-                        />
-                    ) : (
+                    <video
+                        ref={localVideoRef}
+                        autoPlay
+                        playsInline
+                        muted
+                        className={`h-full w-full scale-x-[-1] object-cover ${
+                            !isActive || !isVideoEnabled ? "hidden" : ""
+                        }`}
+                    />
+                    {(!isActive || !isVideoEnabled) && (
                         <div className="flex h-full flex-col items-center justify-center gap-2 text-zinc-500">
                             <VideoOff className="h-8 w-8" />
                             <span className="text-xs">

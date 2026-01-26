@@ -46,6 +46,18 @@ export interface UseUserMediaReturn {
     audioTrack: MediaStreamTrack | null;
     /** Get the current video track */
     videoTrack: MediaStreamTrack | null;
+    /** Pause video track (stops camera hardware) */
+    pauseVideo: () => void;
+    /** Resume video track (restarts camera) */
+    resumeVideo: () => Promise<boolean>;
+    /** Whether video is currently paused */
+    isVideoPaused: boolean;
+    /** Pause audio track (stops microphone) */
+    pauseAudio: () => void;
+    /** Resume audio track (restarts microphone) */
+    resumeAudio: () => Promise<boolean>;
+    /** Whether audio is currently paused */
+    isAudioPaused: boolean;
 }
 
 /**
@@ -77,6 +89,8 @@ export function useUserMedia(
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
+    const [isVideoPaused, setIsVideoPaused] = useState(false);
+    const [isAudioPaused, setIsAudioPaused] = useState(false);
     const streamRef = useRef<MediaStream | null>(null);
     const requestRef = useRef<number>(0);
     const constraintsRef = useRef<UseUserMediaConstraints>(
@@ -194,6 +208,88 @@ export function useUserMedia(
         [start],
     );
 
+    // Pause video (stops camera hardware - light turns off)
+    const pauseVideo = useCallback(() => {
+        if (!streamRef.current) return;
+
+        const videoTracks = streamRef.current.getVideoTracks();
+        videoTracks.forEach((track) => {
+            track.stop();
+            streamRef.current?.removeTrack(track);
+        });
+        setIsVideoPaused(true);
+        // Trigger re-render with updated stream
+        setStream(streamRef.current);
+    }, []);
+
+    // Resume video (restarts camera)
+    const resumeVideo = useCallback(async (): Promise<boolean> => {
+        if (!streamRef.current || !isSupported) return false;
+
+        try {
+            const videoConstraints = constraintsRef.current.video;
+            if (!videoConstraints) return false;
+
+            const newStream = await navigator.mediaDevices.getUserMedia({
+                video: videoConstraints,
+                audio: false,
+            });
+
+            const newVideoTrack = newStream.getVideoTracks()[0];
+            if (newVideoTrack && streamRef.current) {
+                streamRef.current.addTrack(newVideoTrack);
+                setIsVideoPaused(false);
+                // Trigger re-render with updated stream
+                setStream(streamRef.current);
+                return true;
+            }
+            return false;
+        } catch (err) {
+            console.error("Failed to resume video:", err);
+            return false;
+        }
+    }, [isSupported]);
+
+    // Pause audio (stops microphone)
+    const pauseAudio = useCallback(() => {
+        if (!streamRef.current) return;
+
+        const audioTracks = streamRef.current.getAudioTracks();
+        audioTracks.forEach((track) => {
+            track.stop();
+            streamRef.current?.removeTrack(track);
+        });
+        setIsAudioPaused(true);
+        setStream(streamRef.current);
+    }, []);
+
+    // Resume audio (restarts microphone)
+    const resumeAudio = useCallback(async (): Promise<boolean> => {
+        if (!streamRef.current || !isSupported) return false;
+
+        try {
+            const audioConstraints = constraintsRef.current.audio;
+            if (!audioConstraints) return false;
+
+            const newStream = await navigator.mediaDevices.getUserMedia({
+                audio: audioConstraints,
+                video: false,
+            });
+
+            const newAudioTrack = newStream.getAudioTracks()[0];
+            if (newAudioTrack && streamRef.current) {
+                streamRef.current.addTrack(newAudioTrack);
+                setIsAudioPaused(false);
+                setStream(streamRef.current);
+                return true;
+            }
+            return false;
+        } catch (err) {
+            console.error("Failed to resume audio:", err);
+            return false;
+        }
+    }, [isSupported]);
+
     // Auto-start on mount if enabled
     useEffect(() => {
         if (autoStart && isSupported) {
@@ -222,6 +318,12 @@ export function useUserMedia(
         switchVideoDevice,
         audioTrack,
         videoTrack,
+        pauseVideo,
+        resumeVideo,
+        isVideoPaused,
+        pauseAudio,
+        resumeAudio,
+        isAudioPaused,
     };
 }
 

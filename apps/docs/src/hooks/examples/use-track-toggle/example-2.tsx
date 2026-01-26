@@ -24,15 +24,16 @@ export const Example2 = () => {
         <div className="flex w-full max-w-md flex-col gap-4">
             {/* Video */}
             <div className="relative aspect-video overflow-hidden rounded-xl bg-zinc-900">
-                {isActive && isVideoEnabled ? (
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        playsInline
-                        muted
-                        className="h-full w-full scale-x-[-1] object-cover"
-                    />
-                ) : (
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className={`h-full w-full scale-x-[-1] object-cover ${
+                        !isActive || !isVideoEnabled ? "hidden" : ""
+                    }`}
+                />
+                {(!isActive || !isVideoEnabled) && (
                     <div className="flex h-full items-center justify-center">
                         <div className="bg-linear-to-br flex h-20 w-20 items-center justify-center rounded-full from-blue-500 to-purple-600 text-2xl font-bold text-white">
                             U
