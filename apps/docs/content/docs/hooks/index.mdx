@@ -16,17 +16,18 @@ Hooks for persisting data in browser storage:
 | [useLocalStorageState](/docs/hooks/use-local-storage-state)     | Sync state with localStorage (persistent) |
 | [useSessionStorageState](/docs/hooks/use-session-storage-state) | Sync state with sessionStorage (per-tab)  |
 | [useIndexedDB](/docs/hooks/use-indexed-db)                      | Store large data in IndexedDB             |
+| [useFileSystem](/docs/hooks/use-file-system)                    | Read/Write files to local disk            |
 
 ### Comparison
 
-| Feature           | `useLocalStorageState` | `useSessionStorageState` | `useIndexedDB`       |
-| ----------------- | ---------------------- | ------------------------ | -------------------- |
-| **Storage Limit** | ~5MB per origin        | ~5MB per origin          | GBs (quota-based)    |
-| **Data Types**    | JSON serializable      | JSON serializable        | Any (objects, blobs) |
-| **Persistence**   | Forever                | Until tab closes         | Forever              |
-| **Cross-tab**     | Syncs                  | Isolated                 | Shared               |
-| **API Style**     | Synchronous            | Synchronous              | Asynchronous         |
-| **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  |
+| Feature           | `useLocalStorageState` | `useSessionStorageState` | `useIndexedDB`       | `useFileSystem`   |
+| ----------------- | ---------------------- | ------------------------ | -------------------- | ----------------- |
+| **Storage Limit** | ~5MB per origin        | ~5MB per origin          | GBs (quota-based)    | Disk Capacity     |
+| **Data Types**    | JSON serializable      | JSON serializable        | Any (objects, blobs) | Files/Blobs       |
+| **Persistence**   | Forever                | Until tab closes         | Forever              | Forever (Manual)  |
+| **Cross-tab**     | Syncs                  | Isolated                 | Shared               | N/A               |
+| **API Style**     | Synchronous            | Synchronous              | Asynchronous         | Asynchronous      |
+| **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  | Documents/Editors |
 
 ---
 

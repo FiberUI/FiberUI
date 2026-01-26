@@ -1,0 +1,85 @@
+---
+title: useFileSystem
+description: A storage hook for reading and writing files directly to the user's local file system.
+keywords:
+    [
+        "useFileSystem",
+        "react hook",
+        "file system access api",
+        "read file",
+        "write file",
+        "save",
+    ]
+---
+
+A React hook that provides access to the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API), enabling web apps to read, write, and save changes directly to files and directories on the user's device.
+
+<Callout type="warn" title="Browser Support">
+    This API is currently supported primarily in Desktop Chrome, Edge, and
+    Opera. Firefox and Safari have limited or no support. Always check
+    `isSupported` before using.
+</Callout>
+
+## Features
+
+- **Read/Write** - Open files, read content, and write changes back
+- **Save As** - Create new files with the "Save As" picker
+- **File Handles** - Maintains persistent handles to files for subsequent writes
+- **SSR Safe** - Works safely with server-side rendering
+
+---
+
+## Basic Usage
+
+A simple text editor that can open local files, edit them, and save changes back to disk.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFileSystemExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-file-system" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useFileSystem(): UseFileSystemReturn;
+```
+
+### Return Value
+
+| Property      | Type                                      | Description                                          |
+| ------------- | ----------------------------------------- | ---------------------------------------------------- |
+| `openFile`    | `(options?) => Promise<File \| null>`     | Opens file picker and loads selected file            |
+| `saveFile`    | `(content) => Promise<boolean>`           | Saves content to the currently open file handle      |
+| `saveFileAs`  | `(content, options?) => Promise<boolean>` | Opens "Save As" picker and saves content to new file |
+| `file`        | `File \| null`                            | The currently loaded File object                     |
+| `fileHandle`  | `FileSystemFileHandle \| null`            | The persistent handle for the open file              |
+| `isSupported` | `boolean`                                 | `true` if File System Access API is supported        |
+| `isLoading`   | `boolean`                                 | `true` during file operations                        |
+| `error`       | `Error \| null`                           | Error object if an operation fails                   |
+
+### Options
+
+```tsx
+interface OpenFileOptions {
+    types?: FilePickerAcceptType[]; // Allowed file types
+    multiple?: boolean; // Allow multiple selection (returns first currently)
+    description?: string; // Description for picker
+}
+
+interface SaveFileOptions {
+    suggestedName?: string; // Default file name
+    types?: FilePickerAcceptType[]; // Allowed file types
+}
+```
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-file-system" folder="storage" />
