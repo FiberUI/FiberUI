@@ -99,7 +99,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                 name: item.data.title,
                 url: `${baseUrl}${item.url}`,
                 description: item.data.description,
-                image: getPageImage(item).url,
+                image: `${baseUrl}${getPageImage(item).url}`,
                 author: {
                     "@type": "Person",
                     name: "Rajat Verma",
