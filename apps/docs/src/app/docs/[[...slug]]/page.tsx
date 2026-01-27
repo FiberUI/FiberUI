@@ -14,6 +14,7 @@ import {
     BreadcrumbList,
     WithContext as JsonLdSchema,
     TechArticle,
+    ItemList,
 } from "schema-dts";
 
 const BASE_URL = "https://r.fiberui.com";
@@ -27,6 +28,8 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
     const MDX = page.data.body;
 
     const baseUrl = BASE_URL;
+
+    console.log({ slug: params.slug });
 
     const url = `${baseUrl}/docs/${params.slug?.join("/") || ""}`;
 
@@ -73,6 +76,47 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
             })) || [],
     };
 
+    const isIndexPage =
+        params.slug &&
+        params.slug.length === 1 &&
+        ["components", "hooks"].includes(params.slug[0]!);
+
+    let itemListJsonLd: JsonLdSchema<ItemList> | null = null;
+
+    if (isIndexPage) {
+        const category = params.slug![0];
+        const pages = source.getPages().filter((p) => {
+            return p.slugs.length === 2 && p.slugs[0] === category;
+        });
+        console.log({ pages });
+
+        itemListJsonLd = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListElement: pages.map((item, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: item.data.title,
+                url: `${baseUrl}${item.url}`,
+                description: item.data.description,
+                image: getPageImage(item).url,
+                author: {
+                    "@type": "Person",
+                    name: "Rajat Verma",
+                    url: "https://www.linkedin.com/in/rajatverma311201/",
+                },
+                publisher: {
+                    "@type": "Organization",
+                    name: "FiberUI",
+                    logo: {
+                        "@type": "ImageObject",
+                        url: `${baseUrl}/logo.svg`,
+                    },
+                },
+            })),
+        };
+    }
+
     return (
         <DocsPage toc={page.data.toc} full={page.data.full}>
             <script
@@ -87,6 +131,14 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                     __html: JSON.stringify(breadcrumbJsonLd),
                 }}
             />
+            {itemListJsonLd ? (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(itemListJsonLd),
+                    }}
+                />
+            ) : null}
 
             <DocsTitle>{page.data.title}</DocsTitle>
             <DocsDescription>{page.data.description}</DocsDescription>
