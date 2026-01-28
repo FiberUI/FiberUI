@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-session-storage-state",
+  "type": "registry:hook",
+  "title": "useSessionStorageState",
+  "description": "A hook that synchronizes state with sessionStorage.",
+  "categories": [
+    "storage"
+  ],
+  "files": [
+    {
+      "path": "storage/use-session-storage-state.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect, useCallback } from \"react\";\n\ntype SetValue<T> = T | ((prevValue: T) => T);\n\n/**\n * Return type for useSessionStorageState hook\n */\nexport type UseSessionStorageStateReturn<T> = [\n    T,\n    (value: SetValue<T>) => void,\n    boolean,\n];\n\n/**\n * A React hook that syncs state with sessionStorage.\n * - SSR safe: Returns initialValue during server-side rendering\n * - Type-safe: Accepts generic type parameter\n * - Handles JSON serialization/deserialization automatically\n *\n * Note: Unlike localStorage, sessionStorage is not shared across tabs,\n * so this hook does not include cross-tab synchronization.\n *\n * @param key - The sessionStorage key to sync with\n * @param initialValue - The initial value to use if no stored value exists\n * @returns A tuple of [value, setValue, isLoading]\n */\nexport function useSessionStorageState<T>(\n    key: string,\n    initialValue: T,\n): UseSessionStorageStateReturn<T> {\n    const [isLoading, setIsLoading] = useState(true);\n    const [storedValue, setStoredValue] = useState<T>(initialValue);\n\n    // Hydrate from sessionStorage on mount\n    useEffect(() => {\n        try {\n            const item = sessionStorage.getItem(key);\n            if (item !== null) {\n                setStoredValue(JSON.parse(item) as T);\n            }\n        } catch (error) {\n            console.warn(`Error reading sessionStorage key \"${key}\":`, error);\n        } finally {\n            setIsLoading(false);\n        }\n    }, [key]);\n\n    // Update sessionStorage when value changes\n    const setValue = useCallback(\n        (value: SetValue<T>) => {\n            try {\n                setStoredValue((prev) => {\n                    const valueToStore =\n                        value instanceof Function ? value(prev) : value;\n\n                    if (typeof window !== \"undefined\") {\n                        sessionStorage.setItem(\n                            key,\n                            JSON.stringify(valueToStore),\n                        );\n                    }\n\n                    return valueToStore;\n                });\n            } catch (error) {\n                console.warn(\n                    `Error setting sessionStorage key \"${key}\":`,\n                    error,\n                );\n            }\n        },\n        [key],\n    );\n\n    return [storedValue, setValue, isLoading];\n}\n\nexport default useSessionStorageState;\n"
+    }
+  ]
+}

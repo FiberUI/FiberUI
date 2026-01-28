@@ -29,8 +29,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
     const baseUrl = BASE_URL;
 
-    console.log({ slug: params.slug });
-
     const url = `${baseUrl}/docs/${params.slug?.join("/") || ""}`;
 
     const articleContent = await page.data.getText("processed");
@@ -88,7 +86,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
         const pages = source.getPages().filter((p) => {
             return p.slugs.length === 2 && p.slugs[0] === category;
         });
-        console.log({ pages });
 
         itemListJsonLd = {
             "@context": "https://schema.org",

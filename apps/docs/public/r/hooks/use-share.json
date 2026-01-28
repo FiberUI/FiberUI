@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-share",
+  "type": "registry:hook",
+  "title": "useShare",
+  "description": "A utility hook for invoking the native share sheet.",
+  "categories": [
+    "utility"
+  ],
+  "files": [
+    {
+      "path": "utility/use-share.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useCallback } from \"react\";\n\n/**\n * Options for the share data\n */\nexport interface ShareData {\n    /** Title of the shared content */\n    title?: string;\n    /** Text description of the shared content */\n    text?: string;\n    /** URL to share */\n    url?: string;\n    /** Array of files to share */\n    files?: File[];\n}\n\n/**\n * Return type for the useShare hook\n */\nexport interface UseShareReturn {\n    /** Share data using the native share sheet */\n    share: (data: ShareData) => Promise<boolean>;\n    /** Whether sharing is supported */\n    isSupported: boolean;\n    /** Whether a share operation is in progress */\n    isSharing: boolean;\n    /** Error from the last share attempt */\n    error: Error | null;\n    /** Check if specific data can be shared */\n    canShare: (data: ShareData) => boolean;\n}\n\n/**\n * A React hook for using the Web Share API to share content via the triggering device's native sharing mechanism.\n *\n * @returns UseShareReturn object with share function and state\n *\n * @example\n * ```tsx\n * const { share, isSupported } = useShare();\n *\n * return (\n *     <button onClick={() => share({ title: \"Check this out\", url: \"https://example.com\" })}>\n *         Share\n *     </button>\n * );\n * ```\n */\nexport function useShare(): UseShareReturn {\n    const [isSharing, setIsSharing] = useState(false);\n    const [error, setError] = useState<Error | null>(null);\n\n    // Check support\n    const isSupported =\n        typeof navigator !== \"undefined\" &&\n        typeof navigator.share === \"function\";\n\n    // Can share check\n    const canShare = useCallback((data: ShareData): boolean => {\n        if (\n            typeof navigator === \"undefined\" ||\n            typeof navigator.canShare !== \"function\"\n        ) {\n            return false;\n        }\n        return navigator.canShare(data);\n    }, []);\n\n    // Share function\n    const share = useCallback(\n        async (data: ShareData): Promise<boolean> => {\n            if (!isSupported) {\n                setError(new Error(\"Web Share API is not supported\"));\n                return false;\n            }\n\n            setIsSharing(true);\n            setError(null);\n\n            try {\n                await navigator.share(data);\n                return true;\n            } catch (err) {\n                // AbortError is common when user cancels, we treat it as an error but you might want to ignore it\n                const error =\n                    err instanceof Error ? err : new Error(\"Failed to share\");\n                setError(error);\n                return false;\n            } finally {\n                setIsSharing(false);\n            }\n        },\n        [isSupported],\n    );\n\n    return {\n        share,\n        isSupported,\n        isSharing,\n        error,\n        canShare,\n    };\n}\n\nexport default useShare;\n"
+    }
+  ]
+}

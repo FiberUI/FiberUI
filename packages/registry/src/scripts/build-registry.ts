@@ -5,8 +5,8 @@
  * Usage: npx tsx scripts/build-registry.ts
  *
  * This script:
- * 1. Reads component definitions from lib/basic.ts
- * 2. Reads source files from packages/ui/src/
+ * 1. Reads component definitions from lib/basic.ts & lib/hooks.ts
+ * 2. Reads source files from packages/ui/src/ & packages/hooks/src/
  * 3. Transforms imports (@repo/ui -> @/)
  * 4. Outputs JSON files to apps/docs/public/r/
  */
@@ -14,16 +14,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { FIBER_UI_COMPONENTS, REGISTRY_CONFIG } from "@/lib/basic";
+// import { FIBER_UI_COMPONENTS, REGISTRY_CONFIG } from "@/lib/basic";
+import { FIBER_UI_HOOKS } from "@/lib/hooks";
 import type { RegistryItem, RegistryItemFile } from "@/lib/types";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths relative to project root
-const PROJECT_ROOT = path.resolve(__dirname, "../../..");
-const SOURCE_PATH = path.join(PROJECT_ROOT, REGISTRY_CONFIG.sourceBasePath);
-const OUTPUT_PATH = path.join(PROJECT_ROOT, REGISTRY_CONFIG.outputPath);
+const PROJECT_ROOT = path.resolve(__dirname, "../../../..");
+// const COMPONENTS_SOURCE_PATH = path.join(
+//     PROJECT_ROOT,
+//     REGISTRY_CONFIG.sourceBasePath,
+// );
+const HOOKS_SOURCE_PATH = path.join(PROJECT_ROOT, "packages/hooks/src");
+const OUTPUT_PATH = path.join(PROJECT_ROOT, "apps/docs/public/r");
+const HOOKS_OUTPUT_PATH = path.join(OUTPUT_PATH, "hooks");
 
 /**
  * Transform import paths from monorepo format to shadcn format
@@ -38,8 +44,11 @@ function transformImports(content: string): string {
 /**
  * Read file content and transform it for registry distribution
  */
-function readAndTransformFile(filePath: string): string {
-    const fullPath = path.join(SOURCE_PATH, filePath);
+function readAndTransformFile(
+    filePath: string,
+    sourceBasePath: string,
+): string {
+    const fullPath = path.join(sourceBasePath, filePath);
 
     if (!fs.existsSync(fullPath)) {
         throw new Error(`Source file not found: ${fullPath}`);
@@ -52,10 +61,13 @@ function readAndTransformFile(filePath: string): string {
 /**
  * Build a single registry item JSON
  */
-function buildRegistryItem(item: RegistryItem): RegistryItem {
+function buildRegistryItem(
+    item: RegistryItem,
+    sourceBasePath: string,
+): RegistryItem {
     const files: RegistryItemFile[] = (item.files || []).map((file) => ({
         ...file,
-        content: readAndTransformFile(file.path),
+        content: readAndTransformFile(file.path, sourceBasePath),
     }));
 
     return {
@@ -66,20 +78,24 @@ function buildRegistryItem(item: RegistryItem): RegistryItem {
 }
 
 /**
- * Ensure output directory exists
+ * Ensure output directories exist
  */
-function ensureOutputDir(): void {
+function ensureOutputDirs(): void {
     if (!fs.existsSync(OUTPUT_PATH)) {
         fs.mkdirSync(OUTPUT_PATH, { recursive: true });
         console.log(`Created output directory: ${OUTPUT_PATH}`);
+    }
+    if (!fs.existsSync(HOOKS_OUTPUT_PATH)) {
+        fs.mkdirSync(HOOKS_OUTPUT_PATH, { recursive: true });
+        console.log(`Created output directory: ${HOOKS_OUTPUT_PATH}`);
     }
 }
 
 /**
  * Write registry item to JSON file
  */
-function writeRegistryItem(item: RegistryItem): void {
-    const outputFile = path.join(OUTPUT_PATH, `${item.name}.json`);
+function writeRegistryItem(item: RegistryItem, outputBasePath: string): void {
+    const outputFile = path.join(outputBasePath, `${item.name}.json`);
     const content = JSON.stringify(item, null, 2);
     fs.writeFileSync(outputFile, content);
     console.log(`[OK] Generated: ${item.name}.json`);
@@ -89,11 +105,13 @@ function writeRegistryItem(item: RegistryItem): void {
  * Build the main registry.json index
  */
 function buildRegistryIndex(): void {
+    const allItems = [...FIBER_UI_HOOKS];
+
     const registry = {
         $schema: "https://ui.shadcn.com/schema/registry.json",
-        name: REGISTRY_CONFIG.name,
-        homepage: REGISTRY_CONFIG.homepage,
-        items: FIBER_UI_COMPONENTS.map((item) => ({
+        name: "fiberui",
+        homepage: "https://fiberui.com",
+        items: allItems.map((item) => ({
             name: item.name,
             type: item.type,
             title: item.title,
@@ -103,9 +121,9 @@ function buildRegistryIndex(): void {
         })),
     };
 
-    const outputFile = path.join(OUTPUT_PATH, "index.json");
+    const outputFile = path.join(OUTPUT_PATH, "registry.json");
     fs.writeFileSync(outputFile, JSON.stringify(registry, null, 2));
-    console.log(`[OK] Generated: index.json (registry index)`);
+    console.log(`[OK] Generated: registry.json (registry index)`);
 }
 
 /**
@@ -113,23 +131,34 @@ function buildRegistryIndex(): void {
  */
 function build(): void {
     console.log("\nBuilding Fiber UI Registry...\n");
-    console.log(`Source: ${SOURCE_PATH}`);
+    console.log(`Project Root: ${PROJECT_ROOT}`);
+    // console.log(`Components Source: ${COMPONENTS_SOURCE_PATH}`);
+    console.log(`Hooks Source: ${HOOKS_SOURCE_PATH}`);
     console.log(`Output: ${OUTPUT_PATH}\n`);
 
     try {
-        ensureOutputDir();
+        ensureOutputDirs();
 
-        // Build each component
-        for (const item of FIBER_UI_COMPONENTS) {
-            const builtItem = buildRegistryItem(item);
-            writeRegistryItem(builtItem);
+        // Build components
+        // console.log("\n--- Building Components ---\n");
+        // for (const item of FIBER_UI_COMPONENTS) {
+        //     const builtItem = buildRegistryItem(item, COMPONENTS_SOURCE_PATH);
+        //     writeRegistryItem(builtItem, OUTPUT_PATH);
+        // }
+
+        // Build hooks
+        console.log("\n--- Building Hooks ---\n");
+        for (const item of FIBER_UI_HOOKS) {
+            const builtItem = buildRegistryItem(item, HOOKS_SOURCE_PATH);
+            writeRegistryItem(builtItem, HOOKS_OUTPUT_PATH);
         }
 
         // Build registry index
+        console.log("\n--- Building Index ---\n");
         buildRegistryIndex();
 
         console.log(
-            `\nRegistry build complete! ${FIBER_UI_COMPONENTS.length} items generated.\n`,
+            `\nRegistry build complete! ${0} components and ${FIBER_UI_HOOKS.length} hooks generated.\n`,
         );
     } catch (error) {
         console.error("\n[ERROR] Build failed:", error);

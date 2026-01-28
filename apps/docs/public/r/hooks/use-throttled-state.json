@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-throttled-state",
+  "type": "registry:hook",
+  "title": "useThrottledState",
+  "description": "A hook for throttling state values.",
+  "categories": [
+    "utility"
+  ],
+  "dependencies": [
+    "lodash"
+  ],
+  "files": [
+    {
+      "path": "utility/use-throttled-state.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect, useCallback, useRef } from \"react\";\n\n/**\n * Options for the useThrottledState hook\n */\nexport interface UseThrottledStateOptions {\n    /** Interval in milliseconds between updates (default: 500) */\n    interval?: number;\n    /** If true, also update on the trailing edge after throttle period ends */\n    trailing?: boolean;\n}\n\n/**\n * Return type for useThrottledState hook\n */\nexport interface UseThrottledStateReturn<T> {\n    /** The throttled value */\n    throttledValue: T;\n    /** Whether currently in a throttle period */\n    isThrottling: boolean;\n}\n\n/**\n * A React hook that throttles a value. The throttled value updates at most\n * once per interval, regardless of how often the source value changes.\n *\n * @param value - The value to throttle\n * @param options - Configuration options\n * @returns UseThrottledStateReturn object with throttled value\n *\n * @example\n * ```tsx\n * const [scrollY, setScrollY] = useState(0);\n * const { throttledValue } = useThrottledState(scrollY, { interval: 100 });\n *\n * // throttledValue updates at most every 100ms, even if scrollY changes rapidly\n * ```\n */\nexport function useThrottledState<T>(\n    value: T,\n    options: UseThrottledStateOptions = {},\n): UseThrottledStateReturn<T> {\n    const { interval = 500, trailing = true } = options;\n\n    const [throttledValue, setThrottledValue] = useState<T>(value);\n    const [isThrottling, setIsThrottling] = useState(false);\n    const lastExecuted = useRef<number>(0);\n    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);\n    const latestValue = useRef<T>(value);\n\n    // Keep track of the latest value\n    latestValue.current = value;\n\n    useEffect(() => {\n        const now = Date.now();\n        const timeSinceLastExecution = now - lastExecuted.current;\n\n        // If enough time has passed, update immediately\n        if (timeSinceLastExecution >= interval) {\n            setThrottledValue(value);\n            lastExecuted.current = now;\n            setIsThrottling(false);\n        } else {\n            // Otherwise, schedule an update for the trailing edge\n            setIsThrottling(true);\n\n            if (trailing) {\n                // Clear any existing timeout\n                if (timeoutRef.current) {\n                    clearTimeout(timeoutRef.current);\n                }\n\n                // Schedule update at the end of the interval\n                const timeRemaining = interval - timeSinceLastExecution;\n                timeoutRef.current = setTimeout(() => {\n                    setThrottledValue(latestValue.current);\n                    lastExecuted.current = Date.now();\n                    setIsThrottling(false);\n                    timeoutRef.current = null;\n                }, timeRemaining);\n            }\n        }\n\n        return () => {\n            if (timeoutRef.current) {\n                clearTimeout(timeoutRef.current);\n            }\n        };\n    }, [value, interval, trailing]);\n\n    // Cleanup on unmount\n    useEffect(() => {\n        return () => {\n            if (timeoutRef.current) {\n                clearTimeout(timeoutRef.current);\n            }\n        };\n    }, []);\n\n    return {\n        throttledValue,\n        isThrottling,\n    };\n}\n\nexport default useThrottledState;\n"
+    }
+  ]
+}

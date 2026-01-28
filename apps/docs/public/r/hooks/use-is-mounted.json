@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-is-mounted",
+  "type": "registry:hook",
+  "title": "useIsMounted",
+  "description": "A hook to check if the component is mounted (SSR safe).",
+  "categories": [
+    "utility"
+  ],
+  "files": [
+    {
+      "path": "utility/use-is-mounted.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect } from \"react\";\n\n/**\n * A simple hook that returns true after the component has mounted.\n * Useful for preventing hydration mismatches in client components.\n *\n * @returns boolean - false during SSR, true after mount\n *\n * @example\n * ```tsx\n * const isMounted = useIsMounted();\n *\n * if (!isMounted) {\n *     return <Skeleton />;\n * }\n *\n * return <ClientOnlyComponent />;\n * ```\n */\nexport function useIsMounted(): boolean {\n    const [isMounted, setIsMounted] = useState(false);\n\n    useEffect(() => {\n        setIsMounted(true);\n    }, []);\n\n    return isMounted;\n}\n\nexport default useIsMounted;\n"
+    }
+  ]
+}

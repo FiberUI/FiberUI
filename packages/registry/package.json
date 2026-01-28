@@ -4,8 +4,8 @@
     "description": "Fiber UI component registry for shadcn CLI distribution",
     "type": "module",
     "scripts": {
-        "build-script": "tsx scripts/build-registry.ts",
-        "build:watch": "tsx watch scripts/build-registry.ts"
+        "build:registry": "tsx src/scripts/build-registry.ts",
+        "build:watch": "tsx watch src/scripts/build-registry.ts"
     },
     "keywords": [
         "fiberui",
