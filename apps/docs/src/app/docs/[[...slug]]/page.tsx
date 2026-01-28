@@ -88,7 +88,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
         const pages = source.getPages().filter((p) => {
             return p.slugs.length === 2 && p.slugs[0] === category;
         });
-        console.log({ pages });
 
         itemListJsonLd = {
             "@context": "https://schema.org",

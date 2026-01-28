@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-network",
+  "type": "registry:hook",
+  "title": "useNetwork",
+  "description": "A hook that monitors network connectivity status.",
+  "categories": [
+    "device"
+  ],
+  "files": [
+    {
+      "path": "device/use-network.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect } from \"react\";\n\nexport interface NetworkState {\n    /** Whether device is online */\n    online: boolean;\n    /** Effective bandwidth estimate in Mbps */\n    downlink?: number;\n    /** Max downlink speed */\n    downlinkMax?: number;\n    /** Effective connection type ('slow-2g', '2g', '3g', or '4g') */\n    effectiveType?: \"slow-2g\" | \"2g\" | \"3g\" | \"4g\";\n    /** Round-trip time estimate in ms */\n    rtt?: number;\n    /** Whether user has requested reduced data usage */\n    saveData?: boolean;\n    /** Connection type (wifi, cellular, etc.) */\n    type?: string;\n}\n\n// Network Information API types\ninterface NetworkInformation extends EventTarget {\n    downlink?: number;\n    downlinkMax?: number;\n    effectiveType?: \"slow-2g\" | \"2g\" | \"3g\" | \"4g\";\n    rtt?: number;\n    saveData?: boolean;\n    type?: string;\n    onChange?: (e: Event) => void;\n}\n\n// Add to navigator interface\ndeclare global {\n    interface Navigator {\n        connection?: NetworkInformation;\n        mozConnection?: NetworkInformation;\n        webkitConnection?: NetworkInformation;\n    }\n}\n\n/**\n * A React hook that tracks network status and connection details.\n *\n * @returns NetworkState object containing online status and connection info\n */\nexport function useNetwork(): NetworkState {\n    const [state, setState] = useState<NetworkState>({\n        online: true, // Default to true for SSR safety\n    });\n\n    useEffect(() => {\n        const isSupported =\n            typeof navigator !== \"undefined\" &&\n            (navigator.connection ||\n                navigator.mozConnection ||\n                navigator.webkitConnection);\n\n        const connection = isSupported\n            ? navigator.connection ||\n              navigator.mozConnection ||\n              navigator.webkitConnection\n            : null;\n\n        const updateState = () => {\n            const online = navigator.onLine;\n\n            if (!connection) {\n                setState((prev) => ({ ...prev, online }));\n                return;\n            }\n\n            setState({\n                online,\n                downlink: connection.downlink,\n                downlinkMax: connection.downlinkMax,\n                effectiveType: connection.effectiveType,\n                rtt: connection.rtt,\n                saveData: connection.saveData,\n                type: connection.type,\n            });\n        };\n\n        // Initial update\n        updateState();\n\n        // Listeners for online/offline\n        window.addEventListener(\"online\", updateState);\n        window.addEventListener(\"offline\", updateState);\n\n        // Listener for connection changes\n        if (connection) {\n            connection.addEventListener(\"change\", updateState);\n        }\n\n        return () => {\n            window.removeEventListener(\"online\", updateState);\n            window.removeEventListener(\"offline\", updateState);\n            if (connection) {\n                connection.removeEventListener(\"change\", updateState);\n            }\n        };\n    }, []);\n\n    return state;\n}\n"
+    }
+  ]
+}
