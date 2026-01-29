@@ -2,6 +2,28 @@ import { RegistryItem } from "@/lib/types";
 
 export const FIBER_UI_HOOKS: RegistryItem[] = [
     // =========================================================================
+    // DOM
+    // =========================================================================
+    {
+        name: "use-click-outside",
+        type: "registry:hook",
+        title: "useClickOutside",
+        description:
+            "A hook that detects clicks outside of the specified element.",
+        categories: ["dom"],
+        files: [{ path: "dom/use-click-outside.ts", type: "registry:hook" }],
+    },
+    {
+        name: "use-portal",
+        type: "registry:hook",
+        title: "usePortal",
+        description:
+            "A hook that manages a portal container in the DOM and returns a Portal component.",
+        categories: ["dom"],
+        files: [{ path: "dom/use-portal.ts", type: "registry:hook" }],
+    },
+
+    // =========================================================================
     // Device
     // =========================================================================
     {
