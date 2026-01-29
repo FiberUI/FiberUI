@@ -29,8 +29,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
     const baseUrl = BASE_URL;
 
-    console.log({ slug: params.slug });
-
     const url = `${baseUrl}/docs/${params.slug?.join("/") || ""}`;
 
     const articleContent = await page.data.getText("processed");
