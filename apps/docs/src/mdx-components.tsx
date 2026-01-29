@@ -52,6 +52,7 @@ import * as UseDeviceOrientationExamples from "./hooks/examples/use-device-orien
 import * as UseWakeLockExamples from "./hooks/examples/use-wake-lock";
 import * as UsePictureInPictureExamples from "./hooks/examples/use-picture-in-picture";
 import * as UsePortalExamples from "./hooks/examples/use-portal";
+import * as UseClickOutsideExamples from "./hooks/examples/use-click-outside";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -131,6 +132,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseWakeLockExamples,
         ...UsePictureInPictureExamples,
         ...UsePortalExamples,
+        ...UseClickOutsideExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,
