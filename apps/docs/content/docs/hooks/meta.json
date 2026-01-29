@@ -5,6 +5,8 @@
     "pages": [
         "---Getting Started---",
         "index",
+        "---DOM---",
+        "...(dom)",
         "---Storage---",
         "...(storage)",
         "---WebRTC---",

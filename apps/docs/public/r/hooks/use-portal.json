@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-portal",
+  "type": "registry:hook",
+  "title": "usePortal",
+  "description": "A hook that manages a portal container in the DOM and returns a Portal component.",
+  "categories": [
+    "dom"
+  ],
+  "files": [
+    {
+      "path": "dom/use-portal.ts",
+      "type": "registry:hook",
+      "content": "import React, { useState, useEffect, useRef } from \"react\";\nimport { createPortal } from \"react-dom\";\n\ntype UsePortalOptions = {\n    /**\n     * The ID of the container element.\n     * @default \"fiberui-portal\"\n     */\n    id?: string;\n    /**\n     * A custom container element or ref to render the portal into.\n     * If provided, `id` is ignored for creation purposes (though might be used if container is not found yet, but usually container takes precedence).\n     */\n    container?: HTMLElement | React.RefObject<HTMLElement | null>;\n};\n\n/**\n * A hook that manages a portal container in the DOM and returns a Portal component.\n *\n * @param options - Configuration options.\n * @returns An object containing the Portal component.\n */\nexport function usePortal(options: UsePortalOptions = {}) {\n    const [container, setContainer] = useState<HTMLElement | null>(null);\n\n    const { id = \"fiberui-portal\", container: customContainer } = options;\n\n    useEffect(() => {\n        // 1. If a custom container (element or ref) is provided, try to use it.\n        if (customContainer) {\n            const element =\n                \"current\" in customContainer\n                    ? customContainer.current\n                    : customContainer;\n\n            if (element) {\n                setContainer(element);\n                return;\n            }\n        }\n\n        // 2. Otherwise, manage a DOM element with the given ID.\n        // We only want to create/manage if we are NOT using a custom container\n        // (or if custom container rendered null, but primarily for the ID case).\n        if (!customContainer) {\n            let element = document.getElementById(id);\n            let created = false;\n\n            if (!element) {\n                created = true;\n                element = document.createElement(\"div\");\n                element.setAttribute(\"id\", id);\n                document.body.appendChild(element);\n            }\n\n            setContainer(element);\n\n            return () => {\n                // Cleanup: only remove if we created it and it's empty\n                if (created && element && element.parentNode) {\n                    if (element.childNodes.length === 0) {\n                        element.parentNode.removeChild(element);\n                    }\n                }\n            };\n        }\n    }, [id, customContainer]);\n\n    const Portal = React.useMemo(() => {\n        const PortalComponent = ({\n            children,\n        }: {\n            children: React.ReactNode;\n        }) => {\n            if (!container) return null;\n            return createPortal(children, container);\n        };\n        return PortalComponent;\n    }, [container]);\n\n    return { Portal };\n}\n"
+    }
+  ]
+}

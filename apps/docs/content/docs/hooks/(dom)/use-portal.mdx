@@ -1,0 +1,163 @@
+---
+title: usePortal
+description: A React hook that simplifies the creation and management of React Portals. It handles the creation of the portal container, appends it to the DOM, and manages cleanups.
+keywords:
+    [
+        "usePortal",
+        "react hook",
+        "portal",
+        "createPortal",
+        "modal",
+        "dialog",
+        "tooltip",
+        "dropdown",
+        "overlay",
+        "z-index",
+        "dom",
+        "react portal",
+        "teleport",
+        "modal container",
+        "tooltip container",
+        "layer",
+        "popup",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-portal.json
+```
+
+A robust hook for managing clean and efficient React Portals. It solves the "z-index war" by physically moving your component to the end of the `<body>` tag (or any other container), while keeping it logically inside your React component tree.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **Automatic Container Management** - Creates and appends the portal container if it doesn't exist.
+- **SSR Safe** - Gracefully handles Server-Side Rendering by only rendering on the client.
+- **Cleanup** - Automatically removes the container from the DOM when it is empty and no longer used.
+- **Singleton Pattern** - Reuses existing containers with the same ID.
+- **Component-Based API** - Returns a `<Portal>` component for easy usage.
+
+## Basic Usage
+
+The `usePortal` hook returns a `Portal` component that you can use to wrap your content.
+
+<Callout type="success" title="Try it out!">
+    Click the button to open a modal. The modal content is physically appended to the
+    end of the document `<body>`.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePortalExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-portal" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Use Cases
+
+### Tooltips
+
+Portals are excellent for tooltips because they avoid issues where overflow: hidden on parent elements clips the tooltip content.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePortalExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-portal" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Dropdowns
+
+Similar to tooltips, dropdowns benefit from being rendered outside the regular DOM hierarchy to ensure they appear on top of other elements.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePortalExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-portal" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Toasts & Notifications
+
+You can create a dedicated portal container for notifications (e.g., `toast-container`) and render multiple toast components into it.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePortalExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-portal" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Custom Container
+
+You can render the portal into a specific container using the `container` option. This is useful when you want the portal content to be physically located within a specific part of your DOM (e.g., inside a layout container) while still escaping the parent's overflow.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UsePortalExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-portal" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+```tsx
+type UsePortalOptions = {
+    id?: string;
+    container?: HTMLElement | React.RefObject<HTMLElement | null>;
+};
+
+function usePortal(options: UsePortalOptions = {}): {
+    Portal: React.FC<{ children: React.ReactNode }>;
+};
+```
+
+### Parameters
+
+The hook accepts an optional configuration object.
+
+| Parameter | Type               | Default | Description           |
+| :-------- | :----------------- | :------ | :-------------------- |
+| `options` | `UsePortalOptions` | `{}`    | Configuration object. |
+
+#### Options Object (`UsePortalOptions`)
+
+| Property    | Type                                          | Default            | Description                                                                   |
+| :---------- | :-------------------------------------------- | :----------------- | :---------------------------------------------------------------------------- |
+| `id`        | `string`                                      | `"fiberui-portal"` | The ID of the container element to create/find.                               |
+| `container` | `HTMLElement \| React.RefObject<HTMLElement>` | `undefined`        | A custom container element or ref to render into. Takes precedence over `id`. |
+
+### Returns
+
+Returns an object containing:
+
+| Property | Type                                      | Description                                                      |
+| -------- | ----------------------------------------- | ---------------------------------------------------------------- |
+| `Portal` | `React.FC<{ children: React.ReactNode }>` | A component that renders its children into the portal container. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-portal" folder="dom" />

@@ -4,6 +4,18 @@
   "homepage": "https://fiberui.com",
   "items": [
     {
+      "name": "use-click-outside",
+      "type": "registry:hook",
+      "title": "useClickOutside",
+      "description": "A hook that detects clicks outside of the specified element."
+    },
+    {
+      "name": "use-portal",
+      "type": "registry:hook",
+      "title": "usePortal",
+      "description": "A hook that manages a portal container in the DOM and returns a Portal component."
+    },
+    {
       "name": "use-battery",
       "type": "registry:hook",
       "title": "useBattery",

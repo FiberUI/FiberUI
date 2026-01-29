@@ -1,0 +1,98 @@
+---
+title: useClickOutside
+description: A React hook that detects clicks outside of a specified element and triggers a callback. Perfect for closing modals, dropdowns, and popovers when interacting with other parts of the UI.
+keywords:
+    [
+        "useClickOutside",
+        "react hook",
+        "click outside",
+        "event listener",
+        "dom",
+        "close modal",
+        "close dropdown",
+        "detect click",
+        "mouse event",
+        "touch event",
+        "user interface",
+        "ui interaction",
+        "overlay",
+        "popover",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-click-outside.json
+```
+
+## Features
+
+- **Event Detection** - Detects clicks outside of a specified element.
+- **Customizable Events** - Supports `mousedown` (default) or `mouseup` events.
+- **Touch Support** - Automatically handles touch events for mobile devices.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Basic Usage
+
+The `useClickOutside` hook takes a ref to the element you want to monitor and a callback function to run when a click occurs outside that element.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClickOutsideExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-click-outside" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+## Use Cases
+
+### Closing Modals/Dropdowns
+
+The most common use case is closing a modal, dropdown, or popover when the user clicks somewhere else on the page.
+
+### Ignoring Specific Elements
+
+You can ignore clicks on specific elements by checking the event target in your handler, or by ensuring the element you want to ignore is outside the ref (though typically you care about what's _inside_ the ref).
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseClickOutsideExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-click-outside" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+```tsx
+function useClickOutside<T extends HTMLElement>(
+    ref: React.RefObject<T>,
+    handler: (event: MouseEvent | TouchEvent) => void,
+    mouseEvent?: "mousedown" | "mouseup",
+): void;
+```
+
+### Parameters
+
+| Parameter    | Type                                        | Default       | Description                                                   |
+| :----------- | :------------------------------------------ | :------------ | :------------------------------------------------------------ |
+| `ref`        | `React.RefObject<T>`                        | -             | A React ref object pointing to the element to monitor.        |
+| `handler`    | `(event: MouseEvent \| TouchEvent) => void` | -             | The callback function to execute when a click outside occurs. |
+| `mouseEvent` | `"mousedown" \| "mouseup"`                  | `"mousedown"` | The mouse event to listen for.                                |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-click-outside" folder="dom" />
