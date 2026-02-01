@@ -64,6 +64,8 @@ import * as UseAudioLevelExamples from "./hooks/examples/use-audio-level";
 
 /* ------------------------------------*/
 
+import * as UseFileUploadExamples from "./hooks/examples/use-file-upload";
+
 import { ComponentsListView } from "./components/components-list-view";
 import {
     HookCodeFromFile,
@@ -75,6 +77,11 @@ import {
     ReactIcon,
     NextjsIcon,
 } from "./components/external-icons";
+
+import {
+    Accordion as MdxAccordion,
+    Accordions as MdxAccordions,
+} from "fumadocs-ui/components/accordion";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
     return {
@@ -141,6 +148,15 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseDataChannelExamples,
         ...UseTrackToggleExamples,
         ...UseAudioLevelExamples,
+
+        ...UseFileUploadExamples,
+
+        /**********Fumadocs Mdx Components***********/
+
+        MdxAccordion,
+        MdxAccordions,
+
+        /*********************/
 
         Code: CodeFromFile,
         CodeFromFile,

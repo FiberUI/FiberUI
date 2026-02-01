@@ -9,6 +9,8 @@
         "...(dom)",
         "---Storage---",
         "...(storage)",
+        "---Form---",
+        "...(form)",
         "---WebRTC---",
         "...(webrtc)",
         "---Utilities---",

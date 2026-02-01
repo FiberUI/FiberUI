@@ -4,6 +4,12 @@
   "homepage": "https://fiberui.com",
   "items": [
     {
+      "name": "use-file-upload",
+      "type": "registry:hook",
+      "title": "useFileUpload",
+      "description": "A comprehensive hook for handling file uploads with drag-and-drop, validation, and previews."
+    },
+    {
       "name": "use-click-outside",
       "type": "registry:hook",
       "title": "useClickOutside",

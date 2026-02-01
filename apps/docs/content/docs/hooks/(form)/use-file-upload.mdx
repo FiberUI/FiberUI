@@ -1,0 +1,265 @@
+---
+title: useFileUpload
+description: A comprehensive React hook for handling file uploads with drag-and-drop support, file validation, preview generation, and multiple file management.
+keywords:
+    [
+        "useFileUpload",
+        "react hook",
+        "file upload",
+        "drag and drop",
+        "file input",
+        "file validation",
+        "file preview",
+        "multiple files",
+        "form input",
+        "dropzone",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-file-upload.json
+```
+
+## Features
+
+- **Drag & Drop** - Full drag-and-drop support with visual feedback via `isDragging` state.
+- **File Validation** - Validate file types (`accept`), sizes (`maxSize`), and count (`maxFiles`).
+- **Preview Generation** - Automatic preview URLs for images using `URL.createObjectURL`.
+- **Multiple Files** - Support for single or multiple file uploads with `multiple` option.
+- **Initial Files** - Pre-populate with existing files using `initialFiles`.
+- **Callbacks** - React to changes with `onFilesChange` and `onFilesAdded` callbacks.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+---
+
+## Examples
+
+### Single File Upload
+
+Basic single file upload with image preview. The hidden input is connected via `getInputProps()`.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFileUploadExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-file-upload" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+### Drag & Drop with File List
+
+Multiple file upload with a full drag-and-drop zone. Uses `isDragging` state for visual feedback and displays files in a list format.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFileUploadExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-file-upload" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+### Image Grid with Initial Files
+
+Image-specific uploader that displays files in a responsive grid. Demonstrates using `initialFiles` to pre-populate the uploader.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFileUploadExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-file-upload" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+### File List with Type Icons
+
+General file uploader with file type detection. Shows different icons based on file type (PDF, ZIP, Excel, images, etc.).
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFileUploadExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-file-upload" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Common Patterns
+
+### Hidden Input Pattern
+
+The hook manages a hidden file input that you connect via `getInputProps()`:
+
+```tsx
+<input {...getInputProps()} className="sr-only" />
+```
+
+### Dropzone Pattern
+
+Create a visual drop zone using the drag event handlers:
+
+```tsx
+<div
+    onDragEnter={handleDragEnter}
+    onDragLeave={handleDragLeave}
+    onDragOver={handleDragOver}
+    onDrop={handleDrop}
+    onClick={openFileDialog}
+    className={isDragging ? "border-primary bg-primary/5" : "border-muted"}
+>
+    Drop files here or click to upload
+</div>
+```
+
+### Accessing File Data
+
+Handle both `File` objects and `FileMetadata`:
+
+```tsx
+files.map((file) => {
+    const name = file.file.name;
+    const size = file.file.size;
+    const type = file.file instanceof File ? file.file.type : file.file.type;
+    const preview = file.preview;
+    // ...
+});
+```
+
+---
+
+## API Reference
+
+### Usage
+
+```tsx
+const {
+    // State
+    files, // Array of files with previews
+    isDragging, // Whether a file is being dragged over
+    errors, // Validation error messages
+    // Actions
+    addFiles,
+    removeFile,
+    clearFiles,
+    clearErrors,
+    openFileDialog,
+    getInputProps,
+    // Drag handlers
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleFileChange,
+} = useFileUpload(options);
+```
+
+### Options
+
+| Option          | Type                                      | Default    | Description                                     |
+| :-------------- | :---------------------------------------- | :--------- | :---------------------------------------------- |
+| `maxFiles`      | `number`                                  | `Infinity` | Maximum number of files (only when `multiple`). |
+| `maxSize`       | `number`                                  | `Infinity` | Maximum file size in bytes.                     |
+| `accept`        | `string`                                  | `"*"`      | Accepted file types (e.g., `"image/*,.pdf"`).   |
+| `multiple`      | `boolean`                                 | `false`    | Allow multiple file selection.                  |
+| `initialFiles`  | `FileMetadata[]`                          | `[]`       | Initial files to populate the uploader.         |
+| `onFilesChange` | `(files: FileWithPreview[]) => void`      | -          | Callback when files array changes.              |
+| `onFilesAdded`  | `(addedFiles: FileWithPreview[]) => void` | -          | Callback when new files are added.              |
+
+### State Properties
+
+| Property     | Type                | Description                                        |
+| :----------- | :------------------ | :------------------------------------------------- |
+| `files`      | `FileWithPreview[]` | Array of uploaded files with preview URLs.         |
+| `isDragging` | `boolean`           | `true` when a file is being dragged over the zone. |
+| `errors`     | `string[]`          | Array of validation error messages.                |
+
+### Action Methods
+
+| Method           | Description                                                            |
+| :--------------- | :--------------------------------------------------------------------- |
+| `addFiles`       | Add files programmatically: `addFiles(fileList)`.                      |
+| `removeFile`     | Remove a file by ID: `removeFile(id)`.                                 |
+| `clearFiles`     | Remove all files.                                                      |
+| `clearErrors`    | Clear all error messages.                                              |
+| `openFileDialog` | Programmatically open the file picker dialog.                          |
+| `getInputProps`  | Get props for the hidden file input (includes `ref`, `onChange`, etc). |
+
+### Drag Event Handlers
+
+| Handler            | Usage                                                     |
+| :----------------- | :-------------------------------------------------------- |
+| `handleDragEnter`  | Attach to `onDragEnter` on your drop zone.                |
+| `handleDragLeave`  | Attach to `onDragLeave` on your drop zone.                |
+| `handleDragOver`   | Attach to `onDragOver` on your drop zone.                 |
+| `handleDrop`       | Attach to `onDrop` on your drop zone.                     |
+| `handleFileChange` | Attach to `onChange` on file input (via `getInputProps`). |
+
+---
+
+## Types
+
+### FileMetadata
+
+Used for initial files or server-provided file data.
+
+```tsx
+type FileMetadata = {
+    name: string; // File name
+    size: number; // Size in bytes
+    type: string; // MIME type (e.g., "image/jpeg")
+    url: string; // URL for preview
+    id: string; // Unique identifier
+};
+```
+
+### FileWithPreview
+
+Returned in the `files` array. Can be either an uploaded `File` or `FileMetadata`.
+
+```tsx
+type FileWithPreview = {
+    file: File | FileMetadata; // The actual file or metadata
+    id: string; // Unique identifier
+    preview?: string; // Preview URL (blob or provided URL)
+};
+```
+
+---
+
+## Helper Functions
+
+### formatBytes
+
+Format bytes to human-readable format.
+
+```tsx
+import { formatBytes } from "@repo/hooks/form/use-file-upload";
+
+formatBytes(1536); // "1.5 KB"
+formatBytes(1048576); // "1 MB"
+formatBytes(1073741824); // "1 GB"
+```
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-file-upload" folder="form" />
