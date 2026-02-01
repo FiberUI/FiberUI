@@ -15,15 +15,15 @@
 <item>
      <link>https://r.fiberui.com/docs/components</link>
      <title>All Components List | Fiber UI</title>
-     <description>List of all the components present in fiberui</description>
+     <description>Discover the complete library of FiberUI components. Type-safe, accessible, and customizable React components built with Tailwind CSS for modern web applications.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>1</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
 </item>
 <item>
      <link>https://r.fiberui.com/docs/hooks</link>
-     <title>Hooks | Fiber UI</title>
-     <description>Reusable React hooks for common patterns</description>
+     <title>React Hooks | Fiber UI</title>
+     <description>Explore our collection of production-ready React hooks. Includes storage utilities, device hardware access, and a full suite of WebRTC primitives for real-time apps.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>1</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -31,7 +31,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/badge</link>
      <title>Badge | Fiber UI</title>
-     <description>Display a badge or status indicator.</description>
+     <description>A versatile badge component for displaying status, labels, or counts. Supports multiple variants, sizes, and colors, fully accessible and styled with Tailwind CSS for seamless integration.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -39,7 +39,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/breadcrumb</link>
      <title>Breadcrumb | Fiber UI</title>
-     <description>Displays the path to the current resource using a hierarchy of links.</description>
+     <description>A responsive breadcrumb navigation component that helps users understand their location in the hierarchy. Features automatic collapsing, custom separators, and full keyboard accessibility support.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -47,7 +47,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/button</link>
      <title>Button | Fiber UI</title>
-     <description>The button component</description>
+     <description>A highly customizable button component with support for various variants, sizes, and loading states. Built for accessibility and easy styling with Tailwind CSS utility classes.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -55,7 +55,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/card</link>
      <title>Card | Fiber UI</title>
-     <description>Displays a card with header, content, and footer.</description>
+     <description>A flexible card component for displaying grouped content like headers, images, and footers. Perfect for dashboards, profiles, and listings, with built-in dark mode and responsiveness.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -63,7 +63,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/checkbox</link>
      <title>Checkbox | Fiber UI</title>
-     <description>The checkbox component</description>
+     <description>An accessible checkbox component for forms and selection lists. Supports indeterminate states, custom styling, and keyboard navigation, built on top of React Aria primitives.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -71,7 +71,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/color-area</link>
      <title>ColorArea | Fiber UI</title>
-     <description>A color area allows users to adjust two channels of an RGB, HSL or HSB color value against a two-dimensional gradient background.</description>
+     <description>A sophisticated color area component for selecting 2D color values. Features accessible keyboard navigation, touch support, and seamless integration with other color primitives.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -79,7 +79,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/color-wheel</link>
      <title>ColorWheel | Fiber UI</title>
-     <description>A color wheel allows users to adjust the hue of an HSL or HSB color value on a circular track.</description>
+     <description>An interactive circular color wheel for selecting hue values. Supports keyboard operation, touch input, and precise control, ideal for building comprehensive color pickers.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -87,7 +87,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/input</link>
      <title>Input | Fiber UI</title>
-     <description>Displays a form input field or a component that looks like an input field.</description>
+     <description>A highly versatile input component for text fields, search boxes, and forms. Includes support for prefixes, suffixes, validation states, and accessible labels.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -95,7 +95,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/label</link>
      <title>Label | Fiber UI</title>
-     <description>Renders an accessible label associated with controls.</description>
+     <description>An accessible label component for associating text with form controls. Ensures proper reading order and focus management for improved assistive technology support.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -103,7 +103,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/loader</link>
      <title>Loader | Fiber UI</title>
-     <description>The loader components</description>
+     <description>A customizable loading spinner and progress indicator. signals wait times effectively with smooth animations and multiple size and color variants.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -111,7 +111,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/pagination</link>
      <title>Pagination | Fiber UI</title>
-     <description>A robust pagination component with page navigation, jump-to-page, and items-per-page controls.</description>
+     <description>A powerful pagination component for navigating large datasets. Includes page buttons, navigation controls, and page size selectors with full keyboard support.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -119,7 +119,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/popover</link>
      <title>Popover | Fiber UI</title>
-     <description>Displays rich content in a portal, triggered by a button.</description>
+     <description>A floating popover component for displaying rich content triggered by user interaction. Features focus trapping, automatic positioning, and dismiss-on-outside-click behavior.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -127,7 +127,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/select</link>
      <title>Select | Fiber UI</title>
-     <description>Displays a list of options for the user to pick from, triggered by a button.</description>
+     <description>A feature-rich select dropdown component. Supports single and multiple selection, sections, custom item rendering, and fully accessible keyboard navigation.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -135,7 +135,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/separator</link>
      <title>Separator | Fiber UI</title>
-     <description>A separator is a visual divider between two groups of content, e.g. groups of menu items or sections of a page.</description>
+     <description>A stylistic separator component for dividing content sections. Supports horizontal and vertical orientations with customizable thickness and semantic roles.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -143,7 +143,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/skeleton</link>
      <title>Skeleton | Fiber UI</title>
-     <description>Placeholder loading states for content that is loading.</description>
+     <description>An animated skeleton loader for simulating content layout while data is fetching. Improves perceived performance by reducing layout shift and visual jarring.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -151,7 +151,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/slider</link>
      <title>Slider | Fiber UI</title>
-     <description>An input for selecting a value within a range.</description>
+     <description>A fully accessible slider component for selecting values within a range. Supports single or multiple thumbs, custom formatting, and keyboard interaction.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -159,7 +159,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/switch</link>
      <title>Switch | Fiber UI</title>
-     <description>A toggle control that allows users to switch between on and off states.</description>
+     <description>An accessible toggle switch for binary states. Supports custom labels, sizes, and colors, with smooth animations and full keyboard accessibility.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -167,7 +167,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/tabs</link>
      <title>Tabs | Fiber UI</title>
-     <description>A set of layered sections of content, displayed one at a time.</description>
+     <description>A flexible tabs component for organizing content into sections. Features automatic activation, keyboard navigation, and customizable styling for active states.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -175,7 +175,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/textarea</link>
      <title>Textarea | Fiber UI</title>
-     <description>Displays a form textarea or a component that looks like a textarea.</description>
+     <description>An auto-resizing textarea component for multi-line text input. Includes support for validation error states, accessible labeling, and custom styling.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -183,7 +183,7 @@
 <item>
      <link>https://r.fiberui.com/docs/components/toast</link>
      <title>Toast | Fiber UI</title>
-     <description>An opinionated toast component for React.</description>
+     <description>A lightweight toast notification system for displaying temporary alerts. Supports multiple positions, auto-dismissal, and custom content rendering.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -191,7 +191,15 @@
 <item>
      <link>https://r.fiberui.com/docs/components/tooltip</link>
      <title>Tooltip | Fiber UI</title>
-     <description>A popup that displays information related to an element when the element receives focus or is hovered.</description>
+     <description>An informational tooltip component that appears on hover or focus. Fully accessible with smart positioning to keep content visible within the viewport.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-file-system</link>
+     <title>useFileSystem | Fiber UI</title>
+     <description>A powerful storage hook for reading, writing, and managing files directly on the user&amp;#x27;s local file system using the modern File System Access API.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -199,7 +207,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-indexed-db</link>
      <title>useIndexedDB | Fiber UI</title>
-     <description>A hook for storing large amounts of structured data in IndexedDB</description>
+     <description>A React hook for persisting data in IndexedDB. Provides a simple API for storing large structured data sets asynchronously in the browser.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -207,7 +215,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-local-storage-state</link>
      <title>useLocalStorageState | Fiber UI</title>
-     <description>A React hook that syncs state with localStorage</description>
+     <description>A React hook that persists state to localStorage with automatic cross-tab synchronization. Handles serialization, hydration, and server-side rendering compatibility out of the box.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -215,7 +223,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-session-storage-state</link>
      <title>useSessionStorageState | Fiber UI</title>
-     <description>A React hook that syncs state with sessionStorage</description>
+     <description>A React hook for managing state in sessionStorage. Preserves data across page reloads within the same tab, perfect for temporary form data or wizard progress.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -223,7 +231,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/intro-to-webrtc-hooks</link>
      <title>Intro to WebRTC Hooks | Fiber UI</title>
-     <description>A complete, composable WebRTC stack for React using hooks.</description>
+     <description>A comprehensive guide to the FiberUI WebRTC React Hooks stack. Learn how to build production-ready real-time communication apps with composable React hooks.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -231,7 +239,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-audio-level</link>
      <title>useAudioLevel | Fiber UI</title>
-     <description>A hook for detecting audio volume levels</description>
+     <description>A visualization hook for analyzing audio volume in real-time. Detects speaking activity and provides raw volume data, perfect for building audio meters and active speaker indicators.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -239,15 +247,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-data-channel</link>
      <title>useDataChannel | Fiber UI</title>
-     <description>A hook for WebRTC data channels (P2P messaging)</description>
-     <ror:updatePeriod></ror:updatePeriod>
-     <ror:sortOrder>2</ror:sortOrder>
-     <ror:resourceOf>sitemap</ror:resourceOf>
-</item>
-<item>
-     <link>https://r.fiberui.com/docs/hooks/use-media-devices</link>
-     <title>useMediaDevices | Fiber UI</title>
-     <description>A hook for tracking connected media input and output devices</description>
+     <description>A React hook for managing WebRTC Data Channels. Enables low-latency peer-to-peer exchange of text, binary data, and JSON for chat or gaming applications.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -255,7 +255,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-peer-connection</link>
      <title>usePeerConnection | Fiber UI</title>
-     <description>A hook for managing WebRTC peer connections</description>
+     <description>The core WebRTC hook for managing peer connections, handling the complex lifecycle of SDP negotiation, ICE candidate exchange, and connection state management for robust P2P communication.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -263,7 +263,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-screen-share</link>
      <title>useScreenShare | Fiber UI</title>
-     <description>A hook for screen/window sharing using getDisplayMedia</description>
+     <description>A simplified hook for capturing screen content. Provides easy access to display media streams for sharing screens, windows, or browser tabs in your application.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -271,7 +271,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-track-toggle</link>
      <title>useTrackToggle | Fiber UI</title>
-     <description>A hook for muting/unmuting audio and video tracks</description>
+     <description>A media control hook for muting and unmuting audio or video tracks. Toggles media availability without stopping the underlying stream, ideal for meeting controls.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -279,7 +279,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-user-media</link>
      <title>useUserMedia | Fiber UI</title>
-     <description>A hook for accessing camera and microphone using getUserMedia</description>
+     <description>A hook for accessing and managing the user&amp;#x27;s camera and microphone. Handles permission requests, device constraints, and stream lifecycle management effortlessly.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -287,7 +287,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-clipboard</link>
      <title>useClipboard | Fiber UI</title>
-     <description>A hook for copying and reading text from the clipboard</description>
+     <description>A utility hook for reading and writing to the system clipboard. simplifies copy-to-clipboard functionality with built-in state management for feedback indicators.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -295,7 +295,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-countdown</link>
      <title>useCountdown | Fiber UI</title>
-     <description>Manage timer state for countdowns and intervals.</description>
+     <description>A comprehensive timer hook for countdowns and intervals. Supports start, stop, pause, and reset controls with high precision and customizable callback intervals.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -303,7 +303,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-counter</link>
      <title>useCounter | Fiber UI</title>
-     <description>Manage counter state with increment, decrement, and reset functionality.</description>
+     <description>A versatile hook for managing numeric values with min/max limits. Includes convenient helpers for increment, decrement, and reset, making it ideal for quantity pickers.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -311,7 +311,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-debounced-callback</link>
      <title>useDebouncedCallback | Fiber UI</title>
-     <description>A hook for debouncing callback functions</description>
+     <description>A performance optimization hook that delays function execution. Perfect for handling high-frequency events like search inputs or window resizing without impacting UI responsiveness.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -319,7 +319,15 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-debounced-state</link>
      <title>useDebouncedState | Fiber UI</title>
-     <description>A hook for debouncing state values</description>
+     <description>A hook that delays updating a state value until a specified time has passed. Essential for reducing API calls and expensive re-renders during rapid user input.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-eye-dropper</link>
+     <title>useEyeDropper | Fiber UI</title>
+     <description>A specialized utility hook for selecting colors from anywhere on the screen using the modern EyeDropper API, providing hex color codes effortlessly.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -327,15 +335,23 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-is-mounted</link>
      <title>useIsMounted | Fiber UI</title>
-     <description>A hook to detect if a component has mounted on the client</description>
+     <description>A utility hook to solve hydration mismatch issues. Returns true only after the component has mounted on the client, ensuring safe access to browser APIs.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
 </item>
 <item>
-     <link>https://r.fiberui.com/docs/hooks/use-network</link>
-     <title>useNetwork | Fiber UI</title>
-     <description>Track network status and connection details.</description>
+     <link>https://r.fiberui.com/docs/hooks/use-picture-in-picture</link>
+     <title>usePictureInPicture | Fiber UI</title>
+     <description>A comprehensive hook for managing Picture-in-Picture mode for video elements, allowing creating floating video players that persist while multitasking.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-share</link>
+     <title>useShare | Fiber UI</title>
+     <description>A cross-platform utility hook for invoking the native share sheet on mobile and desktop, enabling effortless content sharing with optional fallbacks.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -343,7 +359,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-throttled-callback</link>
      <title>useThrottledCallback | Fiber UI</title>
-     <description>A hook for throttling callback functions</description>
+     <description>A hook that limits the rate at which a function activates. Ideal for optimizing scroll listeners and mouse movement handlers by enforcing a maximum execution frequency.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -351,7 +367,7 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-throttled-state</link>
      <title>useThrottledState | Fiber UI</title>
-     <description>A hook for throttling state values</description>
+     <description>A hook for throttling state updates to improve performance. Ensures that state changes only propagate at a controlled rate, preventing UI lag during rapid updates.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -359,7 +375,15 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-battery</link>
      <title>useBattery | Fiber UI</title>
-     <description>A hook to access real-time battery information</description>
+     <description>A React hook for monitoring device battery status. Provides real-time updates on charging state, level, and charging/discharging times via the Battery Status API.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-device-orientation</link>
+     <title>useDeviceOrientation | Fiber UI</title>
+     <description>A comprehensive hook to access the device&amp;#x27;s physical orientation and tilt angles (alpha, beta, gamma) relative to the Earth&amp;#x27;s frame of reference.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
@@ -367,7 +391,31 @@
 <item>
      <link>https://r.fiberui.com/docs/hooks/use-geolocation</link>
      <title>useGeolocation | Fiber UI</title>
-     <description>A hook for accessing device location using the Geolocation API</description>
+     <description>A React hook for accessing the Geolocation API. Retrieves current coordinates, handles permission states, and tracks position changes in real-time.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-media-devices</link>
+     <title>useMediaDevices | Fiber UI</title>
+     <description>A powerful hook for enumerating and managing connected media devices. Lists cameras, microphones, and speakers with real-time updates when devices are connected or removed.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-network</link>
+     <title>useNetwork | Fiber UI</title>
+     <description>A hook that monitors network connectivity status. Provides real-time updates on online/offline state and connection details like effective type and downlink speed.</description>
+     <ror:updatePeriod></ror:updatePeriod>
+     <ror:sortOrder>2</ror:sortOrder>
+     <ror:resourceOf>sitemap</ror:resourceOf>
+</item>
+<item>
+     <link>https://r.fiberui.com/docs/hooks/use-wake-lock</link>
+     <title>useWakeLock | Fiber UI</title>
+     <description>A specialized device hook that leverages the Screen Wake Lock API to prevent the device screen from dimming or turning off during usage.</description>
      <ror:updatePeriod></ror:updatePeriod>
      <ror:sortOrder>2</ror:sortOrder>
      <ror:resourceOf>sitemap</ror:resourceOf>
