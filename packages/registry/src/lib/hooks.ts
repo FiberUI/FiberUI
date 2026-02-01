@@ -2,6 +2,19 @@ import { RegistryItem } from "@/lib/types";
 
 export const FIBER_UI_HOOKS: RegistryItem[] = [
     // =========================================================================
+    // Form
+    // =========================================================================
+    {
+        name: "use-file-upload",
+        type: "registry:hook",
+        title: "useFileUpload",
+        description:
+            "A comprehensive hook for handling file uploads with drag-and-drop, validation, and previews.",
+        categories: ["form"],
+        files: [{ path: "form/use-file-upload.ts", type: "registry:hook" }],
+    },
+
+    // =========================================================================
     // DOM
     // =========================================================================
     {

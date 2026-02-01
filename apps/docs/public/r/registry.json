@@ -1,193 +1,191 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "fiberui",
-  "homepage": "https://fiberui.com",
-  "items": [
-    {
-      "name": "use-click-outside",
-      "type": "registry:hook",
-      "title": "useClickOutside",
-      "description": "A hook that detects clicks outside of the specified element."
-    },
-    {
-      "name": "use-portal",
-      "type": "registry:hook",
-      "title": "usePortal",
-      "description": "A hook that manages a portal container in the DOM and returns a Portal component."
-    },
-    {
-      "name": "use-battery",
-      "type": "registry:hook",
-      "title": "useBattery",
-      "description": "A React hook for monitoring device battery status."
-    },
-    {
-      "name": "use-device-orientation",
-      "type": "registry:hook",
-      "title": "useDeviceOrientation",
-      "description": "A hook to access the device's physical orientation."
-    },
-    {
-      "name": "use-geolocation",
-      "type": "registry:hook",
-      "title": "useGeolocation",
-      "description": "A React hook for accessing the Geolocation API."
-    },
-    {
-      "name": "use-media-devices",
-      "type": "registry:hook",
-      "title": "useMediaDevices",
-      "description": "A powerful hook for enumerating and managing connected media devices."
-    },
-    {
-      "name": "use-network",
-      "type": "registry:hook",
-      "title": "useNetwork",
-      "description": "A hook that monitors network connectivity status."
-    },
-    {
-      "name": "use-wake-lock",
-      "type": "registry:hook",
-      "title": "useWakeLock",
-      "description": "A device hook for the Screen Wake Lock API."
-    },
-    {
-      "name": "use-file-system",
-      "type": "registry:hook",
-      "title": "useFileSystem",
-      "description": "A hook for reading and writing files using the File System Access API."
-    },
-    {
-      "name": "use-indexed-db",
-      "type": "registry:hook",
-      "title": "useIndexedDB",
-      "description": "A simplified hook for managing IndexedDB with async support."
-    },
-    {
-      "name": "use-local-storage-state",
-      "type": "registry:hook",
-      "title": "useLocalStorageState",
-      "description": "A hook that synchronizes state with localStorage."
-    },
-    {
-      "name": "use-session-storage-state",
-      "type": "registry:hook",
-      "title": "useSessionStorageState",
-      "description": "A hook that synchronizes state with sessionStorage."
-    },
-    {
-      "name": "use-clipboard",
-      "type": "registry:hook",
-      "title": "useClipboard",
-      "description": "A utility hook for reading and writing to the system clipboard."
-    },
-    {
-      "name": "use-countdown",
-      "type": "registry:hook",
-      "title": "useCountdown",
-      "description": "A hook for creating flexible countdown timers."
-    },
-    {
-      "name": "use-counter",
-      "type": "registry:hook",
-      "title": "useCounter",
-      "description": "A simple hook for managing a counter with upper/lower bounds."
-    },
-    {
-      "name": "use-debounced-callback",
-      "type": "registry:hook",
-      "title": "useDebouncedCallback",
-      "description": "A hook for debouncing callback functions.",
-      "dependencies": [
-        "lodash"
-      ]
-    },
-    {
-      "name": "use-debounced-state",
-      "type": "registry:hook",
-      "title": "useDebouncedState",
-      "description": "A hook for debouncing state values.",
-      "dependencies": [
-        "lodash"
-      ]
-    },
-    {
-      "name": "use-eye-dropper",
-      "type": "registry:hook",
-      "title": "useEyeDropper",
-      "description": "A utility hook for selecting colors using the EyeDropper API."
-    },
-    {
-      "name": "use-is-mounted",
-      "type": "registry:hook",
-      "title": "useIsMounted",
-      "description": "A hook to check if the component is mounted (SSR safe)."
-    },
-    {
-      "name": "use-picture-in-picture",
-      "type": "registry:hook",
-      "title": "usePictureInPicture",
-      "description": "A utility hook for managing Picture-in-Picture mode for video."
-    },
-    {
-      "name": "use-share",
-      "type": "registry:hook",
-      "title": "useShare",
-      "description": "A utility hook for invoking the native share sheet."
-    },
-    {
-      "name": "use-throttled-callback",
-      "type": "registry:hook",
-      "title": "useThrottledCallback",
-      "description": "A hook for throttling callback functions.",
-      "dependencies": [
-        "lodash"
-      ]
-    },
-    {
-      "name": "use-throttled-state",
-      "type": "registry:hook",
-      "title": "useThrottledState",
-      "description": "A hook for throttling state values.",
-      "dependencies": [
-        "lodash"
-      ]
-    },
-    {
-      "name": "use-audio-level",
-      "type": "registry:hook",
-      "title": "useAudioLevel",
-      "description": "A visualization hook for analyzing audio volume."
-    },
-    {
-      "name": "use-data-channel",
-      "type": "registry:hook",
-      "title": "useDataChannel",
-      "description": "A React hook for managing WebRTC Data Channels."
-    },
-    {
-      "name": "use-peer-connection",
-      "type": "registry:hook",
-      "title": "usePeerConnection",
-      "description": "The core WebRTC hook for managing peer connections."
-    },
-    {
-      "name": "use-screen-share",
-      "type": "registry:hook",
-      "title": "useScreenShare",
-      "description": "A simplified hook for capturing screen content."
-    },
-    {
-      "name": "use-track-toggle",
-      "type": "registry:hook",
-      "title": "useTrackToggle",
-      "description": "A media control hook for muting and unmuting tracks."
-    },
-    {
-      "name": "use-user-media",
-      "type": "registry:hook",
-      "title": "useUserMedia",
-      "description": "A hook for accessing and managing the user's camera and microphone."
-    }
-  ]
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "fiberui",
+    "homepage": "https://fiberui.com",
+    "items": [
+        {
+            "name": "use-file-upload",
+            "type": "registry:hook",
+            "title": "useFileUpload",
+            "description": "A comprehensive hook for handling file uploads with drag-and-drop, validation, and previews."
+        },
+        {
+            "name": "use-click-outside",
+            "type": "registry:hook",
+            "title": "useClickOutside",
+            "description": "A hook that detects clicks outside of the specified element."
+        },
+        {
+            "name": "use-portal",
+            "type": "registry:hook",
+            "title": "usePortal",
+            "description": "A hook that manages a portal container in the DOM and returns a Portal component."
+        },
+        {
+            "name": "use-battery",
+            "type": "registry:hook",
+            "title": "useBattery",
+            "description": "A React hook for monitoring device battery status."
+        },
+        {
+            "name": "use-device-orientation",
+            "type": "registry:hook",
+            "title": "useDeviceOrientation",
+            "description": "A hook to access the device's physical orientation."
+        },
+        {
+            "name": "use-geolocation",
+            "type": "registry:hook",
+            "title": "useGeolocation",
+            "description": "A React hook for accessing the Geolocation API."
+        },
+        {
+            "name": "use-media-devices",
+            "type": "registry:hook",
+            "title": "useMediaDevices",
+            "description": "A powerful hook for enumerating and managing connected media devices."
+        },
+        {
+            "name": "use-network",
+            "type": "registry:hook",
+            "title": "useNetwork",
+            "description": "A hook that monitors network connectivity status."
+        },
+        {
+            "name": "use-wake-lock",
+            "type": "registry:hook",
+            "title": "useWakeLock",
+            "description": "A device hook for the Screen Wake Lock API."
+        },
+        {
+            "name": "use-file-system",
+            "type": "registry:hook",
+            "title": "useFileSystem",
+            "description": "A hook for reading and writing files using the File System Access API."
+        },
+        {
+            "name": "use-indexed-db",
+            "type": "registry:hook",
+            "title": "useIndexedDB",
+            "description": "A simplified hook for managing IndexedDB with async support."
+        },
+        {
+            "name": "use-local-storage-state",
+            "type": "registry:hook",
+            "title": "useLocalStorageState",
+            "description": "A hook that synchronizes state with localStorage."
+        },
+        {
+            "name": "use-session-storage-state",
+            "type": "registry:hook",
+            "title": "useSessionStorageState",
+            "description": "A hook that synchronizes state with sessionStorage."
+        },
+        {
+            "name": "use-clipboard",
+            "type": "registry:hook",
+            "title": "useClipboard",
+            "description": "A utility hook for reading and writing to the system clipboard."
+        },
+        {
+            "name": "use-countdown",
+            "type": "registry:hook",
+            "title": "useCountdown",
+            "description": "A hook for creating flexible countdown timers."
+        },
+        {
+            "name": "use-counter",
+            "type": "registry:hook",
+            "title": "useCounter",
+            "description": "A simple hook for managing a counter with upper/lower bounds."
+        },
+        {
+            "name": "use-debounced-callback",
+            "type": "registry:hook",
+            "title": "useDebouncedCallback",
+            "description": "A hook for debouncing callback functions.",
+            "dependencies": ["lodash"]
+        },
+        {
+            "name": "use-debounced-state",
+            "type": "registry:hook",
+            "title": "useDebouncedState",
+            "description": "A hook for debouncing state values.",
+            "dependencies": ["lodash"]
+        },
+        {
+            "name": "use-eye-dropper",
+            "type": "registry:hook",
+            "title": "useEyeDropper",
+            "description": "A utility hook for selecting colors using the EyeDropper API."
+        },
+        {
+            "name": "use-is-mounted",
+            "type": "registry:hook",
+            "title": "useIsMounted",
+            "description": "A hook to check if the component is mounted (SSR safe)."
+        },
+        {
+            "name": "use-picture-in-picture",
+            "type": "registry:hook",
+            "title": "usePictureInPicture",
+            "description": "A utility hook for managing Picture-in-Picture mode for video."
+        },
+        {
+            "name": "use-share",
+            "type": "registry:hook",
+            "title": "useShare",
+            "description": "A utility hook for invoking the native share sheet."
+        },
+        {
+            "name": "use-throttled-callback",
+            "type": "registry:hook",
+            "title": "useThrottledCallback",
+            "description": "A hook for throttling callback functions.",
+            "dependencies": ["lodash"]
+        },
+        {
+            "name": "use-throttled-state",
+            "type": "registry:hook",
+            "title": "useThrottledState",
+            "description": "A hook for throttling state values.",
+            "dependencies": ["lodash"]
+        },
+        {
+            "name": "use-audio-level",
+            "type": "registry:hook",
+            "title": "useAudioLevel",
+            "description": "A visualization hook for analyzing audio volume."
+        },
+        {
+            "name": "use-data-channel",
+            "type": "registry:hook",
+            "title": "useDataChannel",
+            "description": "A React hook for managing WebRTC Data Channels."
+        },
+        {
+            "name": "use-peer-connection",
+            "type": "registry:hook",
+            "title": "usePeerConnection",
+            "description": "The core WebRTC hook for managing peer connections."
+        },
+        {
+            "name": "use-screen-share",
+            "type": "registry:hook",
+            "title": "useScreenShare",
+            "description": "A simplified hook for capturing screen content."
+        },
+        {
+            "name": "use-track-toggle",
+            "type": "registry:hook",
+            "title": "useTrackToggle",
+            "description": "A media control hook for muting and unmuting tracks."
+        },
+        {
+            "name": "use-user-media",
+            "type": "registry:hook",
+            "title": "useUserMedia",
+            "description": "A hook for accessing and managing the user's camera and microphone."
+        }
+    ]
 }

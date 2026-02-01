@@ -1,6 +1,6 @@
 ---
 title: React Hooks
-description: Explore our collection of production-ready React hooks. Includes storage utilities, device hardware access, and a full suite of WebRTC primitives for real-time apps.
+description: A collection of production-ready React hooks for storage, forms, real-time communication, device access, and more. Type-safe, SSR-compatible, and designed for modern applications.
 keywords:
     [
         "react hooks",
@@ -22,10 +22,26 @@ keywords:
         "hooks collection",
         "production ready",
         "ssr compatible",
+        "file upload",
+        "form hooks",
+        "drag and drop",
     ]
 ---
 
-A collection of type-safe, SSR-compatible React hooks organized by category.
+A collection of **Type-Safe, SSR-Compatible React Hooks** organized by category. Install any hook with a single command.
+
+---
+
+## DOM
+
+Hooks for interacting with the Document Object Model.
+
+| Hook                                             | Description                                     |
+| ------------------------------------------------ | ----------------------------------------------- |
+| [useClickOutside](/docs/hooks/use-click-outside) | Detect clicks outside a specific element        |
+| [usePortal](/docs/hooks/use-portal)              | Render content into a portal (e.g., for modals) |
+
+---
 
 ## DOM
 
@@ -40,66 +56,45 @@ Hooks for interacting with the DOM:
 
 ## Storage
 
-Hooks for persisting data in browser storage:
+Hooks for persisting data in the browser.
 
 | Hook                                                            | Description                               |
 | --------------------------------------------------------------- | ----------------------------------------- |
 | [useLocalStorageState](/docs/hooks/use-local-storage-state)     | Sync state with localStorage (persistent) |
 | [useSessionStorageState](/docs/hooks/use-session-storage-state) | Sync state with sessionStorage (per-tab)  |
 | [useIndexedDB](/docs/hooks/use-indexed-db)                      | Store large data in IndexedDB             |
-| [useFileSystem](/docs/hooks/use-file-system)                    | Read/Write files to local disk            |
+| [useFileSystem](/docs/hooks/use-file-system)                    | Read/write files to local disk            |
 
-### Comparison
+<MdxAccordions type="single">
+<MdxAccordion title="Storage Comparison">
 
 | Feature           | `useLocalStorageState` | `useSessionStorageState` | `useIndexedDB`       | `useFileSystem`   |
 | ----------------- | ---------------------- | ------------------------ | -------------------- | ----------------- |
-| **Storage Limit** | ~5MB per origin        | ~5MB per origin          | GBs (quota-based)    | Disk Capacity     |
+| **Storage Limit** | ~5MB per origin        | ~5MB per origin          | GBs (quota-based)    | Disk capacity     |
 | **Data Types**    | JSON serializable      | JSON serializable        | Any (objects, blobs) | Files/Blobs       |
-| **Persistence**   | Forever                | Until tab closes         | Forever              | Forever (Manual)  |
+| **Persistence**   | Forever                | Until tab closes         | Forever              | Forever (manual)  |
 | **Cross-tab**     | Syncs                  | Isolated                 | Shared               | N/A               |
 | **API Style**     | Synchronous            | Synchronous              | Asynchronous         | Asynchronous      |
-| **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  | Documents/Editors |
+| **Best For**      | Preferences, tokens    | Forms, wizards           | Large data, offline  | Documents/editors |
+
+</MdxAccordion>
+</MdxAccordions>
 
 ---
 
-## Device
+## Form
 
-Hooks for accessing device capabilities and hardware:
+Hooks for building forms and handling user input.
 
-| Hook                                                       | Description                             |
-| ---------------------------------------------------------- | --------------------------------------- |
-| [useBattery](/docs/hooks/use-battery)                      | Access real-time battery information    |
-| [useMediaDevices](/docs/hooks/use-media-devices)           | List cameras, microphones, and speakers |
-| [useGeolocation](/docs/hooks/use-geolocation)              | Get device location using GPS or Wi-Fi  |
-| [useNetwork](/docs/hooks/use-network)                      | Monitor network connection status       |
-| [useDeviceOrientation](/docs/hooks/use-device-orientation) | Access device tilt and rotation sensors |
-| [useWakeLock](/docs/hooks/use-wake-lock)                   | Prevent screen from dimming/sleeping    |
-
----
-
-## Utility
-
-General-purpose utility hooks:
-
-| Hook                                                       | Description                               |
-| ---------------------------------------------------------- | ----------------------------------------- |
-| [useIsMounted](/docs/hooks/use-is-mounted)                 | Detect if component is mounted (SSR safe) |
-| [useClipboard](/docs/hooks/use-clipboard)                  | Copy and read text from the clipboard     |
-| [useDebouncedState](/docs/hooks/use-debounced-state)       | Debounce state values                     |
-| [useDebouncedCallback](/docs/hooks/use-debounced-callback) | Debounce callback functions               |
-| [useThrottledState](/docs/hooks/use-throttled-state)       | Throttle state values                     |
-| [useThrottledCallback](/docs/hooks/use-throttled-callback) | Throttle callback functions               |
-| [useCounter](/docs/hooks/use-counter)                      | Increment/decrement counter with bounds   |
-| [useCountdown](/docs/hooks/use-countdown)                  | Countdown timer with callbacks            |
-| [useShare](/docs/hooks/use-share)                          | Share content via native share sheet      |
-| [useEyeDropper](/docs/hooks/use-eye-dropper)               | Pick colors from anywhere on screen       |
-| [usePictureInPicture](/docs/hooks/use-picture-in-picture)  | Floating video window (PiP)               |
+| Hook                                         | Description                                            |
+| -------------------------------------------- | ------------------------------------------------------ |
+| [useFileUpload](/docs/hooks/use-file-upload) | File uploads with drag-and-drop, validation & previews |
 
 ---
 
 ## WebRTC
 
-Hooks for building real-time communication apps:
+Hooks for building real-time communication applications.
 
 | Hook                                                 | Description                                 |
 | ---------------------------------------------------- | ------------------------------------------- |
@@ -110,9 +105,10 @@ Hooks for building real-time communication apps:
 | [useAudioLevel](/docs/hooks/use-audio-level)         | Detect audio levels for speaking indicators |
 | [useDataChannel](/docs/hooks/use-data-channel)       | Send/receive data over peer connections     |
 
-### Comparison
+<MdxAccordions type="single">
+<MdxAccordion title="WebRTC Hook Comparison">
 
-| Hook                | Purpose                  | Returns                         |
+| Hook                | Purpose                  | Key Returns                     |
 | ------------------- | ------------------------ | ------------------------------- |
 | `useUserMedia`      | Get local camera/mic     | `stream`, `start`, `stop`       |
 | `usePeerConnection` | WebRTC signaling         | `createOffer`, `addTrack`, etc. |
@@ -120,3 +116,41 @@ Hooks for building real-time communication apps:
 | `useScreenShare`    | Screen capture           | `stream`, `isSharing`           |
 | `useAudioLevel`     | Voice activity detection | `level`, `isSpeaking`           |
 | `useDataChannel`    | P2P messaging            | `send`, `messages`              |
+
+</MdxAccordion>
+</MdxAccordions>
+
+---
+
+## Utilities
+
+General-purpose utility hooks for common patterns.
+
+| Hook                                                       | Description                               |
+| ---------------------------------------------------------- | ----------------------------------------- |
+| [useIsMounted](/docs/hooks/use-is-mounted)                 | Detect if component is mounted (SSR safe) |
+| [useClipboard](/docs/hooks/use-clipboard)                  | Copy and read text from the clipboard     |
+| [useDebouncedState](/docs/hooks/use-debounced-state)       | Debounce state updates                    |
+| [useDebouncedCallback](/docs/hooks/use-debounced-callback) | Debounce callback functions               |
+| [useThrottledState](/docs/hooks/use-throttled-state)       | Throttle state updates                    |
+| [useThrottledCallback](/docs/hooks/use-throttled-callback) | Throttle callback functions               |
+| [useCounter](/docs/hooks/use-counter)                      | Increment/decrement with bounds           |
+| [useCountdown](/docs/hooks/use-countdown)                  | Countdown timer with callbacks            |
+| [useShare](/docs/hooks/use-share)                          | Share content via native share sheet      |
+| [useEyeDropper](/docs/hooks/use-eye-dropper)               | Pick colors from anywhere on screen       |
+| [usePictureInPicture](/docs/hooks/use-picture-in-picture)  | Floating video window (PiP)               |
+
+---
+
+## Device
+
+Hooks for accessing device capabilities and hardware sensors.
+
+| Hook                                                       | Description                             |
+| ---------------------------------------------------------- | --------------------------------------- |
+| [useBattery](/docs/hooks/use-battery)                      | Access real-time battery information    |
+| [useMediaDevices](/docs/hooks/use-media-devices)           | List cameras, microphones, and speakers |
+| [useGeolocation](/docs/hooks/use-geolocation)              | Get device location using GPS or Wi-Fi  |
+| [useNetwork](/docs/hooks/use-network)                      | Monitor network connection status       |
+| [useDeviceOrientation](/docs/hooks/use-device-orientation) | Access device tilt and rotation sensors |
+| [useWakeLock](/docs/hooks/use-wake-lock)                   | Prevent screen from dimming/sleeping    |
