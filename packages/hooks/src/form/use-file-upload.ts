@@ -28,7 +28,7 @@ export type FileUploadOptions = {
     maxFiles?: number;
     /** Maximum file size in bytes. Defaults to Infinity. */
     maxSize?: number;
-    /** Accepted file types (e.g., "image/*,.pdf"). Defaults to " `*` ". */
+    /** Accepted file types (e.g., "`image/*,.pdf`"). Defaults to " `*` ". */
     accept?: string;
     /** Allow multiple file selection. Defaults to false. */
     multiple?: boolean;
