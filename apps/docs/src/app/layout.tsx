@@ -1,4 +1,5 @@
 import "@/app/global.css";
+import Script from "next/script";
 
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Fraunces, Noto_Sans } from "next/font/google";
@@ -94,6 +95,8 @@ export default function Layout({ children }: LayoutProps<"/">) {
             className={cn(notoSansFont.className, frauncesSerifFont.className)}
             suppressHydrationWarning
         >
+            <GoogleAnalyticsScript />
+
             <body className="flex min-h-screen flex-col">
                 <RootProvider>{children}</RootProvider>
                 <Toaster />
@@ -101,3 +104,23 @@ export default function Layout({ children }: LayoutProps<"/">) {
         </html>
     );
 }
+
+const GoogleAnalyticsScript = () => {
+    return (
+        <>
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-JD87FR42B4"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-JD87FR42B4');
+        `}
+            </Script>
+        </>
+    );
+};
