@@ -259,6 +259,32 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
     },
 
     // =========================================================================
+    // Speech
+    // =========================================================================
+    {
+        name: "use-speech-recognition",
+        type: "registry:hook",
+        title: "useSpeechRecognition",
+        description:
+            "A React hook for speech-to-text conversion using the Web Speech API.",
+        categories: ["speech"],
+        files: [
+            { path: "speech/use-speech-recognition.ts", type: "registry:hook" },
+        ],
+    },
+    {
+        name: "use-speech-synthesis",
+        type: "registry:hook",
+        title: "useSpeechSynthesis",
+        description:
+            "A React hook for text-to-speech synthesis using the Web Speech API.",
+        categories: ["speech"],
+        files: [
+            { path: "speech/use-speech-synthesis.ts", type: "registry:hook" },
+        ],
+    },
+
+    // =========================================================================
     // WebRTC
     // =========================================================================
     {

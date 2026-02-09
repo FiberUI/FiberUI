@@ -1,0 +1,205 @@
+---
+title: useSpeechSynthesis
+description: A React hook for text-to-speech functionality using the Web Speech Synthesis API. Read text aloud with customizable voices, rate, pitch, and volume controls.
+keywords:
+    [
+        "useSpeechSynthesis",
+        "react hook",
+        "speech synthesis",
+        "text to speech",
+        "tts",
+        "voice output",
+        "read aloud",
+        "accessibility",
+        "a11y",
+        "screen reader",
+        "web speech api",
+        "audio",
+        "voice",
+        "speech",
+        "narrator",
+        "voice assistant",
+        "reading mode",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-speech-synthesis.json
+```
+
+A React hook that provides text-to-speech functionality using the [Web Speech Synthesis API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API). Perfect for accessibility features, reading assistants, voice notifications, and any application that needs to speak to users.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need speech-to-text instead? See
+    [useSpeechRecognition](/docs/hooks/use-speech-recognition).
+</Callout>
+
+## Features
+
+- **Multiple Voices** - Access all system voices with language filtering
+- **Rate & Pitch Controls** - Customize speech speed (0.1x-10x) and pitch (0-2)
+- **Playback Controls** - `pause`, `resume`, and `cancel` for full control
+- **Word Boundaries** - Track current word position for text highlighting
+- **Callbacks** - `onStart`, `onEnd`, `onError`, `onBoundary` for events
+- **SSR Safe** - Gracefully handles server-side rendering
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: SpeechSynthesis API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis"
+        description="Documentation on text-to-speech synthesis in web browsers"
+    />
+</Cards>
+
+---
+
+## Basic Usage
+
+The simplest usage - enter text and click speak to hear it read aloud. The hook handles all the complexity of the Speech Synthesis API.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechSynthesisExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-synthesis" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Voice & Rate Controls
+
+Customize the voice, speed, and pitch. The hook provides access to all available system voices, which vary by browser and operating system.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechSynthesisExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-synthesis" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Word Highlighting
+
+Use the `onBoundary` callback to track the current word being spoken. This enables karaoke-style text highlighting as the speech progresses.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechSynthesisExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-synthesis" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useSpeechSynthesis(
+    options?: UseSpeechSynthesisOptions,
+): UseSpeechSynthesisReturn;
+```
+
+### Options
+
+| Property     | Type                                         | Default | Description                            |
+| ------------ | -------------------------------------------- | ------- | -------------------------------------- |
+| `voice`      | `SpeechSynthesisVoice \| null`               | `null`  | The voice to use (from `voices` array) |
+| `rate`       | `number`                                     | `1`     | Speech rate from 0.1 to 10             |
+| `pitch`      | `number`                                     | `1`     | Speech pitch from 0 to 2               |
+| `volume`     | `number`                                     | `1`     | Volume from 0 to 1                     |
+| `onStart`    | `() => void`                                 | -       | Callback when speech starts            |
+| `onEnd`      | `() => void`                                 | -       | Callback when speech ends              |
+| `onError`    | `(error: SpeechSynthesisErrorEvent) => void` | -       | Callback when an error occurs          |
+| `onBoundary` | `(event: SpeechSynthesisEvent) => void`      | -       | Callback at word/sentence boundaries   |
+
+### Return Value
+
+| Property           | Type                                | Description                                   |
+| ------------------ | ----------------------------------- | --------------------------------------------- |
+| `speak`            | `(text: string) => void`            | Speak the given text                          |
+| `cancel`           | `() => void`                        | Cancel all speech                             |
+| `pause`            | `() => void`                        | Pause current speech                          |
+| `resume`           | `() => void`                        | Resume paused speech                          |
+| `isSpeaking`       | `boolean`                           | Whether speech is playing                     |
+| `isPaused`         | `boolean`                           | Whether speech is paused                      |
+| `isSupported`      | `boolean`                           | Whether the API is supported                  |
+| `voices`           | `SpeechSynthesisVoice[]`            | Available voices                              |
+| `currentCharIndex` | `number`                            | Current character position (for highlighting) |
+| `error`            | `SpeechSynthesisErrorEvent \| null` | Error event if speech failed                  |
+| `errorMessage`     | `string \| null`                    | Human-readable error message                  |
+
+### Voice Object
+
+Each voice in the `voices` array has these properties:
+
+| Property       | Type      | Description                          |
+| -------------- | --------- | ------------------------------------ |
+| `name`         | `string`  | Voice name (e.g., "Samantha")        |
+| `lang`         | `string`  | BCP 47 language code (e.g., "en-US") |
+| `default`      | `boolean` | Whether this is the default voice    |
+| `localService` | `boolean` | Whether the voice is local or remote |
+
+---
+
+## Common Patterns
+
+### Reading Page Content
+
+```tsx
+const { speak, cancel } = useSpeechSynthesis();
+
+// Read an article aloud
+const readArticle = () => {
+    const content = document.querySelector("article")?.textContent;
+    if (content) speak(content);
+};
+```
+
+### Accessibility Announcements
+
+```tsx
+const { speak } = useSpeechSynthesis({ rate: 1.2 });
+
+// Announce form errors
+const announceError = (message: string) => {
+    speak(`Error: ${message}`);
+};
+```
+
+---
+
+## Browser Support
+
+| Browser | Support         |
+| ------- | --------------- |
+| Chrome  | ✅ Full support |
+| Edge    | ✅ Full support |
+| Safari  | ✅ Full support |
+| Firefox | ✅ Full support |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-speech-synthesis" folder="speech" />
