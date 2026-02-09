@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-online",
+  "type": "registry:hook",
+  "title": "useOnline",
+  "description": "A hook that monitors online/offline status.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-online.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useCallback } from \"react\";\nimport { useEventListener } from \"@repo/hooks/dom/use-event-listener\";\n\nconst isBrowser = typeof window !== \"undefined\";\n\n/**\n * useOnline - Track network connectivity status\n *\n * @returns boolean indicating if the browser is online\n *\n * @example\n * const isOnline = useOnline();\n */\nexport function useOnline(): boolean {\n    const [isOnline, setIsOnline] = useState(() =>\n        isBrowser ? navigator.onLine : true,\n    );\n\n    const handleOnline = useCallback(() => setIsOnline(true), []);\n    const handleOffline = useCallback(() => setIsOnline(false), []);\n\n    useEventListener(\"online\", handleOnline);\n    useEventListener(\"offline\", handleOffline);\n\n    return isOnline;\n}\n"
+    }
+  ]
+}

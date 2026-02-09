@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowUp, Code2, FileCode, FileCode2 } from "lucide-react";
+import { ArrowUp, FileCode } from "lucide-react";
 import { cn } from "@repo/ui/lib/utils";
 
 /**
@@ -46,7 +46,7 @@ export function FloatingNav({
     );
     return (
         <>
-            <div className="fixed right-14 top-1 z-50 lg:right-4 lg:top-4">
+            <div className="fixed right-14 top-1 z-50 lg:right-2 lg:top-2">
                 {/* View Source Button - only shown on hook pages */}
                 {showSourceCode && (
                     <button

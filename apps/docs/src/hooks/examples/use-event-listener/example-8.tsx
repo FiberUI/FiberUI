@@ -74,11 +74,6 @@ export const Example8 = () => {
                     Focus events: <strong>{focusCount}</strong>
                 </p>
             </div>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("focus", handler, inputRef);
-useEventListener("blur", handler, inputRef);`}</code>
-            </pre>
         </div>
     );
 };

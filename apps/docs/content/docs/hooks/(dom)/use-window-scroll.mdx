@@ -1,0 +1,76 @@
+---
+title: useWindowScroll
+description: A React hook that tracks the window scroll position.
+keywords:
+    ["useWindowScroll", "react hook", "scroll position", "scroll tracking"]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-window-scroll.json
+```
+
+## Features
+
+- **Real-time Tracking** - Updates coordinates as you scroll.
+- **Performance Optimized** - Uses passive event listeners for smooth scrolling.
+- **SSR Safe** - Handles server-side rendering gracefully.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWindowScrollExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-window-scroll" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const { x, y } = useWindowScroll();
+
+if (y > 100) {
+    console.log("Scrolled past 100px!");
+}
+```
+
+### Back to Top Button
+
+Shows a button when scrolled down a certain amount.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWindowScrollExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-window-scroll" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+```tsx const {y} = useWindowScroll(); const showButton = y > 100; ``` ## API
+Reference
+
+### Signature
+
+```tsx
+const { x, y } = useWindowScroll();
+```
+
+### Returns
+
+| Property | Type     | Description                           |
+| :------- | :------- | :------------------------------------ |
+| `x`      | `number` | Horizontal scroll position in pixels. |
+| `y`      | `number` | Vertical scroll position in pixels.   |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-window-scroll" folder="dom" />

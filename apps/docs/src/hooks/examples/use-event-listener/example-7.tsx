@@ -70,11 +70,6 @@ export const Example7 = () => {
                     Last changed: {lastChange.toLocaleTimeString()}
                 </p>
             )}
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("online", () => setIsOnline(true));
-useEventListener("offline", () => setIsOnline(false));`}</code>
-            </pre>
         </div>
     );
 };

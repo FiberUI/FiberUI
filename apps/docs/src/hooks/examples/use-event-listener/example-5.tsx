@@ -68,12 +68,6 @@ export const Example5 = () => {
                     ({position.x}, {position.y})
                 </code>
             </div>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("mousemove", handler, areaRef);
-useEventListener("mouseenter", handler, areaRef);
-useEventListener("mouseleave", handler, areaRef);`}</code>
-            </pre>
         </div>
     );
 };

@@ -105,10 +105,6 @@ export const Example9 = () => {
             <p className="text-muted-foreground text-center text-sm">
                 Touch count: <strong>{touches}</strong>
             </p>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("touchstart", handler, ref, { passive: true });`}</code>
-            </pre>
         </div>
     );
 };

@@ -67,10 +67,6 @@ export const Example1 = () => {
                     </p>
                 </div>
             </div>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("resize", handler);`}</code>
-            </pre>
         </div>
     );
 };

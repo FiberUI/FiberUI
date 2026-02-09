@@ -1,0 +1,86 @@
+---
+title: useWindowSize
+description: A React hook that tracks the window dimensions.
+keywords:
+    [
+        "useWindowSize",
+        "react hook",
+        "viewport size",
+        "responsive",
+        "media queries",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-window-size.json
+```
+
+## Features
+
+- **Responsive Updates** - Updates width and height on window resize.
+- **Debounced** - Can be easily debounced (see example).
+- **SSR Safe** - Returns `0` or initial values during server-side rendering to match hydration.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWindowSizeExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-window-size" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const { width, height } = useWindowSize();
+const isMobile = width < 768;
+```
+
+### Responsive Layout
+
+Renders different components based on window width.
+
+ <ComponentShowcaseTabs>
+     <ComponentPreviewTab>
+         <UseWindowSizeExample2 />
+     </ComponentPreviewTab>
+     <ComponentCodeTab>
+         <HookExampleCodeFromFile name="use-window-size" cnt={2} />
+     </ComponentCodeTab>
+ </ComponentShowcaseTabs>
+ 
+ ```tsx
+ const { width } = useWindowSize();
+ 
+ if (width < 768) return <MobileLayout />;
+ return <DesktopLayout />;
+ ```
+ 
+ ## API Reference
+
+### Signature
+
+```tsx
+const { width, height } = useWindowSize();
+```
+
+### Returns
+
+| Property | Type     | Description              |
+| :------- | :------- | :----------------------- |
+| `width`  | `number` | Window width in pixels.  |
+| `height` | `number` | Window height in pixels. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-window-size" folder="dom" />

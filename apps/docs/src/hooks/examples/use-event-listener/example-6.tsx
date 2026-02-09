@@ -93,10 +93,6 @@ export const Example6 = () => {
                     </div>
                 </div>
             </div>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("scroll", handler, null, { passive: true });`}</code>
-            </pre>
         </div>
     );
 };

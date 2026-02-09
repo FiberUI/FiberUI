@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-combo-key-press",
+  "type": "registry:hook",
+  "title": "useComboKeyPress",
+  "description": "A hook that detects complex key combinations.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-combo-key-press.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useCallback, useRef, useEffect } from \"react\";\nimport {\n    useEventListener,\n    EventListenerOptions,\n} from \"@repo/hooks/dom/use-event-listener\";\n\ninterface KeyCombo {\n    /** The main key (e.g., \"a\", \"s\", \"Escape\", \"Enter\") */\n    key: string;\n    /** Require Ctrl key (Cmd on Mac for cross-platform shortcuts) */\n    ctrl?: boolean;\n    /** Require Meta key (Cmd on Mac, Win on Windows) */\n    meta?: boolean;\n    /** Require Shift key */\n    shift?: boolean;\n    /** Require Alt key (Option on Mac) */\n    alt?: boolean;\n}\n\n/**\n * useComboKeyPress - Detect keyboard shortcuts with modifier keys\n *\n * @param combo - The key combination to detect\n * @param callback - Optional callback when combo is pressed\n * @param options - Optional event listener options (preventDefault defaults to true)\n * @returns boolean indicating if the combo is currently pressed\n *\n * @example\n * // Using the boolean state\n * const isSavePressed = useComboKeyPress({ key: \"s\", ctrl: true });\n *\n * // With callback (Ctrl+S or Cmd+S on Mac)\n * useComboKeyPress({ key: \"s\", ctrl: true }, () => save());\n *\n * // Ctrl+Shift+A\n * const isSelectAllPressed = useComboKeyPress(\n *   { key: \"a\", ctrl: true, shift: true },\n *   () => selectAll()\n * );\n */\nexport function useComboKeyPress(\n    combo: KeyCombo,\n    callback?: (event: KeyboardEvent) => void,\n    options: EventListenerOptions = { preventDefault: true },\n): boolean {\n    const [isPressed, setIsPressed] = useState(false);\n    const callbackRef = useRef(callback);\n\n    useEffect(() => {\n        callbackRef.current = callback;\n    }, [callback]);\n\n    const matchesCombo = useCallback(\n        (event: KeyboardEvent): boolean => {\n            const keyMatches =\n                event.key.localeCompare(combo.key, undefined, {\n                    sensitivity: \"base\",\n                }) === 0;\n\n            const ctrlMatches = combo.ctrl\n                ? event.ctrlKey || event.metaKey\n                : !event.ctrlKey && !event.metaKey;\n            const shiftMatches = combo.shift ? event.shiftKey : !event.shiftKey;\n            const altMatches = combo.alt ? event.altKey : !event.altKey;\n\n            return keyMatches && ctrlMatches && shiftMatches && altMatches;\n        },\n        [combo],\n    );\n\n    const handleKeyDown = useCallback(\n        (event: KeyboardEvent) => {\n            if (matchesCombo(event)) {\n                setIsPressed(true);\n                callbackRef.current?.(event);\n            }\n        },\n        [matchesCombo],\n    );\n\n    const handleKeyUp = useCallback(\n        (event: KeyboardEvent) => {\n            if (matchesCombo(event)) {\n                setIsPressed(false);\n            }\n        },\n        [matchesCombo],\n    );\n\n    useEventListener(\"keydown\", handleKeyDown, null, options);\n    useEventListener(\"keyup\", handleKeyUp);\n\n    return isPressed;\n}\n"
+    }
+  ]
+}

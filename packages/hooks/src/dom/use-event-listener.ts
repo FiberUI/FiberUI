@@ -7,18 +7,28 @@ import { RefObject, useEffect, useRef } from "react";
 const isBrowser = typeof window !== "undefined";
 
 /**
+ * Extended options for useEventListener
+ */
+export interface EventListenerOptions extends AddEventListenerOptions {
+    /** Prevent default browser behavior when event fires */
+    preventDefault?: boolean;
+    /** Stop event propagation when event fires */
+    stopPropagation?: boolean;
+}
+
+/**
  * Attaches an event listener to the window.
  *
  * @param eventName - The event name (e.g., 'resize', 'scroll', 'keydown').
  * @param handler - Callback function invoked when the event fires.
  * @param element - Leave undefined to attach to window.
- * @param options - Standard addEventListener options.
+ * @param options - Extended addEventListener options with preventDefault/stopPropagation.
  */
 export function useEventListener<K extends keyof WindowEventMap>(
     eventName: K,
     handler: (event: WindowEventMap[K]) => void,
     element?: null,
-    options?: boolean | AddEventListenerOptions,
+    options?: boolean | EventListenerOptions,
 ): void;
 
 /**
@@ -27,13 +37,13 @@ export function useEventListener<K extends keyof WindowEventMap>(
  * @param eventName - The event name (e.g., 'visibilitychange', 'fullscreenchange').
  * @param handler - Callback function invoked when the event fires.
  * @param element - Pass "document" string to attach to document.
- * @param options - Standard addEventListener options.
+ * @param options - Extended addEventListener options with preventDefault/stopPropagation.
  */
 export function useEventListener<K extends keyof DocumentEventMap>(
     eventName: K,
     handler: (event: DocumentEventMap[K]) => void,
     element: "document",
-    options?: boolean | AddEventListenerOptions,
+    options?: boolean | EventListenerOptions,
 ): void;
 
 /**
@@ -42,7 +52,7 @@ export function useEventListener<K extends keyof DocumentEventMap>(
  * @param eventName - The event name (e.g., 'click', 'mouseenter', 'focus').
  * @param handler - Callback function invoked when the event fires.
  * @param element - A React ref pointing to the target element.
- * @param options - Standard addEventListener options.
+ * @param options - Extended addEventListener options with preventDefault/stopPropagation.
  */
 export function useEventListener<
     K extends keyof HTMLElementEventMap,
@@ -51,7 +61,7 @@ export function useEventListener<
     eventName: K,
     handler: (event: HTMLElementEventMap[K]) => void,
     element: RefObject<T | null>,
-    options?: boolean | AddEventListenerOptions,
+    options?: boolean | EventListenerOptions,
 ): void;
 
 /**
@@ -61,7 +71,7 @@ export function useEventListener(
     eventName: string,
     handler: (event: Event) => void,
     element?: RefObject<HTMLElement | null> | "document" | null,
-    options?: boolean | AddEventListenerOptions,
+    options?: boolean | EventListenerOptions,
 ): void {
     // Store handler in ref to avoid effect re-runs when handler changes
     const handlerRef = useRef(handler);
@@ -81,13 +91,25 @@ export function useEventListener(
         // Guard against null refs
         if (!target) return;
 
-        // Wrapper that calls the latest handler
-        const listener = (event: Event) => handlerRef.current(event);
+        // Extract custom options
+        const extendedOptions = typeof options === "object" ? options : {};
+        const { preventDefault, stopPropagation, ...nativeOptions } =
+            extendedOptions;
 
-        target.addEventListener(eventName, listener, options);
+        // Wrapper that calls the latest handler with optional prevent/stop
+        const listener = (event: Event) => {
+            if (preventDefault) event.preventDefault();
+            if (stopPropagation) event.stopPropagation();
+            handlerRef.current(event);
+        };
+
+        const listenerOptions =
+            typeof options === "boolean" ? options : nativeOptions;
+
+        target.addEventListener(eventName, listener, listenerOptions);
 
         return () => {
-            target.removeEventListener(eventName, listener, options);
+            target.removeEventListener(eventName, listener, listenerOptions);
         };
     }, [eventName, element, options]);
 }

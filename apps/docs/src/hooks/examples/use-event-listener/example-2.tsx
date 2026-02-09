@@ -37,10 +37,6 @@ export const Example2 = () => {
             >
                 Clicked {clicks} times
             </button>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("click", handler, buttonRef);`}</code>
-            </pre>
         </div>
     );
 };

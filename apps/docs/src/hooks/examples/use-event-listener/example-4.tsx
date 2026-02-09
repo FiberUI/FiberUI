@@ -74,10 +74,6 @@ export const Example4 = () => {
                     ))}
                 </div>
             )}
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("keydown", handler);`}</code>
-            </pre>
         </div>
     );
 };

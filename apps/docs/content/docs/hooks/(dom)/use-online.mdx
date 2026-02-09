@@ -1,0 +1,82 @@
+---
+title: useOnline
+description: A React hook that tracks the network connection status.
+keywords:
+    [
+        "useOnline",
+        "react hook",
+        "network status",
+        "offline detection",
+        "connectivity",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-online.json
+```
+
+## Features
+
+- **Real-time Status** - Detects when the browser goes offline or online.
+- **SSR Safe** - Returns `true` by default on server (optimistic UI).
+- **Simple API** - No configuration needed.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseOnlineExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-online" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const isOnline = useOnline();
+
+if (!isOnline) {
+    return <OfflineBanner />;
+}
+```
+
+### Disable Form When Offline
+
+Prevents submission and shows a warning when offline.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseOnlineExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-online" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+```tsx const isOnline = useOnline();
+<button disabled={!isOnline}>{isOnline ? "Send" : "Offline"}</button>
+``` ## API Reference
+
+### Signature
+
+```tsx
+const isOnline = useOnline();
+```
+
+### Returns
+
+| Type      | Description                                         |
+| :-------- | :-------------------------------------------------- |
+| `boolean` | `true` if the browser is online, `false` otherwise. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-online" folder="dom" />

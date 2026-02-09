@@ -1,0 +1,76 @@
+---
+title: useHover
+description: A React hook that tracks whether an element is being hovered.
+keywords: ["useHover", "react hook", "hover", "mouse enter", "mouse leave"]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-hover.json
+```
+
+## Features
+
+- **Simple API** - Just pass a ref and get a boolean.
+- **SSR Safe** - Works seamlessly with server-side rendering.
+- **Performance** - Uses `mouseenter` and `mouseleave` events for efficiency (no bubbling).
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHoverExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hover" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const ref = useRef(null);
+const isHovered = useHover(ref);
+```
+
+### Tooltip Interaction
+
+Triggers visibility of a floating element.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHoverExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hover" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+```tsx const isHovered = useHover(triggerRef); ``` ## API Reference
+
+### Signature
+
+```tsx
+const isHovered = useHover(ref);
+```
+
+### Parameters
+
+| Parameter | Type                     | Description                      |
+| :-------- | :----------------------- | :------------------------------- |
+| `ref`     | `RefObject<HTMLElement>` | React ref to the target element. |
+
+### Returns
+
+| Type      | Description                                          |
+| :-------- | :--------------------------------------------------- |
+| `boolean` | `true` if the element is hovered, `false` otherwise. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-hover" folder="dom" />

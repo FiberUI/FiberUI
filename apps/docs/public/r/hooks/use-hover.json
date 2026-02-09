@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-hover",
+  "type": "registry:hook",
+  "title": "useHover",
+  "description": "A hook that detects hover state of an element.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-hover.ts",
+      "type": "registry:hook",
+      "content": "import { RefObject, useState, useCallback, useRef, useEffect } from \"react\";\nimport {\n    useEventListener,\n    EventListenerOptions,\n} from \"@repo/hooks/dom/use-event-listener\";\n\n/**\n * useHover - Track hover state on an element\n *\n * @param ref - React ref pointing to the target element\n * @param callback - Optional callback when hover state changes\n * @param options - Optional event listener options\n * @returns boolean indicating if the element is currently hovered\n *\n * @example\n * const ref = useRef<HTMLDivElement>(null);\n * const isHovered = useHover(ref);\n *\n * // With callback\n * const isHovered = useHover(ref, (hovered) => console.log(hovered));\n */\nexport function useHover<T extends HTMLElement>(\n    ref: RefObject<T | null>,\n    callback?: (isHovered: boolean, event: MouseEvent) => void,\n    options?: EventListenerOptions,\n): boolean {\n    const [isHovered, setIsHovered] = useState(false);\n    const callbackRef = useRef(callback);\n\n    useEffect(() => {\n        callbackRef.current = callback;\n    }, [callback]);\n\n    const handleMouseEnter = useCallback((event: MouseEvent) => {\n        setIsHovered(true);\n        callbackRef.current?.(true, event);\n    }, []);\n\n    const handleMouseLeave = useCallback((event: MouseEvent) => {\n        setIsHovered(false);\n        callbackRef.current?.(false, event);\n    }, []);\n\n    useEventListener(\"mouseenter\", handleMouseEnter, ref, options);\n    useEventListener(\"mouseleave\", handleMouseLeave, ref, options);\n\n    return isHovered;\n}\n"
+    }
+  ]
+}

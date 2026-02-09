@@ -106,6 +106,12 @@ Track browser window dimensions in real-time.
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener("resize", (event) => {
+    console.log(window.innerWidth, window.innerHeight);
+});
+```
+
 **MDN Reference:** [`resize` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event)
 
 ### Global Keyboard Events
@@ -121,6 +127,12 @@ Capture keyboard shortcuts globally without needing an element to be focused.
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener("keydown", (event) => {
+    console.log(event.key);
+});
+```
+
 **MDN Reference:** [`keydown` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event)
 
 ### Scroll with Passive Option
@@ -135,6 +147,17 @@ Use `{ passive: true }` for scroll events to improve performance by telling the 
         <HookExampleCodeFromFile name="use-event-listener" cnt={6} />
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
+
+```tsx
+useEventListener(
+    "scroll",
+    (event) => {
+        console.log(window.scrollY);
+    },
+    null,
+    { passive: true },
+);
+```
 
 <Callout type="tip" title="Why use passive: true?">
 When `passive: true`, the browser doesn't wait for your handler to potentially call `preventDefault()`, 
@@ -157,6 +180,11 @@ Detect network connectivity changes in real-time.
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener("online", () => setIsOnline(true));
+useEventListener("offline", () => setIsOnline(false));
+```
+
 **MDN Reference:** [`online` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) | [`offline` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event)
 
 ### Cross-Tab Storage Sync
@@ -171,6 +199,14 @@ The `storage` event fires when localStorage changes in **another tab** - perfect
         <HookExampleCodeFromFile name="use-event-listener" cnt={10} />
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
+
+```tsx
+useEventListener("storage", (e) => {
+    if (e.key === "theme") {
+        setTheme(e.newValue);
+    }
+});
+```
 
 <Callout type="warning" title="Important">
     The `storage` event only fires when localStorage is modified in a
@@ -217,6 +253,18 @@ Detect when users switch tabs - useful for pausing videos, stopping animations, 
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener(
+    "visibilitychange",
+    () => {
+        if (document.visibilityState === "visible") {
+            resumeVideo();
+        }
+    },
+    "document",
+);
+```
+
 **MDN Reference:** [`visibilitychange` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event) | [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)
 
 ---
@@ -247,6 +295,16 @@ The most common use case - listening to clicks on a specific element.
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener(
+    "click",
+    () => {
+        console.log("Button clicked!");
+    },
+    buttonRef,
+);
+```
+
 **MDN Reference:** [`click` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
 
 ### Focus/Blur on Inputs
@@ -261,6 +319,11 @@ Track focus state on form elements - great for validation UX or custom styling.
         <HookExampleCodeFromFile name="use-event-listener" cnt={8} />
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
+
+```tsx
+useEventListener("focus", () => setIsFocused(true), inputRef);
+useEventListener("blur", () => setIsFocused(false), inputRef);
+```
 
 **MDN Reference:** [`focus` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event) | [`blur` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event)
 
@@ -277,6 +340,12 @@ You can call `useEventListener` multiple times with the same ref to track differ
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
 
+```tsx
+useEventListener("mousemove", trackMouse, areaRef);
+useEventListener("mouseenter", () => setHover(true), areaRef);
+useEventListener("mouseleave", () => setHover(false), areaRef);
+```
+
 ### Touch Events (Mobile)
 
 Handle touch interactions with the `passive` option for better scroll performance on mobile.
@@ -289,6 +358,10 @@ Handle touch interactions with the `passive` option for better scroll performanc
         <HookExampleCodeFromFile name="use-event-listener" cnt={9} />
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
+
+```tsx
+useEventListener("touchstart", handleTouch, ref, { passive: true });
+```
 
 **MDN Reference:** [Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events) | [Using Touch Events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
 

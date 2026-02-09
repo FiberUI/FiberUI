@@ -95,12 +95,6 @@ export const Example10 = () => {
                     No storage events yet
                 </p>
             )}
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("storage", (e) => {
-  console.log(e.key, e.newValue);
-});`}</code>
-            </pre>
         </div>
     );
 };

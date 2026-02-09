@@ -59,10 +59,6 @@ export const Example3 = () => {
             <div className="text-muted-foreground text-center text-sm">
                 Tab switches detected: <strong>{switches}</strong>
             </div>
-
-            <pre className="bg-muted rounded-lg p-3 text-xs">
-                <code>{`useEventListener("visibilitychange", handler, "document");`}</code>
-            </pre>
         </div>
     );
 };
