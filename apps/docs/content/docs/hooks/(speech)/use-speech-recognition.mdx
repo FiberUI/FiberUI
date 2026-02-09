@@ -1,0 +1,183 @@
+---
+title: useSpeechRecognition
+description: A React hook for speech-to-text functionality using the Web Speech Recognition API. Convert voice to text in real-time with support for multiple languages, continuous listening, and interim results.
+keywords:
+    [
+        "useSpeechRecognition",
+        "react hook",
+        "speech recognition",
+        "speech to text",
+        "voice input",
+        "voice commands",
+        "dictation",
+        "transcription",
+        "web speech api",
+        "microphone",
+        "voice control",
+        "accessibility",
+        "a11y",
+        "hands-free",
+        "real-time transcription",
+        "multi-language",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-speech-recognition.json
+```
+
+A React hook that provides speech-to-text functionality using the [Web Speech Recognition API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API). Perfect for voice commands, dictation, accessibility features, and hands-free interfaces.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+<Callout type="warn" title="Permission Required">
+    **Important:** The browser will prompt the user for microphone permission
+    before starting speech recognition. If the user denies permission, the
+    `error` will be set to `not-allowed`. Always handle this gracefully.
+</Callout>
+
+<Callout type="success" title="Related Hook">
+    Need text-to-speech instead? See
+    [useSpeechSynthesis](/docs/hooks/use-speech-synthesis).
+</Callout>
+
+## Features
+
+- **Real-time Transcription** - Get interim results as the user speaks
+- **Continuous Mode** - Keep listening after pauses in speech
+- **Multi-language Support** - 50+ languages with BCP 47 language codes
+- **Error Handling** - Typed errors with human-readable messages
+- **Control Functions** - `start`, `stop`, `abort`, and `resetTranscript`
+- **Callbacks** - `onResult`, `onError`, `onEnd` for event-driven workflows
+- **SSR Safe** - Gracefully handles server-side rendering
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Web Speech API"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API"
+        description="Documentation on using speech recognition in web browsers"
+    />
+</Cards>
+
+---
+
+## Basic Transcription
+
+The simplest usage - click the microphone to start listening and see your speech transcribed in real-time. Interim results appear in gray while the final transcript is confirmed.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechRecognitionExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-recognition" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Voice Commands
+
+Use speech recognition to execute actions based on voice commands. This example demonstrates a voice-controlled task manager where you can add, remove, and clear tasks by speaking.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechRecognitionExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-recognition" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Multi-language Support
+
+Speech recognition supports 50+ languages. Select a language and speak in that language to see accurate transcription. The recognition engine automatically adjusts to the selected language's phonetics and vocabulary.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseSpeechRecognitionExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-speech-recognition" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useSpeechRecognition(
+    options?: UseSpeechRecognitionOptions,
+): UseSpeechRecognitionReturn;
+```
+
+### Options
+
+| Property          | Type                                             | Default   | Description                                       |
+| ----------------- | ------------------------------------------------ | --------- | ------------------------------------------------- |
+| `lang`            | `string`                                         | `"en-US"` | BCP 47 language code (e.g., `"es-ES"`, `"ja-JP"`) |
+| `continuous`      | `boolean`                                        | `false`   | Keep listening after user stops speaking          |
+| `interimResults`  | `boolean`                                        | `true`    | Return interim results before final               |
+| `maxAlternatives` | `number`                                         | `1`       | Number of alternative transcriptions              |
+| `onResult`        | `(transcript: string, isFinal: boolean) => void` | -         | Callback when a result is received                |
+| `onError`         | `(error: string) => void`                        | -         | Callback when an error occurs                     |
+| `onEnd`           | `() => void`                                     | -         | Callback when recognition ends                    |
+
+### Return Value
+
+| Property            | Type                                 | Description                               |
+| ------------------- | ------------------------------------ | ----------------------------------------- |
+| `transcript`        | `string`                             | The final transcribed text                |
+| `interimTranscript` | `string`                             | In-progress transcription (not finalized) |
+| `isListening`       | `boolean`                            | Whether recognition is active             |
+| `isSupported`       | `boolean`                            | Whether the API is supported              |
+| `error`             | `SpeechRecognitionErrorCode \| null` | Error code if recognition failed          |
+| `errorMessage`      | `string \| null`                     | Human-readable error message              |
+| `start`             | `() => void`                         | Start listening                           |
+| `stop`              | `() => void`                         | Stop listening (waits for final result)   |
+| `abort`             | `() => void`                         | Abort immediately (discards results)      |
+| `resetTranscript`   | `() => void`                         | Clear the transcript                      |
+
+### Error Codes
+
+| Code                     | Description                             |
+| ------------------------ | --------------------------------------- |
+| `no-speech`              | No speech was detected                  |
+| `aborted`                | Recognition was aborted                 |
+| `audio-capture`          | Microphone not found or access failed   |
+| `network`                | Network error during recognition        |
+| `not-allowed`            | Microphone permission denied            |
+| `service-not-allowed`    | Speech recognition service not allowed  |
+| `language-not-supported` | The specified language is not supported |
+
+---
+
+## Browser Support
+
+| Browser | Support                     |
+| ------- | --------------------------- |
+| Chrome  | ✅ Full support             |
+| Edge    | ✅ Full support             |
+| Safari  | ✅ Full support (iOS 14.5+) |
+| Firefox | ❌ Not supported            |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-speech-recognition" folder="speech" />
