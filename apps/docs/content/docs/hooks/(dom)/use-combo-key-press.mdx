@@ -52,9 +52,9 @@ useComboKeyPress({ key: "s", ctrl: true }, () => {
 });
 ```
 
-### Global Search (Cmd + K)
+### Select All (Cmd + A)
 
-Standard shortcut for opening command palettes or search bars.
+A common pattern for selecting all items in a list or text area.
 
 <ComponentShowcaseTabs>
     <ComponentPreviewTab>
@@ -66,29 +66,10 @@ Standard shortcut for opening command palettes or search bars.
 </ComponentShowcaseTabs>
 
 ```tsx
-useComboKeyPress({ key: "k", ctrl: true }, (e) => {
+useComboKeyPress({ key: "a", ctrl: true }, (e) => {
     e.preventDefault();
-    inputRef.current?.focus();
+    selectAllItems();
 });
-```
-
-### Complex Combo (Ctrl + Shift + Delete)
-
-Using multiple modifiers for destructive or less common actions.
-
-<ComponentShowcaseTabs>
-    <ComponentPreviewTab>
-        <UseComboKeyPressExample3 />
-    </ComponentPreviewTab>
-    <ComponentCodeTab>
-        <HookExampleCodeFromFile name="use-combo-key-press" cnt={3} />
-    </ComponentCodeTab>
-</ComponentShowcaseTabs>
-
-```tsx
-useComboKeyPress({ key: "Delete", ctrl: true, shift: true }, () =>
-    deleteEverything(),
-);
 ```
 
 ## API Reference

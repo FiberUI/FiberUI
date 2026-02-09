@@ -50,7 +50,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useHover",
         description: "A hook that detects hover state of an element.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-hover.ts", type: "registry:hook" }],
     },
     {
@@ -59,7 +59,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useFocus",
         description: "A hook that detects focus state of an element.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-focus.ts", type: "registry:hook" }],
     },
     {
@@ -68,7 +68,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useKeyPress",
         description: "A hook that detects when a specific key is pressed.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-key-press.ts", type: "registry:hook" }],
     },
     {
@@ -77,7 +77,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useWindowScroll",
         description: "A hook that tracks window scroll position.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-window-scroll.ts", type: "registry:hook" }],
     },
     {
@@ -86,7 +86,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useWindowSize",
         description: "A hook that tracks window dimensions.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-window-size.ts", type: "registry:hook" }],
     },
     {
@@ -95,7 +95,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useOnline",
         description: "A hook that monitors online/offline status.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-online.ts", type: "registry:hook" }],
     },
     {
@@ -104,7 +104,7 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useComboKeyPress",
         description: "A hook that detects complex key combinations.",
         categories: ["dom"],
-        registryDependencies: ["hooks/dom/use-event-listener"],
+        registryDependencies: ["hooks/use-event-listener"],
         files: [{ path: "dom/use-combo-key-press.ts", type: "registry:hook" }],
     },
 

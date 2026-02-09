@@ -33,7 +33,7 @@
       "title": "useHover",
       "description": "A hook that detects hover state of an element.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -42,7 +42,7 @@
       "title": "useFocus",
       "description": "A hook that detects focus state of an element.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -51,7 +51,7 @@
       "title": "useKeyPress",
       "description": "A hook that detects when a specific key is pressed.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -60,7 +60,7 @@
       "title": "useWindowScroll",
       "description": "A hook that tracks window scroll position.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -69,7 +69,7 @@
       "title": "useWindowSize",
       "description": "A hook that tracks window dimensions.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -78,7 +78,7 @@
       "title": "useOnline",
       "description": "A hook that monitors online/offline status.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
@@ -87,7 +87,7 @@
       "title": "useComboKeyPress",
       "description": "A hook that detects complex key combinations.",
       "registryDependencies": [
-        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+        "https://r.fiberui.com/r/hooks/use-event-listener.json"
       ]
     },
     {
