@@ -28,14 +28,18 @@ export const Example6 = () => {
         { passive: true }, // <-- Options parameter
     );
 
-    const progress = Math.min(
-        100,
-        Math.round(
-            (scrollY /
-                (document.documentElement.scrollHeight - window.innerHeight)) *
-                100,
-        ) || 0,
-    );
+    const progress =
+        typeof window !== "undefined"
+            ? Math.min(
+                  100,
+                  Math.round(
+                      (scrollY /
+                          (document.documentElement.scrollHeight -
+                              window.innerHeight)) *
+                          100,
+                  ) || 0,
+              )
+            : 0;
 
     return (
         <div className="flex w-full max-w-md flex-col gap-4">
