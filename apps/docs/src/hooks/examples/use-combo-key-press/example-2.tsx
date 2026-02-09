@@ -1,40 +1,57 @@
 "use client";
 
 import { useComboKeyPress } from "@repo/hooks/dom/use-combo-key-press";
-import { Search } from "lucide-react";
-import { useRef } from "react";
+import { Check } from "lucide-react";
+import { useState } from "react";
 
 export const Example2 = () => {
-    const searchInputRef = useRef<HTMLInputElement>(null);
+    const [items, setItems] = useState([
+        { id: 1, label: "Item 1", selected: false },
+        { id: 2, label: "Item 2", selected: false },
+        { id: 3, label: "Item 3", selected: false },
+        { id: 4, label: "Item 4", selected: false },
+    ]);
 
-    // Detect Ctrl+K (Common search shortcut)
-    useComboKeyPress({ key: "k", ctrl: true }, (e) => {
-        e.preventDefault();
-        searchInputRef.current?.focus();
+    // Detect Ctrl+A (or Cmd+A on Mac)
+    useComboKeyPress({ key: "a", ctrl: true }, (e) => {
+        e.preventDefault(); // Prevent native text selection
+        setItems((prev) => prev.map((item) => ({ ...item, selected: true })));
     });
+
+    const toggleSelection = (id: number) => {
+        setItems((prev) =>
+            prev.map((item) =>
+                item.id === id ? { ...item, selected: !item.selected } : item,
+            ),
+        );
+    };
 
     return (
         <div className="flex w-full max-w-md flex-col gap-4">
-            <h3 className="font-semibold">Global Search Shortcut</h3>
+            <h3 className="font-semibold">Select All Shortcut</h3>
 
-            <div className="group relative">
-                <Search className="text-muted-foreground group-focus-within:text-primary absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors" />
-                <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Search..."
-                    className="bg-background focus:border-primary focus:ring-primary w-full rounded-lg border py-2 pl-10 pr-12 text-sm outline-none transition-all focus:ring-1"
-                />
-                <div className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-1">
-                    <kbd className="bg-muted text-muted-foreground hidden rounded border px-1.5 py-0.5 text-[10px] font-medium sm:inline-block">
-                        ⌘K
-                    </kbd>
-                </div>
+            <div className="bg-muted/50 rounded-lg p-2">
+                <ul className="space-y-1">
+                    {items.map((item) => (
+                        <li
+                            key={item.id}
+                            onClick={() => toggleSelection(item.id)}
+                            className={`flex cursor-pointer items-center justify-between rounded px-3 py-2 text-sm transition-colors ${
+                                item.selected
+                                    ? "bg-primary text-primary-foreground"
+                                    : "hover:bg-muted-foreground/10"
+                            }`}
+                        >
+                            <span>{item.label}</span>
+                            {item.selected && <Check className="h-4 w-4" />}
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             <p className="text-muted-foreground text-center text-xs">
-                Press <kbd className="font-mono">Ctrl/Cmd + K</kbd> anywhere to
-                focus the search bar.
+                Press <kbd className="font-mono">Ctrl/Cmd + A</kbd> to select
+                all items.
             </p>
         </div>
     );
