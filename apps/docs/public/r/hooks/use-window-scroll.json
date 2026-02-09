@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-window-scroll",
+  "type": "registry:hook",
+  "title": "useWindowScroll",
+  "description": "A hook that tracks window scroll position.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-window-scroll.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useCallback } from \"react\";\nimport { useEventListener } from \"@repo/hooks/dom/use-event-listener\";\n\ninterface ScrollPosition {\n    x: number;\n    y: number;\n}\n\nconst isBrowser = typeof window !== \"undefined\";\n\n/**\n * useWindowScroll - Track window scroll position\n *\n * @returns Object with x and y scroll positions\n *\n * @example\n * const { x, y } = useWindowScroll();\n */\nexport function useWindowScroll(): ScrollPosition {\n    const [position, setPosition] = useState<ScrollPosition>(() => ({\n        x: isBrowser ? window.scrollX : 0,\n        y: isBrowser ? window.scrollY : 0,\n    }));\n\n    const handleScroll = useCallback(() => {\n        setPosition({\n            x: window.scrollX,\n            y: window.scrollY,\n        });\n    }, []);\n\n    useEventListener(\"scroll\", handleScroll, null, { passive: true });\n\n    return position;\n}\n"
+    }
+  ]
+}

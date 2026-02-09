@@ -1,0 +1,82 @@
+---
+title: useKeyPress
+description: A React hook that detects when a specific key is pressed.
+keywords:
+    ["useKeyPress", "react hook", "keyboard events", "shortcuts", "hotkeys"]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-key-press.json
+```
+
+## Features
+
+- **Specific Key Detection** - Detects press state of any key by name.
+- **Real-time Updates** - Updates state on `keydown` and `keyup`.
+- **Global Listener** - Listens to window events, so it works anywhere on the page.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseKeyPressExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-key-press" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const isEnterPressed = useKeyPress("Enter");
+const isEscapePressed = useKeyPress("Escape");
+
+if (isEnterPressed) {
+    console.log("Enter key is down!");
+}
+```
+
+### Game Controls
+
+Detects multiple keys for movement (WASD or Arrows).
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseKeyPressExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-key-press" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+```tsx const up = useKeyPress("ArrowUp"); const w = useKeyPress("w"); const
+isMovingUp = up || w; ``` ## API Reference
+
+### Signature
+
+```tsx
+const isPressed = useKeyPress(targetKey);
+```
+
+### Parameters
+
+| Parameter   | Type     | Description                                                                                 |
+| :---------- | :------- | :------------------------------------------------------------------------------------------ |
+| `targetKey` | `string` | The key to listen for (e.g., `"Enter"`, `"Escape"`, `"a"`, `"Shift"`). Matches `event.key`. |
+
+### Returns
+
+| Type      | Description                                                |
+| :-------- | :--------------------------------------------------------- |
+| `boolean` | `true` if the key is currently pressed, `false` otherwise. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-key-press" folder="dom" />

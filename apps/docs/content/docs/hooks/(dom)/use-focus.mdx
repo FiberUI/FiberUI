@@ -1,0 +1,76 @@
+---
+title: useFocus
+description: A React hook that tracks whether an element is currently focused.
+keywords: ["useFocus", "react hook", "focus", "blur", "input focus"]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-focus.json
+```
+
+## Features
+
+- **Simple API** - Just pass a ref and get a boolean.
+- **SSR Safe** - Works seamlessly with server-side rendering.
+- **Accessibility** - Great for building accessible interactive components.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFocusExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-focus" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+const ref = useRef(null);
+const isFocused = useFocus(ref);
+```
+
+### Search Bar Focus Effect
+
+Styles a parent container when the input is focused.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseFocusExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-focus" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+```tsx const isInputFocused = useFocus(inputRef); ``` ## API Reference
+
+### Signature
+
+```tsx
+const isFocused = useFocus(ref);
+```
+
+### Parameters
+
+| Parameter | Type                     | Description                      |
+| :-------- | :----------------------- | :------------------------------- |
+| `ref`     | `RefObject<HTMLElement>` | React ref to the target element. |
+
+### Returns
+
+| Type      | Description                                          |
+| :-------- | :--------------------------------------------------- |
+| `boolean` | `true` if the element is focused, `false` otherwise. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-focus" folder="dom" />

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-focus",
+  "type": "registry:hook",
+  "title": "useFocus",
+  "description": "A hook that detects focus state of an element.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-focus.ts",
+      "type": "registry:hook",
+      "content": "import { RefObject, useState, useCallback, useRef, useEffect } from \"react\";\nimport {\n    useEventListener,\n    EventListenerOptions,\n} from \"@repo/hooks/dom/use-event-listener\";\n\n/**\n * useFocus - Track focus state on an element\n *\n * @param ref - React ref pointing to the target element\n * @param callback - Optional callback when focus state changes\n * @param options - Optional event listener options\n * @returns boolean indicating if the element is currently focused\n *\n * @example\n * const ref = useRef<HTMLInputElement>(null);\n * const isFocused = useFocus(ref);\n *\n * // With callback\n * const isFocused = useFocus(ref, (focused) => console.log(focused));\n */\nexport function useFocus<T extends HTMLElement>(\n    ref: RefObject<T | null>,\n    callback?: (isFocused: boolean, event: FocusEvent) => void,\n    options?: EventListenerOptions,\n): boolean {\n    const [isFocused, setIsFocused] = useState(false);\n    const callbackRef = useRef(callback);\n\n    useEffect(() => {\n        callbackRef.current = callback;\n    }, [callback]);\n\n    const handleFocus = useCallback((event: FocusEvent) => {\n        setIsFocused(true);\n        callbackRef.current?.(true, event);\n    }, []);\n\n    const handleBlur = useCallback((event: FocusEvent) => {\n        setIsFocused(false);\n        callbackRef.current?.(false, event);\n    }, []);\n\n    useEventListener(\"focus\", handleFocus, ref, options);\n    useEventListener(\"blur\", handleBlur, ref, options);\n\n    return isFocused;\n}\n"
+    }
+  ]
+}

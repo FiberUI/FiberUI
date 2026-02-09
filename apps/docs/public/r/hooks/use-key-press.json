@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-key-press",
+  "type": "registry:hook",
+  "title": "useKeyPress",
+  "description": "A hook that detects when a specific key is pressed.",
+  "categories": [
+    "dom"
+  ],
+  "registryDependencies": [
+    "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+  ],
+  "files": [
+    {
+      "path": "dom/use-key-press.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useCallback, useRef, useEffect } from \"react\";\nimport {\n    useEventListener,\n    EventListenerOptions,\n} from \"@repo/hooks/dom/use-event-listener\";\n\n/**\n * useKeyPress - Detect when a specific key is pressed\n *\n * @param targetKey - The key to listen for (e.g., \"Escape\", \"Enter\", \"a\")\n * @param callback - Optional callback when key is pressed\n * @param options - Optional event listener options\n * @returns boolean indicating if the key is currently pressed\n *\n * @example\n * // Using the boolean state\n * const isEscapePressed = useKeyPress(\"Escape\");\n *\n * // Using the callback\n * useKeyPress(\"Enter\", () => submitForm());\n *\n * // With options\n * useKeyPress(\"Tab\", () => handleTab(), { preventDefault: true });\n */\nexport function useKeyPress(\n    targetKey: string,\n    callback?: (event: KeyboardEvent) => void,\n    options?: EventListenerOptions,\n): boolean {\n    const [isPressed, setIsPressed] = useState(false);\n    const callbackRef = useRef(callback);\n\n    useEffect(() => {\n        callbackRef.current = callback;\n    }, [callback]);\n\n    const handleKeyDown = useCallback(\n        (event: KeyboardEvent) => {\n            if (event.key.localeCompare(targetKey) === 0) {\n                setIsPressed(true);\n                callbackRef.current?.(event);\n            }\n        },\n        [targetKey],\n    );\n\n    const handleKeyUp = useCallback(\n        (event: KeyboardEvent) => {\n            if (event.key.localeCompare(targetKey) === 0) {\n                setIsPressed(false);\n            }\n        },\n        [targetKey],\n    );\n\n    useEventListener(\"keydown\", handleKeyDown, null, options);\n    useEventListener(\"keyup\", handleKeyUp);\n\n    return isPressed;\n}\n"
+    }
+  ]
+}

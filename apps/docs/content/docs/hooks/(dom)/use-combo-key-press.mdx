@@ -1,0 +1,130 @@
+---
+title: useComboKeyPress
+description: A React hook that detects complex keyboard shortcuts with modifier keys (Ctrl, Shift, Alt, Meta).
+keywords:
+    [
+        "useComboKeyPress",
+        "react hook",
+        "shortcuts",
+        "hotkeys",
+        "keyboard events",
+        "accessiblity",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-combo-key-press.json
+```
+
+## Features
+
+- **Complex Combos** - Detects combinations like `Ctrl+Shift+S`.
+- **Modifier Support** - First-class support for `ctrl`, `shift`, `alt`, and `meta` (Cmd).
+- **Callback Mode** - Executes a function when the combo is pressed.
+- **State Mode** - Returns a boolean indicating if the combo is currently active.
+- **Cross-Platform** - Handles `ctrl` vs `meta` key differences gracefully.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Interactive Examples
+
+### Basic Shortcut (Ctrl + S)
+
+A common pattern for triggering actions like saving.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseComboKeyPressExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-combo-key-press" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+useComboKeyPress({ key: "s", ctrl: true }, () => {
+    saveDocument();
+});
+```
+
+### Global Search (Cmd + K)
+
+Standard shortcut for opening command palettes or search bars.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseComboKeyPressExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-combo-key-press" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+useComboKeyPress({ key: "k", ctrl: true }, (e) => {
+    e.preventDefault();
+    inputRef.current?.focus();
+});
+```
+
+### Complex Combo (Ctrl + Shift + Delete)
+
+Using multiple modifiers for destructive or less common actions.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseComboKeyPressExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-combo-key-press" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+```tsx
+useComboKeyPress({ key: "Delete", ctrl: true, shift: true }, () =>
+    deleteEverything(),
+);
+```
+
+## API Reference
+
+### Signature
+
+```tsx
+const isPressed = useComboKeyPress(combo, callback?, options?);
+```
+
+### Parameters
+
+| Parameter  | Type                   | Description                                               |
+| :--------- | :--------------------- | :-------------------------------------------------------- |
+| `combo`    | `KeyCombo`             | Object defining the key combination.                      |
+| `callback` | `(event) => void`      | Optional function to call when combo is matched.          |
+| `options`  | `EventListenerOptions` | Standard options. Defaults to `{ preventDefault: true }`. |
+
+### KeyCombo Interface
+
+| Property | Type      | Description                                      |
+| :------- | :-------- | :----------------------------------------------- |
+| `key`    | `string`  | The main key to listen for (e.g., "s", "Enter"). |
+| `ctrl`   | `boolean` | Require Control (or Command on Mac) key.         |
+| `shift`  | `boolean` | Require Shift key.                               |
+| `alt`    | `boolean` | Require Alt (or Option) key.                     |
+| `meta`   | `boolean` | Require Meta (Command/Windows) key specifically. |
+
+### Returns
+
+| Type      | Description                                          |
+| :-------- | :--------------------------------------------------- |
+| `boolean` | `true` if the full combination is currently pressed. |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-combo-key-press" folder="dom" />

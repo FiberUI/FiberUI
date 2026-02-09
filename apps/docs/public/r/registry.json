@@ -22,6 +22,75 @@
       "description": "A hook that manages a portal container in the DOM and returns a Portal component."
     },
     {
+      "name": "use-event-listener",
+      "type": "registry:hook",
+      "title": "useEventListener",
+      "description": "A type-safe hook for attaching event listeners to window, document, or any HTML element."
+    },
+    {
+      "name": "use-hover",
+      "type": "registry:hook",
+      "title": "useHover",
+      "description": "A hook that detects hover state of an element.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-focus",
+      "type": "registry:hook",
+      "title": "useFocus",
+      "description": "A hook that detects focus state of an element.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-key-press",
+      "type": "registry:hook",
+      "title": "useKeyPress",
+      "description": "A hook that detects when a specific key is pressed.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-window-scroll",
+      "type": "registry:hook",
+      "title": "useWindowScroll",
+      "description": "A hook that tracks window scroll position.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-window-size",
+      "type": "registry:hook",
+      "title": "useWindowSize",
+      "description": "A hook that tracks window dimensions.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-online",
+      "type": "registry:hook",
+      "title": "useOnline",
+      "description": "A hook that monitors online/offline status.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
+      "name": "use-combo-key-press",
+      "type": "registry:hook",
+      "title": "useComboKeyPress",
+      "description": "A hook that detects complex key combinations.",
+      "registryDependencies": [
+        "https://r.fiberui.com/r/hooks/dom/use-event-listener.json"
+      ]
+    },
+    {
       "name": "use-battery",
       "type": "registry:hook",
       "title": "useBattery",

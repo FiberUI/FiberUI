@@ -18,6 +18,8 @@ import { fileURLToPath } from "node:url";
 import { FIBER_UI_HOOKS } from "@/lib/hooks";
 import type { RegistryItem, RegistryItemFile } from "@/lib/types";
 
+const MY_RESGISTRY_URL = "https://r.fiberui.com/r";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -67,6 +69,7 @@ function buildRegistryItem(
 ): RegistryItem {
     const files: RegistryItemFile[] = (item.files || []).map((file) => ({
         ...file,
+
         content: readAndTransformFile(file.path, sourceBasePath),
     }));
 
@@ -74,6 +77,9 @@ function buildRegistryItem(
         $schema: "https://ui.shadcn.com/schema/registry-item.json",
         ...item,
         files,
+        registryDependencies: item.registryDependencies?.map(
+            (dep) => `${MY_RESGISTRY_URL}/${dep}.json`,
+        ),
     } as RegistryItem & { $schema: string };
 }
 
@@ -117,7 +123,9 @@ function buildRegistryIndex(): void {
             title: item.title,
             description: item.description,
             dependencies: item.dependencies,
-            registryDependencies: item.registryDependencies,
+            registryDependencies: item.registryDependencies?.map(
+                (dep) => `${MY_RESGISTRY_URL}/${dep}.json`,
+            ),
         })),
     };
 
