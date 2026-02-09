@@ -22,6 +22,12 @@
       "description": "A hook that manages a portal container in the DOM and returns a Portal component."
     },
     {
+      "name": "use-event-listener",
+      "type": "registry:hook",
+      "title": "useEventListener",
+      "description": "A type-safe hook for attaching event listeners to window, document, or any HTML element."
+    },
+    {
       "name": "use-battery",
       "type": "registry:hook",
       "title": "useBattery",

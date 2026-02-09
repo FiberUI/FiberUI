@@ -35,6 +35,15 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         categories: ["dom"],
         files: [{ path: "dom/use-portal.ts", type: "registry:hook" }],
     },
+    {
+        name: "use-event-listener",
+        type: "registry:hook",
+        title: "useEventListener",
+        description:
+            "A type-safe hook for attaching event listeners to window, document, or any HTML element.",
+        categories: ["dom"],
+        files: [{ path: "dom/use-event-listener.ts", type: "registry:hook" }],
+    },
 
     // =========================================================================
     // Device

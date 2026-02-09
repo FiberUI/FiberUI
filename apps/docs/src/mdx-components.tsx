@@ -55,6 +55,7 @@ import * as UsePortalExamples from "./hooks/examples/use-portal";
 import * as UseClickOutsideExamples from "./hooks/examples/use-click-outside";
 import * as UseSpeechRecognitionExamples from "./hooks/examples/use-speech-recognition";
 import * as UseSpeechSynthesisExamples from "./hooks/examples/use-speech-synthesis";
+import * as UseEventListenerExamples from "./hooks/examples/use-event-listener";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -144,6 +145,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseClickOutsideExamples,
         ...UseSpeechRecognitionExamples,
         ...UseSpeechSynthesisExamples,
+        ...UseEventListenerExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,

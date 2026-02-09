@@ -2,6 +2,7 @@ import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
 import { Code2, ComponentIcon } from "lucide-react";
+import { FloatingNav } from "@/components/floating-nav";
 
 export default function Layout({ children }: LayoutProps<"/docs">) {
     return (
@@ -42,6 +43,7 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
             }}
         >
             {children}
+            <FloatingNav showSourceCode />
         </DocsLayout>
     );
 }

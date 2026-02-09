@@ -1,0 +1,571 @@
+---
+title: useEventListener
+description: A type-safe React hook for attaching event listeners to window, document, or any HTML element. Handles cleanup automatically, supports all standard options, and is SSR-safe.
+keywords:
+    [
+        "useEventListener",
+        "react hook",
+        "event listener",
+        "dom events",
+        "window events",
+        "document events",
+        "keyboard events",
+        "mouse events",
+        "scroll events",
+        "resize events",
+        "typescript",
+        "ssr safe",
+        "passive events",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-event-listener.json
+```
+
+## Features
+
+- **Type-Safe** - Full TypeScript inference for event types based on target.
+- **Three Targets** - Attach to `window`, `document`, or any HTML element.
+- **SSR-Safe** - Works with Next.js and other SSR frameworks.
+- **Auto Cleanup** - Listeners are removed on unmount automatically.
+- **Options Support** - Supports `passive`, `capture`, and `once`.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: addEventListener()"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"
+        description="The underlying browser API for attaching event listeners"
+    />
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: Event reference"
+        href="https://developer.mozilla.org/en-US/docs/Web/Events"
+        description="Complete list of all DOM events available in browsers"
+    />
+</Cards>
+
+---
+
+## Understanding the Three Overloads
+
+This hook has **three overloads** depending on where you want to attach the listener. Each overload uses a different TypeScript interface for event type inference.
+
+### Quick Decision Guide
+
+<Callout type="tip" title="Which overload should I use?">
+Ask yourself: **Where does this event naturally belong?**
+
+- **Window** → Global events that aren't tied to a specific element (resize, scroll, keyboard shortcuts, online/offline)
+- **Document** → Page lifecycle events that belong to the document object (visibility, fullscreen)
+- **Element** → Events on a specific DOM element (click, hover, focus, form events)
+
+</Callout>
+
+| Target   | Element Parameter        | TypeScript Interface                                                                         | Common Events                                                  |
+| -------- | ------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Window   | `undefined` or `null`    | [`WindowEventMap`](https://developer.mozilla.org/en-US/docs/Web/API/Window#events)           | `resize`, `scroll`, `keydown`, `online`, `offline`, `storage`  |
+| Document | `"document"` (string)    | [`DocumentEventMap`](https://developer.mozilla.org/en-US/docs/Web/API/Document#events)       | `visibilitychange`, `fullscreenchange`, `selectionchange`      |
+| Element  | `RefObject<HTMLElement>` | [`HTMLElementEventMap`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#events) | `click`, `mouseenter`, `focus`, `blur`, `submit`, `touchstart` |
+
+---
+
+## Overload 1: Window Events
+
+Listen to global window events like resize, scroll, or keyboard input. This is the **default** when no element is provided.
+
+<Callout type="info" title="When to use Window events">
+Use window events when:
+
+- The event is **global** and not tied to a specific element
+- You need **keyboard shortcuts** that work anywhere on the page
+- You're tracking **browser-level** changes (resize, scroll, network status)
+
+</Callout>
+
+### Window Resize
+
+Track browser window dimensions in real-time.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`resize` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event)
+
+### Global Keyboard Events
+
+Capture keyboard shortcuts globally without needing an element to be focused.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`keydown` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event)
+
+### Scroll with Passive Option
+
+Use `{ passive: true }` for scroll events to improve performance by telling the browser you won't call `preventDefault()`.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+<Callout type="tip" title="Why use passive: true?">
+When `passive: true`, the browser doesn't wait for your handler to potentially call `preventDefault()`, 
+which allows it to start scrolling immediately. This significantly improves scroll performance.
+
+**Learn more:** [Improving scroll performance with passive listeners](https://developer.chrome.com/docs/lighthouse/best-practices/uses-passive-event-listeners/)
+
+</Callout>
+
+### Online/Offline Detection
+
+Detect network connectivity changes in real-time.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample7 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={7} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`online` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) | [`offline` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event)
+
+### Cross-Tab Storage Sync
+
+The `storage` event fires when localStorage changes in **another tab** - perfect for cross-tab communication.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample10 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={10} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+<Callout type="warning" title="Important">
+    The `storage` event only fires when localStorage is modified in a
+    **different** tab/window. Changes made in the same tab won't trigger this
+    event.
+</Callout>
+
+**MDN Reference:** [`storage` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event)
+
+---
+
+## Overload 2: Document Events
+
+Listen to document-level events by passing **`"document"`** as the third argument. This is useful for events like `visibilitychange` that only exist on the document.
+
+<Callout type="info" title="When to use Document events">
+Use document events when:
+
+- The event is defined on the **Document interface** (not Window)
+- You need **page lifecycle** events (visibility, fullscreen)
+- TypeScript shows the event doesn't exist on `WindowEventMap`
+
+</Callout>
+
+<Callout type="tip" title="Why use 'document' string?">
+Passing `"document"` instead of the actual `document` object:
+
+- Keeps your code **SSR-safe** (no `document is not defined` errors)
+- Avoids reference issues in different environments
+- Matches the pattern of other target options
+
+</Callout>
+
+### Page Visibility
+
+Detect when users switch tabs - useful for pausing videos, stopping animations, or tracking engagement.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`visibilitychange` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event) | [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)
+
+---
+
+## Overload 3: Element Events
+
+Listen to events on a specific HTML element by passing a **ref**. TypeScript will correctly infer the event type based on the element.
+
+<Callout type="info" title="When to use Element events">
+Use element events when:
+
+- You need events on a **specific DOM element** (not global)
+- You want **scoped** event handling (only this button, only this input)
+- You need access to **element-specific** event properties
+
+</Callout>
+
+### Button Click
+
+The most common use case - listening to clicks on a specific element.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`click` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)
+
+### Focus/Blur on Inputs
+
+Track focus state on form elements - great for validation UX or custom styling.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample8 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={8} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [`focus` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event) | [`blur` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event)
+
+### Multiple Listeners on One Element
+
+You can call `useEventListener` multiple times with the same ref to track different events.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Touch Events (Mobile)
+
+Handle touch interactions with the `passive` option for better scroll performance on mobile.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseEventListenerExample9 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-event-listener" cnt={9} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+**MDN Reference:** [Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events) | [Using Touch Events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
+
+---
+
+## API Reference
+
+### Signature
+
+```tsx
+// Overload 1: Window events (default)
+useEventListener(eventName, handler);
+useEventListener(eventName, handler, null);
+useEventListener(eventName, handler, null, options);
+
+// Overload 2: Document events
+useEventListener(eventName, handler, "document");
+useEventListener(eventName, handler, "document", options);
+
+// Overload 3: Element events
+useEventListener(eventName, handler, ref);
+useEventListener(eventName, handler, ref, options);
+```
+
+### Parameters
+
+| Parameter   | Type                                 | Description                                                                  |
+| :---------- | :----------------------------------- | :--------------------------------------------------------------------------- |
+| `eventName` | `string`                             | The event name (e.g., `'click'`, `'resize'`, `'keydown'`).                   |
+| `handler`   | `(event) => void`                    | Callback invoked when the event fires. Event type is inferred automatically. |
+| `element`   | `RefObject \| "document" \| null`    | Target for the listener. Defaults to `window` if `null` or `undefined`.      |
+| `options`   | `boolean \| AddEventListenerOptions` | Standard event listener options: `capture`, `passive`, `once`.               |
+
+### Options Explained
+
+| Option    | Type      | Description                                                                            |
+| :-------- | :-------- | :------------------------------------------------------------------------------------- |
+| `passive` | `boolean` | If `true`, handler won't call `preventDefault()`. Improves scroll/touch performance.   |
+| `capture` | `boolean` | If `true`, handler runs during capture phase (parent → child) instead of bubble phase. |
+| `once`    | `boolean` | If `true`, listener auto-removes after first invocation.                               |
+
+**MDN Reference:** [EventTarget.addEventListener() options](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options)
+
+### Event Type Inference
+
+The hook automatically infers the correct event type based on the target:
+
+```tsx
+// Window event → e is UIEvent
+useEventListener("resize", (e) => console.log(e.target));
+
+// Window event → e is KeyboardEvent
+useEventListener("keydown", (e) => console.log(e.key));
+
+// Document event → e is Event
+useEventListener("visibilitychange", (e) => console.log(e), "document");
+
+// Element event → e is PointerEvent
+useEventListener("click", (e) => console.log(e.clientX), buttonRef);
+
+// Element event → e is FocusEvent
+useEventListener("focus", (e) => console.log(e.relatedTarget), inputRef);
+```
+
+---
+
+## Common Patterns
+
+### Escape Key to Close Modal
+
+```tsx
+const modalRef = useRef<HTMLDivElement>(null);
+
+useEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) {
+        onClose();
+    }
+});
+```
+
+### Cmd/Ctrl + S to Save
+
+```tsx
+useEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+        e.preventDefault();
+        handleSave();
+    }
+});
+```
+
+### Debounced Resize
+
+```tsx
+import { useDebouncedCallback } from "@repo/hooks/utilities/use-debounced-callback";
+
+const handleResize = useDebouncedCallback(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+}, 100);
+
+useEventListener("resize", handleResize);
+```
+
+---
+
+## TypeScript Interfaces Reference
+
+Understanding which interface TypeScript uses helps you know what events are available:
+
+| Interface             | Target        | Documentation                                                                                  |
+| :-------------------- | :------------ | :--------------------------------------------------------------------------------------------- |
+| `WindowEventMap`      | `window`      | [MDN: Window events](https://developer.mozilla.org/en-US/docs/Web/API/Window#events)           |
+| `DocumentEventMap`    | `document`    | [MDN: Document events](https://developer.mozilla.org/en-US/docs/Web/API/Document#events)       |
+| `HTMLElementEventMap` | HTML elements | [MDN: HTMLElement events](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#events) |
+
+<Callout type="tip" title="How to find available events">
+    In your IDE, type `useEventListener("` and autocomplete will show all valid
+    event names for the target you're using. This is powered by TypeScript's
+    event map interfaces.
+</Callout>
+
+---
+
+## Events by Use Case
+
+A comprehensive guide to choosing the right event for your use case.
+
+### User Input
+
+| Use Case                   | Event               | Target         | Notes                                   |
+| :------------------------- | :------------------ | :------------- | :-------------------------------------- |
+| Global keyboard shortcuts  | `keydown`           | Window         | Use for app-wide shortcuts like `Cmd+S` |
+| Keyboard input in field    | `keydown` / `keyup` | Element        | Attach to specific input via ref        |
+| Detect key release         | `keyup`             | Window/Element | Fires when key is released              |
+| Key press for typing       | `keypress`          | Element        | ⚠️ Deprecated, use `keydown` instead    |
+| Text input changes         | `input`             | Element        | Fires on every character change         |
+| Form field value committed | `change`            | Element        | Fires when user leaves field            |
+
+**MDN Reference:** [Keyboard events](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
+
+### Mouse & Pointer
+
+| Use Case              | Event         | Target         | Notes                                   |
+| :-------------------- | :------------ | :------------- | :-------------------------------------- |
+| Click on element      | `click`       | Element        | Standard click handler                  |
+| Right-click menu      | `contextmenu` | Element        | Prevent default to show custom menu     |
+| Double click          | `dblclick`    | Element        | Two rapid clicks                        |
+| Mouse button pressed  | `mousedown`   | Element        | Fires immediately on press              |
+| Mouse button released | `mouseup`     | Element        | Fires on release                        |
+| Hover enter           | `mouseenter`  | Element        | Doesn't bubble (use for single element) |
+| Hover leave           | `mouseleave`  | Element        | Doesn't bubble                          |
+| Mouse moved over      | `mouseover`   | Element        | Bubbles (fires for children too)        |
+| Track mouse position  | `mousemove`   | Element/Window | Use passive for performance             |
+| Mouse wheel scroll    | `wheel`       | Element        | For custom scroll behavior              |
+
+**MDN Reference:** [Mouse events](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)
+
+### Touch (Mobile)
+
+| Use Case        | Event         | Target  | Notes                                   |
+| :-------------- | :------------ | :------ | :-------------------------------------- |
+| Touch started   | `touchstart`  | Element | Use `{ passive: true }` for scroll perf |
+| Finger moving   | `touchmove`   | Element | Use passive unless preventing scroll    |
+| Touch ended     | `touchend`    | Element | Finger lifted                           |
+| Touch cancelled | `touchcancel` | Element | Touch interrupted by system             |
+
+**MDN Reference:** [Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)
+
+### Focus & Forms
+
+| Use Case               | Event      | Target  | Notes                  |
+| :--------------------- | :--------- | :------ | :--------------------- |
+| Element focused        | `focus`    | Element | Input received focus   |
+| Element blurred        | `blur`     | Element | Input lost focus       |
+| Focus within container | `focusin`  | Element | Bubbles (unlike focus) |
+| Blur within container  | `focusout` | Element | Bubbles (unlike blur)  |
+| Form submitted         | `submit`   | Element | Attach to `<form>` ref |
+| Form reset             | `reset`    | Element | Form cleared           |
+| Input value changed    | `input`    | Element | Real-time updates      |
+| Value committed        | `change`   | Element | After blur or Enter    |
+
+**MDN Reference:** [Focus events](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent)
+
+### Window & Viewport
+
+| Use Case           | Event              | Target   | Notes                        |
+| :----------------- | :----------------- | :------- | :--------------------------- |
+| Browser resized    | `resize`           | Window   | Debounce for performance     |
+| Page scrolled      | `scroll`           | Window   | Use `{ passive: true }`      |
+| Before page unload | `beforeunload`     | Window   | Warn before leaving          |
+| Page fully loaded  | `load`             | Window   | All resources loaded         |
+| DOM ready          | `DOMContentLoaded` | Document | HTML parsed, before images   |
+| Print started      | `beforeprint`      | Window   | Hide elements before print   |
+| Print ended        | `afterprint`       | Window   | Restore elements after print |
+
+**MDN Reference:** [Window events](https://developer.mozilla.org/en-US/docs/Web/API/Window#events)
+
+### Page Lifecycle & Visibility
+
+| Use Case               | Event              | Target   | Notes                       |
+| :--------------------- | :----------------- | :------- | :-------------------------- |
+| Tab visibility changed | `visibilitychange` | Document | Pause when tab hidden       |
+| Page shown             | `pageshow`         | Window   | Includes back/forward cache |
+| Page hidden            | `pagehide`         | Window   | Before unload               |
+| Fullscreen changed     | `fullscreenchange` | Document | Enter/exit fullscreen       |
+| Fullscreen error       | `fullscreenerror`  | Document | Fullscreen request failed   |
+
+**MDN Reference:** [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)
+
+### Network & Connectivity
+
+| Use Case     | Event     | Target | Notes            |
+| :----------- | :-------- | :----- | :--------------- |
+| Went online  | `online`  | Window | Network restored |
+| Went offline | `offline` | Window | Network lost     |
+
+**MDN Reference:** [Navigator.onLine](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine)
+
+### Storage & State
+
+| Use Case             | Event        | Target | Notes                        |
+| :------------------- | :----------- | :----- | :--------------------------- |
+| localStorage changed | `storage`    | Window | Only fires in **other** tabs |
+| Hash URL changed     | `hashchange` | Window | URL fragment changed         |
+| History navigation   | `popstate`   | Window | Back/forward button          |
+
+**MDN Reference:** [Storage event](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event)
+
+### Media & Animation
+
+| Use Case          | Event           | Target  | Notes                     |
+| :---------------- | :-------------- | :------ | :------------------------ |
+| Video/audio ended | `ended`         | Element | Media playback finished   |
+| Media paused      | `pause`         | Element | Playback paused           |
+| Media playing     | `play`          | Element | Playback started          |
+| Time updated      | `timeupdate`    | Element | Playback position changed |
+| Animation ended   | `animationend`  | Element | CSS animation completed   |
+| Transition ended  | `transitionend` | Element | CSS transition completed  |
+
+**MDN Reference:** [Media events](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement#events)
+
+### Clipboard
+
+| Use Case       | Event   | Target           | Notes               |
+| :------------- | :------ | :--------------- | :------------------ |
+| Content copied | `copy`  | Element/Document | User copied content |
+| Content cut    | `cut`   | Element/Document | User cut content    |
+| Content pasted | `paste` | Element/Document | User pasted content |
+
+**MDN Reference:** [Clipboard events](https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent)
+
+### Drag & Drop
+
+| Use Case          | Event       | Target  | Notes                         |
+| :---------------- | :---------- | :------ | :---------------------------- |
+| Drag started      | `dragstart` | Element | Element being dragged         |
+| Dragging          | `drag`      | Element | During drag                   |
+| Drag ended        | `dragend`   | Element | Drag finished                 |
+| Dragged over      | `dragover`  | Element | Something dragged over target |
+| Entered drop zone | `dragenter` | Element | Entered valid drop target     |
+| Left drop zone    | `dragleave` | Element | Left valid drop target        |
+| Dropped           | `drop`      | Element | Item dropped                  |
+
+**MDN Reference:** [Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
+
+---
+
+## Further Reading
+
+- **[MDN: addEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)** - The underlying browser API
+- **[MDN: Event reference](https://developer.mozilla.org/en-US/docs/Web/Events)** - Complete list of all DOM events
+- **[web.dev: Passive event listeners](https://developer.chrome.com/docs/lighthouse/best-practices/uses-passive-event-listeners/)** - Performance optimization guide
+- **[MDN: Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)** - Detecting tab visibility
+- **[MDN: Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)** - Mobile touch handling guide
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-event-listener" folder="dom" />
