@@ -59,9 +59,13 @@ Prevents submission and shows a warning when offline.
         <HookExampleCodeFromFile name="use-online" cnt={2} />
     </ComponentCodeTab>
 </ComponentShowcaseTabs>
-```tsx const isOnline = useOnline();
+
+```tsx 
+const isOnline = useOnline();
 <button disabled={!isOnline}>{isOnline ? "Send" : "Offline"}</button>
-``` ## API Reference
+```
+
+## API Reference
 
 ### Signature
 
@@ -80,3 +84,6 @@ const isOnline = useOnline();
 ## Hook Source Code
 
 <HookCodeFromFile name="use-online" folder="dom" />
+
+
+
