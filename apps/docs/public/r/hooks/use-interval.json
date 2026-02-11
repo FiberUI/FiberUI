@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-interval",
+  "type": "registry:hook",
+  "title": "useInterval",
+  "description": "A declarative React hook for setInterval that is stale-closure safe and pausable.",
+  "categories": [
+    "utility"
+  ],
+  "files": [
+    {
+      "path": "utility/use-interval.ts",
+      "type": "registry:hook",
+      "content": "import { useEffect, useRef } from \"react\";\n\n/**\n * A declarative React hook for `setInterval`.\n *\n * - **Stale Closure Safe:** Always executes the latest version of the callback without restarting the timer.\n * - **Pausable:** Pass `null` as the delay to pause the interval.\n * - **Auto-Cleanup:** Clears the interval when the component unmounts or delay changes.\n *\n * @param callback - The function to execute on every tick.\n * @param delay - The delay in milliseconds. Pass `null` to pause.\n *\n * @example\n * ```tsx\n * // Basic usage\n * useInterval(() => {\n * setCount(count + 1);\n * }, 1000);\n *\n * // Pausable usage\n * useInterval(() => {\n * console.log(\"Polling...\");\n * }, isPaused ? null : 3000);\n * ```\n */\nexport function useInterval(\n  callback: () => void,\n  delay: number | null\n): void {\n  // 1. Keep a reference to the latest callback.\n  // This avoids the \"stale closure\" problem where the interval\n  // executes an old version of the function that sees old state.\n  const savedCallback = useRef(callback);\n\n  // Update the ref each render so the interval always sees the latest state\n  useEffect(() => {\n    savedCallback.current = callback;\n  }, [callback]);\n\n  // 2. Set up the interval.\n  useEffect(() => {\n    // Don't schedule if no delay is specified.\n    // Note: 0 is a valid value for delay (it pushes to the next event loop tick).\n    if (delay === null) {\n      return;\n    }\n\n    const handler = () => {\n      savedCallback.current();\n    };\n\n    const id = setInterval(handler, delay);\n\n    // Cleanup: Clear interval when component unmounts or delay changes\n    return () => clearInterval(id);\n  }, [delay]);\n}\n\nexport default useInterval;"
+    }
+  ]
+}

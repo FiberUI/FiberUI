@@ -1,0 +1,177 @@
+---
+title: useTimeout
+description: A React hook for managing setTimeout with automatic cleanup and manual controls. Supports resettable timers, delayed actions, and null-delay pausing — all stale-closure safe.
+keywords:
+    [
+        "useTimeout",
+        "react hook",
+        "setTimeout",
+        "timer",
+        "delay",
+        "timeout hook",
+        "auto dismiss",
+        "debounce",
+        "delayed action",
+        "resettable timeout",
+        "clear timeout",
+        "idle timeout",
+        "react timer",
+        "typescript",
+        "custom hook",
+        "auto cleanup",
+        "stale closure",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-timeout.json
+```
+
+A declarative wrapper around `setTimeout` that provides `clear` and `reset` controls. The timeout is automatically cleaned up on unmount, and the callback always has access to the freshest state (no stale closures).
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **Auto-Cleanup** — Clears the timeout when the component unmounts
+- **Resettable** — Call `reset()` to restart the timer from scratch
+- **Pausable** — Pass `null` as the delay to prevent execution
+- **Stale Closure Safe** — The callback ref is updated every render, so it always sees the latest state
+- **Zero Dependencies** — Uses only React's built-in hooks
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: setTimeout()"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout"
+        description="The Web API that powers this hook"
+    />
+    <Card
+        icon={<ReactIcon />}
+        title="React: useEffect Cleanup"
+        href="https://react.dev/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed"
+        description="Why cleanup matters for timers"
+    />
+</Cards>
+
+---
+
+## Auto-Hide Notification
+
+A notification that automatically dismisses itself after 3 seconds. Click the reset button to keep it visible, or dismiss it manually.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseTimeoutExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-timeout" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Debounced Search
+
+Uses `useTimeout` to delay the search until the user stops typing for 500ms. Each keystroke resets the timer, effectively debouncing the input.
+
+<Callout type="success" title="How it works">
+    Every keystroke calls `reset()`, which clears the previous timeout and
+    starts a new one. The search only fires when the user pauses for 500ms.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseTimeoutExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-timeout" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Idle Timeout Warning
+
+Simulates a session timeout: after 5 seconds of inactivity a warning appears, and after 3 more seconds the session expires. Any interaction resets the timer chain.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseTimeoutExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-timeout" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Common Patterns
+
+### Delayed Action (one-shot)
+
+```tsx
+const { clear } = useTimeout(() => {
+    setShowModal(false);
+}, 5000);
+```
+
+### Conditional Execution
+
+```tsx
+// Only schedule when isReady is true
+const { reset } = useTimeout(() => doSomething(), isReady ? 2000 : null);
+```
+
+### Reset on Interaction
+
+```tsx
+const { reset } = useTimeout(() => hideTooltip(), 3000);
+
+return <div onMouseMove={reset}>Hover content</div>;
+```
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useTimeout(
+    callback: () => void,
+    delay: number | null,
+): UseTimeoutReturn;
+```
+
+### Parameters
+
+| Name       | Type             | Description                                              |
+| ---------- | ---------------- | -------------------------------------------------------- |
+| `callback` | `() => void`     | The function to execute after the delay.                 |
+| `delay`    | `number \| null` | Delay in milliseconds. Pass `null` to prevent execution. |
+
+### UseTimeoutReturn
+
+| Name    | Type         | Description                                                  |
+| ------- | ------------ | ------------------------------------------------------------ |
+| `clear` | `() => void` | Clears the active timeout. Safe to call multiple times.      |
+| `reset` | `() => void` | Clears the current timeout and starts a new one immediately. |
+
+<Callout type="warn" title="Delay of 0">
+    A delay of `0` is valid and pushes the callback to the next event-loop tick.
+    Only `null` prevents execution entirely.
+</Callout>
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-timeout" folder="utility" />

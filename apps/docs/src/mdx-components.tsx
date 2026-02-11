@@ -63,6 +63,8 @@ import * as UseWindowScrollExamples from "./hooks/examples/use-window-scroll";
 import * as UseWindowSizeExamples from "./hooks/examples/use-window-size";
 import * as UseOnlineExamples from "./hooks/examples/use-online";
 import * as UseComboKeyPressExamples from "./hooks/examples/use-combo-key-press";
+import * as UseTimeoutExamples from "./hooks/examples/use-timeout";
+import * as UseIntervalExamples from "./hooks/examples/use-interval";
 
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
@@ -160,6 +162,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseWindowSizeExamples,
         ...UseOnlineExamples,
         ...UseComboKeyPressExamples,
+        ...UseTimeoutExamples,
+        ...UseIntervalExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,

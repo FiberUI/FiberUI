@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-timeout",
+  "type": "registry:hook",
+  "title": "useTimeout",
+  "description": "A React hook for managing setTimeout with automatic cleanup and manual controls.",
+  "categories": [
+    "utility"
+  ],
+  "files": [
+    {
+      "path": "utility/use-timeout.ts",
+      "type": "registry:hook",
+      "content": "import { useEffect, useRef, useCallback } from \"react\";\n\n/**\n * Return type for useTimeout hook.\n */\nexport interface UseTimeoutReturn {\n    /**\n     * Clears the active timeout safely.\n     */\n    clear: () => void;\n    /**\n     * Resets the timeout (clears existing and starts a new one).\n     */\n    reset: () => void;\n}\n\n/**\n * A React hook for handling `setTimeout` with manual controls.\n *\n * - **Auto-Cleanup:** Clears timeout on unmount.\n * - **Resettable:** Great for delaying actions (like hiding a tooltip).\n * - **Stale Closure Safe:** Callback always has access to fresh state.\n *\n * @param callback - The function to execute after the delay.\n * @param delay - The delay in milliseconds. Pass `null` to prevent execution.\n * @returns An object containing `clear` and `reset` functions.\n *\n * @example\n * ```tsx\n * const { reset, clear } = useTimeout(() => {\n * setShowModal(false);\n * }, 5000);\n *\n * // Reset the timer if the user moves their mouse\n * <div onMouseMove={reset}>\n * Don't hide me yet!\n * </div>\n * ```\n */\nexport function useTimeout(\n    callback: () => void,\n    delay: number | null,\n): UseTimeoutReturn {\n    const savedCallback = useRef(callback);\n    const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);\n\n    // 1. Remember the latest callback.\n    useEffect(() => {\n        savedCallback.current = callback;\n    }, [callback]);\n\n    // 2. Define control functions (memoized to be stable dependencies)\n\n    const clear = useCallback(() => {\n        if (timeoutId.current) {\n            clearTimeout(timeoutId.current);\n            timeoutId.current = null;\n        }\n    }, []);\n\n    const set = useCallback(() => {\n        if (delay === null) return;\n\n        timeoutId.current = setTimeout(() => {\n            savedCallback.current();\n        }, delay);\n    }, [delay]);\n\n    const reset = useCallback(() => {\n        clear();\n        set();\n    }, [clear, set]);\n\n    // 3. Set up the timeout on mount or delay change\n    useEffect(() => {\n        set();\n        return clear;\n    }, [delay, set, clear]);\n\n    return { clear, reset };\n}\n\nexport default useTimeout;\n"
+    }
+  ]
+}

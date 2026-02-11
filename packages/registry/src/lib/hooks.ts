@@ -246,7 +246,6 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useDebouncedCallback",
         description: "A hook for debouncing callback functions.",
         categories: ["utility"],
-        dependencies: ["lodash"],
         files: [
             {
                 path: "utility/use-debounced-callback.ts",
@@ -260,7 +259,6 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useDebouncedState",
         description: "A hook for debouncing state values.",
         categories: ["utility"],
-        dependencies: ["lodash"],
         files: [
             { path: "utility/use-debounced-state.ts", type: "registry:hook" },
         ],
@@ -310,7 +308,6 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useThrottledCallback",
         description: "A hook for throttling callback functions.",
         categories: ["utility"],
-        dependencies: ["lodash"],
         files: [
             {
                 path: "utility/use-throttled-callback.ts",
@@ -324,10 +321,27 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         title: "useThrottledState",
         description: "A hook for throttling state values.",
         categories: ["utility"],
-        dependencies: ["lodash"],
         files: [
             { path: "utility/use-throttled-state.ts", type: "registry:hook" },
         ],
+    },
+    {
+        name: "use-timeout",
+        type: "registry:hook",
+        title: "useTimeout",
+        description:
+            "A React hook for managing setTimeout with automatic cleanup and manual controls.",
+        categories: ["utility"],
+        files: [{ path: "utility/use-timeout.ts", type: "registry:hook" }],
+    },
+    {
+        name: "use-interval",
+        type: "registry:hook",
+        title: "useInterval",
+        description:
+            "A declarative React hook for setInterval that is stale-closure safe and pausable.",
+        categories: ["utility"],
+        files: [{ path: "utility/use-interval.ts", type: "registry:hook" }],
     },
 
     // =========================================================================

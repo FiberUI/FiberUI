@@ -7,9 +7,6 @@
   "categories": [
     "utility"
   ],
-  "dependencies": [
-    "lodash"
-  ],
   "files": [
     {
       "path": "utility/use-throttled-callback.ts",

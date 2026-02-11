@@ -46,7 +46,7 @@ export function FloatingNav({
     );
     return (
         <>
-            <div className="fixed right-14 top-1 z-50 lg:right-2 lg:top-2">
+            <div className="fixed right-14 top-1 z-50 xl:right-2 xl:top-2">
                 {/* View Source Button - only shown on hook pages */}
                 {showSourceCode && (
                     <button

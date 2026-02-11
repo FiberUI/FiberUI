@@ -1,0 +1,186 @@
+---
+title: useInterval
+description: A declarative React hook for setInterval that is stale-closure safe, pausable via null delay, and automatically cleaned up on unmount. Perfect for polling, counters, and animations.
+keywords:
+    [
+        "useInterval",
+        "react hook",
+        "setInterval",
+        "interval",
+        "timer",
+        "polling",
+        "counter",
+        "animation",
+        "tick",
+        "pausable interval",
+        "react interval",
+        "react timer",
+        "typescript",
+        "custom hook",
+        "auto cleanup",
+        "stale closure",
+        "real-time",
+        "periodic",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-interval.json
+```
+
+A declarative wrapper around `setInterval`. The interval is automatically cleaned up when the component unmounts or when the delay changes, and the callback always sees the latest state — no stale closures.
+
+<Callout type="info" title="Source Code">
+    View the full hook implementation in the [Hook Source
+    Code](#hook-source-code) section below.
+</Callout>
+
+## Features
+
+- **Stale Closure Safe** — Always executes the latest callback without restarting the timer
+- **Pausable** — Pass `null` as the delay to pause the interval
+- **Auto-Cleanup** — Clears the interval on unmount or when the delay changes
+- **Zero Dependencies** — Uses only React's built-in hooks
+
+## Learn More
+
+<Cards>
+    <Card
+        icon={<MdnIcon />}
+        title="MDN: setInterval()"
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval"
+        description="The Web API that powers this hook"
+    />
+    <Card
+        icon={<ReactIcon />}
+        title="Making setInterval Declarative"
+        href="https://overreacted.io/making-setinterval-declarative-with-react-hooks/"
+        description="Dan Abramov's deep-dive on the stale closure problem"
+    />
+</Cards>
+
+---
+
+## Live Counter
+
+A simple counter that increments every second. Toggle between play and pause, or reset to zero.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIntervalExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-interval" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Pausable Polling
+
+Simulates an API endpoint being polled every 2 seconds. Toggle the interval on and off to start and stop polling. Uses `null` delay to pause.
+
+<Callout type="success" title="How it works">
+    The delay is conditionally set: `isPolling ? 2000 : null`. When `null` is
+    passed, the interval is not scheduled at all — no CPU wasted.
+</Callout>
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIntervalExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-interval" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Progress Bar
+
+An animated progress bar that fills by a random amount every 150ms. The interval stops itself once 100% is reached by flipping to a `null` delay.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIntervalExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-interval" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Common Patterns
+
+### Basic Tick
+
+```tsx
+useInterval(() => {
+    setCount((c) => c + 1);
+}, 1000);
+```
+
+### Pausable
+
+```tsx
+// Pass null to pause the interval entirely
+useInterval(() => fetchData(), isPaused ? null : 3000);
+```
+
+### Dynamic Speed
+
+```tsx
+// Change the delay to speed up or slow down
+const [speed, setSpeed] = useState(1000);
+
+useInterval(() => tick(), speed);
+```
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useInterval(callback: () => void, delay: number | null): void;
+```
+
+### Parameters
+
+| Name       | Type             | Description                                     |
+| ---------- | ---------------- | ----------------------------------------------- |
+| `callback` | `() => void`     | The function to execute on every tick.          |
+| `delay`    | `number \| null` | Interval in milliseconds. Pass `null` to pause. |
+
+### Returns
+
+`void` — This hook does not return anything. Control the interval by changing the `delay` value (set to `null` to pause, set to a number to start/resume).
+
+<Callout type="warn" title="Delay of 0">
+    A delay of `0` is valid — it schedules the callback for the next event-loop
+    tick. Only `null` prevents the interval from being created.
+</Callout>
+
+<MdxAccordions type="single">
+<MdxAccordion title="useInterval vs useTimeout">
+
+| Feature       | `useInterval`                 | `useTimeout`                         |
+| ------------- | ----------------------------- | ------------------------------------ |
+| **Execution** | Repeats on every tick         | Fires once after the delay           |
+| **Returns**   | `void`                        | `{ clear, reset }`                   |
+| **Pause**     | Set delay to `null`           | Set delay to `null`                  |
+| **Reset**     | Change delay value            | Call `reset()`                       |
+| **Best For**  | Polling, counters, animations | Delayed actions, debounce, one-shots |
+
+</MdxAccordion>
+</MdxAccordions>
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-interval" folder="utility" />

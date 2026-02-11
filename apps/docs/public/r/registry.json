@@ -172,19 +172,13 @@
       "name": "use-debounced-callback",
       "type": "registry:hook",
       "title": "useDebouncedCallback",
-      "description": "A hook for debouncing callback functions.",
-      "dependencies": [
-        "lodash"
-      ]
+      "description": "A hook for debouncing callback functions."
     },
     {
       "name": "use-debounced-state",
       "type": "registry:hook",
       "title": "useDebouncedState",
-      "description": "A hook for debouncing state values.",
-      "dependencies": [
-        "lodash"
-      ]
+      "description": "A hook for debouncing state values."
     },
     {
       "name": "use-eye-dropper",
@@ -214,19 +208,25 @@
       "name": "use-throttled-callback",
       "type": "registry:hook",
       "title": "useThrottledCallback",
-      "description": "A hook for throttling callback functions.",
-      "dependencies": [
-        "lodash"
-      ]
+      "description": "A hook for throttling callback functions."
     },
     {
       "name": "use-throttled-state",
       "type": "registry:hook",
       "title": "useThrottledState",
-      "description": "A hook for throttling state values.",
-      "dependencies": [
-        "lodash"
-      ]
+      "description": "A hook for throttling state values."
+    },
+    {
+      "name": "use-timeout",
+      "type": "registry:hook",
+      "title": "useTimeout",
+      "description": "A React hook for managing setTimeout with automatic cleanup and manual controls."
+    },
+    {
+      "name": "use-interval",
+      "type": "registry:hook",
+      "title": "useInterval",
+      "description": "A declarative React hook for setInterval that is stale-closure safe and pausable."
     },
     {
       "name": "use-speech-recognition",
