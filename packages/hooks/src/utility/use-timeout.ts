@@ -42,7 +42,7 @@ export function useTimeout(
     delay: number | null,
 ): UseTimeoutReturn {
     const savedCallback = useRef(callback);
-    const timeoutId = useRef<number | null>(null);
+    const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // 1. Remember the latest callback.
     useEffect(() => {
