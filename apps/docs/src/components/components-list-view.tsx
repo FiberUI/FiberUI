@@ -114,6 +114,33 @@ const COMPONENTS_LIST = [
         href: "tooltip",
         description: "Popup that displays information on hover or focus.",
     },
+    {
+        name: "ComboBox",
+        href: "combo-box",
+        description: "Autocomplete input with a dropdown menu.",
+    },
+    {
+        name: "Dialog",
+        href: "dialog",
+        description:
+            "A window overlaid on either the primary window or another dialog window.",
+    },
+    {
+        name: "GridList",
+        href: "grid-list",
+        description: "A list of items that users can navigate and select.",
+    },
+    {
+        name: "ListBox",
+        href: "list-box",
+        description: "A list of options that can be selected.",
+    },
+    {
+        name: "Menu",
+        href: "menu",
+        description:
+            "A list of options or actions, typically displayed in a dropdown.",
+    },
 ].toSorted((a, b) => a.name.localeCompare(b.name));
 
 export const ComponentsListView = () => {

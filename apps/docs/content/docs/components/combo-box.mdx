@@ -1,0 +1,136 @@
+---
+title: ComboBox
+description: A combo box combines a text input with a listbox, allowing users to filter a list of options to items matching a query. Supports sections, custom items, async loading, and form integration.
+keywords:
+    [
+        "combo box",
+        "combobox",
+        "react",
+        "tailwind css",
+        "accessible",
+        "autocomplete",
+        "search",
+        "filter",
+        "typeahead",
+        "ui",
+        "react combobox",
+        "searchable select",
+        "accessible combobox",
+        "react component",
+        "typescript",
+        "ui kit",
+        "form control",
+        "selection list",
+    ]
+---
+
+The ComboBox component combines a text input with a dropdown list, allowing users to type to filter options. Built on React Aria's ComboBox primitive with full keyboard navigation, accessibility, and animation support.
+
+## Basic Usage
+
+A simple combo box with static items. Type to filter the list of options.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Controlled Selection
+
+Use `selectedKey` and `onSelectionChange` to control the selected item.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Sections
+
+Use `ComboBoxSection` and `ComboBoxHeader` with the Collection Components API for grouped items.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Custom Items
+
+Items can render any content including icons and descriptions.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Async Loading
+
+Use `items`, `inputValue`, and `onInputChange` for async filtering with dynamic collections.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled States
+
+Use `isDisabled` on the ComboBox or individual items.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Form Integration
+
+Use `name`, `isRequired`, and `description` for form usage with built-in validation support.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ComboBoxExample7 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="combo-box" cnt={7} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="combo-box" />

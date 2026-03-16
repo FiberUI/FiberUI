@@ -1,0 +1,121 @@
+---
+title: ListBox
+description: A list of interactive items with keyboard navigation and selection support. Supports single and multiple selection, sections, disabled items, and custom empty states.
+keywords:
+    [
+        "list box",
+        "listbox",
+        "react",
+        "tailwind css",
+        "accessible",
+        "list",
+        "selection",
+        "interactive list",
+        "ui",
+        "react listbox",
+        "selectable list",
+        "multi select",
+        "keyboard navigation",
+        "accessible list",
+        "react component",
+        "typescript",
+        "ui kit",
+        "collection",
+    ]
+---
+
+The ListBox component displays a list of options and allows a user to select one or more of them. Built on React Aria's ListBox primitive with full keyboard navigation and accessibility.
+
+## Basic Usage
+
+A simple list box with single selection. Use arrow keys to navigate and Enter or Space to select.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Controlled Single Selection
+
+Use `selectedKeys` and `onSelectionChange` to control the selected item programmatically.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Multiple Selection
+
+Set `selectionMode="multiple"` to allow selecting multiple items. Click to toggle, or hold Shift to select a range.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Sections
+
+Use `DropdownSection` with a `title` to group items into labeled categories with sticky headers.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled Items
+
+Use the `disabledKeys` prop to disable specific items. Disabled items cannot be selected or focused.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Empty State
+
+Use `renderEmptyState` to display a custom message when the list has no items.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <ListBoxExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="list-box" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="list-box" />

@@ -1,0 +1,139 @@
+---
+title: Dialog
+description: A modal dialog overlay that blocks interaction with the rest of the page. Supports focus trapping, keyboard dismiss, accessibility, multiple sizes, and composable header/body/footer layout.
+keywords:
+    [
+        "dialog",
+        "modal",
+        "react",
+        "tailwind css",
+        "accessible",
+        "overlay",
+        "popup",
+        "ui",
+        "react dialog",
+        "react modal",
+        "modal dialog",
+        "overlay component",
+        "focus trap",
+        "alert dialog",
+        "confirmation dialog",
+        "accessible modal",
+        "react component",
+        "typescript",
+        "ui kit",
+        "dialog popup",
+        "form dialog",
+    ]
+---
+
+The Dialog component provides a modal overlay that blocks interaction with the rest of the page. Built on React Aria's Dialog, Modal, and ModalOverlay primitives with full keyboard navigation, focus trapping, and screen reader support.
+
+## Basic Usage
+
+A simple dialog with a trigger button, header, body, and footer. Click outside or press `Escape` to dismiss.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Confirmation Dialog
+
+A destructive confirmation dialog for dangerous actions. Uses `size="sm"` to keep the dialog compact.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Form Dialog
+
+Embed form elements inside a dialog. All inputs receive proper focus management automatically.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Sizes
+
+The `DialogContent` component supports `sm`, `default`, `lg`, and `full` size variants.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Scrollable Content
+
+When content exceeds the viewport, the `DialogBody` automatically becomes scrollable while the header and footer remain fixed.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Alert Dialog
+
+Set `role="alertdialog"` and `isDismissable={false}` on the overlay to create a non-dismissable alert that requires explicit user action.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Nested Dialog
+
+Dialogs can be nested — opening a second dialog from within the first. Each dialog manages its own focus trap independently.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <DialogExample7 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="dialog" cnt={7} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="dialog" />

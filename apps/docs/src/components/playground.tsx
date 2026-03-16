@@ -18,10 +18,10 @@ import {
 //     PopoverContent,
 //     PopoverTrigger,
 // } from "@repo/ui/components/popover";
+import { ListBox, ListBoxItem } from "@repo/ui/components/list-box";
 
 import React, { useState } from "react";
 import { Switch } from "@repo/ui/components/switch";
-import { ListBox, ListBoxItem } from "@repo/ui/components/list-box";
 import {
     Select,
     SelectContent,
@@ -36,6 +36,19 @@ import {
 interface PlaygroundProps {}
 
 export const Playground: React.FC<PlaygroundProps> = ({}) => {
+    return (
+        <>
+            <ListBox aria-label="Favorite animal" selectionMode="multiple">
+                <ListBoxItem>Aardvark</ListBoxItem>
+                <ListBoxItem>Cat</ListBoxItem>
+                <ListBoxItem>Dog</ListBoxItem>
+                <ListBoxItem>Kangaroo</ListBoxItem>
+                <ListBoxItem>Panda</ListBoxItem>
+                <ListBoxItem>Snake</ListBoxItem>
+            </ListBox>
+        </>
+    );
+
     return (
         <>
             <Label htmlFor="fruit">Select a fruit</Label>

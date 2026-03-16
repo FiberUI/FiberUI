@@ -1,0 +1,123 @@
+---
+title: GridList
+description: An interactive list component that supports keyboard navigation, single and multiple selection, disabled items, and custom content rendering. Built on React Aria for full accessibility.
+keywords:
+    [
+        "grid list",
+        "gridlist",
+        "react",
+        "tailwind css",
+        "accessible",
+        "list",
+        "selection",
+        "interactive list",
+        "ui",
+        "react list",
+        "selectable list",
+        "checkbox list",
+        "multi select",
+        "keyboard navigation",
+        "accessible list",
+        "react component",
+        "typescript",
+        "ui kit",
+        "list view",
+        "collection",
+    ]
+---
+
+The GridList component displays a list of interactive items with support for keyboard navigation and selection. Built on React Aria's GridList primitive with automatic checkbox/radio rendering based on selection mode.
+
+## Basic Usage
+
+A simple interactive list with keyboard navigation. Items can be focused and navigated with arrow keys.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Single Selection
+
+Set `selectionMode="single"` to allow selecting one item at a time. A radio indicator appears automatically.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Multiple Selection
+
+Set `selectionMode="multiple"` for multi-select with checkboxes. Hold `Shift` to select a range.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled Items
+
+Use the `disabledKeys` prop to disable specific items. Disabled items cannot be selected or focused.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Custom Content
+
+Render rich content inside each item — icons, badges, descriptions, or any layout.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Empty State
+
+Use `renderEmptyState` to display a custom message when the list has no items.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <GridListExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="grid-list" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="grid-list" />
