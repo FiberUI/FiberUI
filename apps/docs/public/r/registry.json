@@ -127,6 +127,36 @@
       "description": "A device hook for the Screen Wake Lock API."
     },
     {
+      "name": "use-vibration",
+      "type": "registry:hook",
+      "title": "useVibration",
+      "description": "Provides a method to trigger device vibration."
+    },
+    {
+      "name": "use-hardware-concurrency",
+      "type": "registry:hook",
+      "title": "useHardwareConcurrency",
+      "description": "Get the number of logical CPU cores to auto-scale thread pools."
+    },
+    {
+      "name": "use-idle",
+      "type": "registry:hook",
+      "title": "useIdle",
+      "description": "Detect when the user's system is completely idle using the IdleDetector API."
+    },
+    {
+      "name": "use-wasm",
+      "type": "registry:hook",
+      "title": "useWasm",
+      "description": "Load and instantiate a WebAssembly module."
+    },
+    {
+      "name": "use-worker",
+      "type": "registry:hook",
+      "title": "useWorker",
+      "description": "Run heavy JavaScript functions in a background Web Worker."
+    },
+    {
       "name": "use-file-system",
       "type": "registry:hook",
       "title": "useFileSystem",

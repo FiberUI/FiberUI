@@ -1,0 +1,115 @@
+---
+title: useWorker
+description: Run heavy JavaScript functions in a background Web Worker to prevent UI freezing. The perfect companion to useWasm.
+keywords:
+    [
+        "useWorker",
+        "react hook",
+        "performance",
+        "web worker",
+        "background thread",
+        "multithreading",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-worker.json
+```
+
+A React hook for safely running heavy JavaScript functions off the main thread using Web Workers. Perfect for complex data parsing, huge array manipulations, or heavy math calculations that would otherwise freeze your UI.
+
+<Callout type="warning" title="Worker Scope limitations">
+    The function passed to `useWorker` runs in an isolated environment. It
+    **cannot** access DOM elements, window objects, or any external scope
+    variables that aren't passed explicitly through arguments.
+</Callout>
+
+## Features
+
+- **Non-blocking** - Keeps the main UI thread responsive by running functions in the background
+- **Inline Worker** - Translates your function into an inline Blob. No extra files required!
+- **State Management** - Returns handy `loading`, `result`, and `error` states
+- **Type Safe** - Fully generics-based typing for arguments and return types
+
+## Basic Usage
+
+### Heavy Math Processing
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWorkerExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-worker" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Massive Array Sorting
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWorkerExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-worker" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Heavy JSON Parsing
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWorkerExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-worker" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Error Handling Bounds
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWorkerExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-worker" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useWorker<TArgs extends any[], TReturn>(
+    workerFunction: (...args: TArgs) => TReturn,
+): UseWorkerReturn<TArgs, TReturn>;
+```
+
+### Parameters
+
+| Parameter        | Type                          | Description                                      |
+| ---------------- | ----------------------------- | ------------------------------------------------ |
+| `workerFunction` | `(...args: TArgs) => TReturn` | A completely self-contained function to execute. |
+
+### Return Value
+
+| Property  | Type                       | Description                                         |
+| --------- | -------------------------- | --------------------------------------------------- |
+| `execute` | `(...args: TArgs) => void` | Invokes the worker function with the provided args  |
+| `result`  | `TReturn \| undefined`     | The output returned by the worker function          |
+| `loading` | `boolean`                  | `true` while the worker is busy                     |
+| `error`   | `Error \| undefined`       | Detailed error object if the worker throws an error |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-worker" folder="performance" />

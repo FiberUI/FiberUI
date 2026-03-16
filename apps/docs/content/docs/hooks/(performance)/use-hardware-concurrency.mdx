@@ -1,0 +1,100 @@
+---
+title: useHardwareConcurrency
+description: Get the number of logical CPU cores to auto-scale thread pools or lower graphics settings for low-end devices.
+keywords:
+    [
+        "useHardwareConcurrency",
+        "react hook",
+        "performance",
+        "logical cores",
+        "navigator.hardwareConcurrency",
+        "cpu cores",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-hardware-concurrency.json
+```
+
+A React hook that returns the number of logical processors available to run threads on the user's computer. This is useful for scaling worker pools, deciding on graphics fidelity, or adjusting application workload based on device capabilities.
+
+<Callout type="info" title="Fallback Value">
+    Returns `1` if the `navigator.hardwareConcurrency` property is not supported
+    by the browser or during Server-Side Rendering (SSR).
+</Callout>
+
+## Features
+
+- **Device Scaling** - Adjust your app's performance based on available cores
+- **Type Safe** - Fully typed for TypeScript
+- **SSR Safe** - Returns a safe fallback during server-side rendering
+
+## Basic Usage
+
+### Logical Cores Detected
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHardwareConcurrencyExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hardware-concurrency" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Auto-Tuning Quality
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHardwareConcurrencyExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hardware-concurrency" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Auto-Scaled Thread Pool
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHardwareConcurrencyExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hardware-concurrency" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Dynamic Layout Scaling
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseHardwareConcurrencyExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-hardware-concurrency" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useHardwareConcurrency(): number;
+```
+
+### Return Value
+
+Returns a `number` representing the number of logical CPU cores available on the user's device (e.g., `4`, `8`, `16`).
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-hardware-concurrency" folder="performance" />

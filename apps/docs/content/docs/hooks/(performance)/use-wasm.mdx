@@ -1,0 +1,110 @@
+---
+title: useWasm
+description: Load and instantiate WebAssembly modules easily.
+keywords:
+    [
+        "useWasm",
+        "react hook",
+        "performance",
+        "webassembly",
+        "wasm",
+        "load webassembly",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-wasm.json
+```
+
+A React hook designed to easily load, instantiate, and manage WebAssembly (`.wasm`) modules. Provides reactive state for loading and error handling, abstracting the complexity of fetching and compiling WASM byte code.
+
+## Features
+
+- **Streaming Compilation** - Uses `instantiateStreaming` when available for optimal performance
+- **Reactive State** - Returns `loading`, `error`, and the loaded `module` interface
+- **Type Safe** - Accepts generic types for strongly typed WebAssembly exports
+- **Memory Safe** - Cleans up references safely
+
+## Basic Usage
+
+### WASM Loader State
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWasmExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-wasm" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Imports Memory Binding
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWasmExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-wasm" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Compilation Error Handling
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWasmExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-wasm" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Advanced: Memory & Strings
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseWasmExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-wasm" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useWasm<T>(
+    url: string,
+    importObject?: WebAssembly.Imports,
+): WasmState<T>;
+```
+
+### Parameters
+
+| Parameter      | Type                  | Description                                            |
+| -------------- | --------------------- | ------------------------------------------------------ |
+| `url`          | `string`              | URL to the `.wasm` file                                |
+| `importObject` | `WebAssembly.Imports` | (Optional) Functions or values to pass into the module |
+
+### Return Value
+
+| Property  | Type            | Description                                       |
+| --------- | --------------- | ------------------------------------------------- |
+| `module`  | `T \| null`     | The instantiated WebAssembly module exports       |
+| `loading` | `boolean`       | `true` while the module is being fetched/compiled |
+| `error`   | `Error \| null` | Standard error object if instantiation fails      |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-wasm" folder="performance" />

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-vibration",
+  "type": "registry:hook",
+  "title": "useVibration",
+  "description": "Provides a method to trigger device vibration.",
+  "categories": [
+    "device"
+  ],
+  "files": [
+    {
+      "path": "device/use-vibration.ts",
+      "type": "registry:hook",
+      "content": "import { useCallback } from \"react\";\n\n/**\n * Provides a method to trigger device vibration.\n * Safe to use in environments where vibration is not supported.\n */\nexport function useVibration() {\n    const vibrate = useCallback((pattern: number | number[] = 200) => {\n        if (\n            typeof window !== \"undefined\" &&\n            typeof navigator !== \"undefined\" &&\n            \"vibrate\" in navigator\n        ) {\n            // Return value is boolean in supported browsers\n            try {\n                navigator.vibrate(pattern);\n            } catch (e) {\n                console.warn(\"Vibration API failed\", e);\n            }\n        }\n    }, []);\n\n    const isSupported =\n        typeof window !== \"undefined\" &&\n        typeof navigator !== \"undefined\" &&\n        \"vibrate\" in navigator;\n\n    return { vibrate, isSupported };\n}\n"
+    }
+  ]
+}

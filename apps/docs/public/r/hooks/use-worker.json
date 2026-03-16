@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-worker",
+  "type": "registry:hook",
+  "title": "useWorker",
+  "description": "Run heavy JavaScript functions in a background Web Worker.",
+  "categories": [
+    "performance"
+  ],
+  "files": [
+    {
+      "path": "performance/use-worker.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect, useRef, useCallback } from \"react\";\n\n/**\n * Run heavy JavaScript functions in a background Web Worker.\n *\n * @param workerFunction The function that will be executed in the worker. Should be self-contained.\n */\nexport function useWorker<TArgs extends any[], TReturn>(\n    workerFunction: (...args: TArgs) => TReturn,\n) {\n    const [result, setResult] = useState<TReturn | undefined>(undefined);\n    const [loading, setLoading] = useState<boolean>(false);\n    const [error, setError] = useState<Error | undefined>(undefined);\n    const workerRef = useRef<Worker | null>(null);\n\n    // Initialize worker\n    useEffect(() => {\n        const code = `\n            self.onmessage = async function(e) {\n                try {\n                    const fn = ${workerFunction.toString()};\n                    const result = await fn(...e.data);\n                    self.postMessage({ status: 'SUCCESS', result });\n                } catch (error) {\n                    self.postMessage({ status: 'ERROR', error: error.message });\n                }\n            }\n        `;\n\n        const blob = new Blob([code], { type: \"application/javascript\" });\n        const url = URL.createObjectURL(blob);\n        const worker = new Worker(url);\n\n        workerRef.current = worker;\n\n        worker.onmessage = (e) => {\n            if (e.data.status === \"SUCCESS\") {\n                setResult(e.data.result);\n                setError(undefined);\n            } else {\n                setError(new Error(e.data.error));\n            }\n            setLoading(false);\n        };\n\n        worker.onerror = (e) => {\n            setError(new Error(e.message));\n            setLoading(false);\n        };\n\n        return () => {\n            worker.terminate();\n            URL.revokeObjectURL(url);\n        };\n    }, [workerFunction]);\n\n    const execute = useCallback((...args: TArgs) => {\n        if (!workerRef.current) return;\n        setLoading(true);\n        setError(undefined);\n        workerRef.current.postMessage(args);\n    }, []);\n\n    return { execute, loading, result, error };\n}\n"
+    }
+  ]
+}

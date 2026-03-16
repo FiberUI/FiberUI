@@ -1,0 +1,106 @@
+---
+title: useVibration
+description: A specialized device hook for triggering device vibrations, safely handling unsupported environments.
+keywords:
+    [
+        "useVibration",
+        "react hook",
+        "haptic feedback",
+        "device vibration",
+        "vibrate api",
+        "mobile friendly",
+        "navigator.vibrate",
+        "typescript",
+        "custom hook",
+        "react vibration",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-vibration.json
+```
+
+A React hook that provides access to the [Vibration API](https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API), allowing you to trigger haptic feedback loops. Perfect for mobile games, notifications, or interactive UI elements.
+
+<Callout type="info" title="Browser Support">
+    Checks for `isSupported`. The Vibration API is primarily supported on mobile
+    devices and may not have any effect on desktop browsers or devices without
+    vibration hardware.
+</Callout>
+
+## Features
+
+- **Trigger Vibration** - Create simple or complex vibration patterns
+- **Type Safe** - Fully typed for TypeScript
+- **SSR Safe** - Works safely with server-side rendering
+
+## Basic Usage
+
+### Basic Example
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseVibrationExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-vibration" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Vibration Patterns
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseVibrationExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-vibration" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Game Haptics
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseVibrationExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-vibration" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Form Feedback
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseVibrationExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-vibration" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useVibration(): UseVibrationReturn;
+```
+
+### Return Value
+
+| Property      | Type                                     | Description                          |
+| ------------- | ---------------------------------------- | ------------------------------------ |
+| `vibrate`     | `(pattern?: number \| number[]) => void` | Triggers a vibration pattern         |
+| `isSupported` | `boolean`                                | `true` if Vibration API is supported |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-vibration" folder="device" />

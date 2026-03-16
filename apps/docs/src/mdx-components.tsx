@@ -71,6 +71,15 @@ import * as UseComboKeyPressExamples from "./hooks/examples/use-combo-key-press"
 import * as UseTimeoutExamples from "./hooks/examples/use-timeout";
 import * as UseIntervalExamples from "./hooks/examples/use-interval";
 
+/* Device Hooks Examples IMPORT */
+import * as UseVibrationExamples from "./hooks/examples/use-vibration";
+
+/* Performance Hooks Examples IMPORT */
+import * as UseHardwareConcurrencyExamples from "./hooks/examples/use-hardware-concurrency";
+import * as UseIdleExamples from "./hooks/examples/use-idle";
+import * as UseWasmExamples from "./hooks/examples/use-wasm";
+import * as UseWorkerExamples from "./hooks/examples/use-worker";
+
 /* WebRTC Hooks Examples IMPORT */
 import * as UseUserMediaExamples from "./hooks/examples/use-user-media";
 import * as UseScreenShareExamples from "./hooks/examples/use-screen-share";
@@ -155,6 +164,15 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseCountdownExamples,
         ...UseNetworkExamples,
 
+        /* Device Hooks Examples */
+        ...UseVibrationExamples,
+
+        /* Performance Hooks Examples */
+        ...UseHardwareConcurrencyExamples,
+        ...UseIdleExamples,
+        ...UseWasmExamples,
+        ...UseWorkerExamples,
+
         ...UseShareExamples,
         ...UseEyeDropperExamples,
         ...UseDeviceOrientationExamples,
@@ -174,6 +192,15 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         ...UseComboKeyPressExamples,
         ...UseTimeoutExamples,
         ...UseIntervalExamples,
+
+        /* Device Hooks Examples */
+        ...UseVibrationExamples,
+
+        /* Performance Hooks Examples */
+        ...UseHardwareConcurrencyExamples,
+        ...UseIdleExamples,
+        ...UseWasmExamples,
+        ...UseWorkerExamples,
 
         /* WebRTC Hooks Examples */
         ...UseUserMediaExamples,
