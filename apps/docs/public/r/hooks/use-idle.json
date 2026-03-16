@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-idle",
+  "type": "registry:hook",
+  "title": "useIdle",
+  "description": "Detect when the user's system is completely idle using the IdleDetector API.",
+  "categories": [
+    "performance"
+  ],
+  "files": [
+    {
+      "path": "performance/use-idle.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect, useCallback, useRef } from \"react\";\n\ninterface IdleState {\n    idle: boolean;\n    isSupported: boolean;\n    isGranted: boolean;\n}\n\n/**\n * Detect when the user's system is completely idle using the IdleDetector API.\n */\nexport function useIdle() {\n    const [state, setState] = useState<IdleState>({\n        idle: false,\n        isSupported: false,\n        isGranted: false,\n    });\n\n    const isSupported =\n        typeof window !== \"undefined\" && \"IdleDetector\" in window;\n\n    // We can only use the IdleDetector interface if supported.\n    // The IdleDetector needs permission before using it.\n    const requestPermission = useCallback(async () => {\n        if (!isSupported) return false;\n        try {\n            // @ts-ignore - IdleDetector is an experimental API\n            const status = await IdleDetector.requestPermission();\n            setState((prev) => ({ ...prev, isGranted: status === \"granted\" }));\n            return status === \"granted\";\n        } catch (error) {\n            console.error(\"Failed to request IdleDetector permission:\", error);\n            return false;\n        }\n    }, [isSupported]);\n\n    useEffect(() => {\n        setState((prev) => ({ ...prev, isSupported }));\n\n        if (!isSupported) return;\n\n        // Check if permission was already granted\n        // @ts-ignore\n        navigator.permissions\n            .query({ name: \"idle-detection\" as PermissionName })\n            .then((status) => {\n                if (status.state === \"granted\") {\n                    setState((prev) => ({ ...prev, isGranted: true }));\n                }\n            });\n    }, [isSupported]);\n\n    useEffect(() => {\n        if (!state.isGranted) return;\n\n        let detector: any;\n        const abortController = new AbortController();\n\n        const startIdleDetection = async () => {\n            try {\n                // @ts-ignore\n                detector = new IdleDetector();\n                detector.addEventListener(\"change\", () => {\n                    const isIdle =\n                        detector.userState === \"idle\" ||\n                        detector.screenState === \"locked\";\n                    setState((prev) => ({ ...prev, idle: isIdle }));\n                });\n\n                await detector.start({\n                    threshold: 60000,\n                    signal: abortController.signal,\n                });\n            } catch (err) {\n                console.error(\"Failed to start IdleDetector:\", err);\n            }\n        };\n\n        startIdleDetection();\n\n        return () => {\n            abortController.abort();\n        };\n    }, [state.isGranted]);\n\n    return { ...state, requestPermission };\n}\n"
+    }
+  ]
+}

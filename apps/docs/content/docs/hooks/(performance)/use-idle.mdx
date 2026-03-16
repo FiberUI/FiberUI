@@ -1,0 +1,107 @@
+---
+title: useIdle
+description: Detect when the user's system is completely idle (away from keyboard) using the IdleDetector API. Great for auto-lock/logout features.
+keywords:
+    [
+        "useIdle",
+        "react hook",
+        "performance",
+        "idle detection",
+        "idle detector api",
+        "auto logout",
+        "inactivity timeout",
+        "typescript",
+        "custom hook",
+    ]
+---
+
+## Installation
+
+```npm
+npx shadcn@latest add https://r.fiberui.com/r/hooks/use-idle.json
+```
+
+A React hook that implements the [Idle Detector API](https://developer.mozilla.org/en-US/docs/Web/API/IdleDetector), allowing you to find out when the user is completely idle, such as being away from their device. This goes beyond simple DOM events by detecting system-level inactivity.
+
+<Callout type="warning" title="Experimental API">
+    The Idle Detector API is currently experimental and requires explicit
+    permission from the user. Check `isSupported` before requesting permission.
+</Callout>
+
+## Features
+
+- **System-level Detection** - Detects if the user is away from their device entirely
+- **Screen State** - Can detect if the screen is locked
+- **Type Safe** - Fully typed for TypeScript
+- **Permission Management** - Built-in helper for requesting API permissions
+
+## Basic Usage
+
+### System Idle Detection
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIdleExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-idle" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Auto-Lock Session
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIdleExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-idle" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Privacy Protection
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIdleExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-idle" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+### Smart Time Tracker
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <UseIdleExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <HookExampleCodeFromFile name="use-idle" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## API Reference
+
+### Hook Signature
+
+```tsx
+function useIdle(): UseIdleReturn;
+```
+
+### Return Value
+
+| Property            | Type                     | Description                                          |
+| ------------------- | ------------------------ | ---------------------------------------------------- |
+| `idle`              | `boolean`                | `true` if the device is idle or the screen is locked |
+| `isSupported`       | `boolean`                | `true` if the Idle Detector API is available         |
+| `isGranted`         | `boolean`                | `true` if permission has been granted by the user    |
+| `requestPermission` | `() => Promise<boolean>` | Helper to prompt the user for permission to use it   |
+
+---
+
+## Hook Source Code
+
+<HookCodeFromFile name="use-idle" folder="performance" />

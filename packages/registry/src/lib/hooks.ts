@@ -162,6 +162,58 @@ export const FIBER_UI_HOOKS: RegistryItem[] = [
         categories: ["device"],
         files: [{ path: "device/use-wake-lock.ts", type: "registry:hook" }],
     },
+    {
+        name: "use-vibration",
+        type: "registry:hook",
+        title: "useVibration",
+        description: "Provides a method to trigger device vibration.",
+        categories: ["device"],
+        files: [{ path: "device/use-vibration.ts", type: "registry:hook" }],
+    },
+
+    // =========================================================================
+    // Performance
+    // =========================================================================
+    {
+        name: "use-hardware-concurrency",
+        type: "registry:hook",
+        title: "useHardwareConcurrency",
+        description:
+            "Get the number of logical CPU cores to auto-scale thread pools.",
+        categories: ["performance"],
+        files: [
+            {
+                path: "performance/use-hardware-concurrency.ts",
+                type: "registry:hook",
+            },
+        ],
+    },
+    {
+        name: "use-idle",
+        type: "registry:hook",
+        title: "useIdle",
+        description:
+            "Detect when the user's system is completely idle using the IdleDetector API.",
+        categories: ["performance"],
+        files: [{ path: "performance/use-idle.ts", type: "registry:hook" }],
+    },
+    {
+        name: "use-wasm",
+        type: "registry:hook",
+        title: "useWasm",
+        description: "Load and instantiate a WebAssembly module.",
+        categories: ["performance"],
+        files: [{ path: "performance/use-wasm.ts", type: "registry:hook" }],
+    },
+    {
+        name: "use-worker",
+        type: "registry:hook",
+        title: "useWorker",
+        description:
+            "Run heavy JavaScript functions in a background Web Worker.",
+        categories: ["performance"],
+        files: [{ path: "performance/use-worker.ts", type: "registry:hook" }],
+    },
 
     // =========================================================================
     // Storage

@@ -18,6 +18,8 @@
         "---Utilities---",
         "...(utility)",
         "---Device---",
-        "...(device)"
+        "...(device)",
+        "---Performance---",
+        "...(performance)"
     ]
 }

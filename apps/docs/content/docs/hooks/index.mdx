@@ -164,5 +164,19 @@ Hooks for accessing device capabilities and hardware sensors.
 | [useNetwork](/docs/hooks/use-network)                      | Monitor network connection status       |
 | [useDeviceOrientation](/docs/hooks/use-device-orientation) | Access device tilt and rotation sensors |
 | [useWakeLock](/docs/hooks/use-wake-lock)                   | Prevent screen from dimming/sleeping    |
+| [useVibration](/docs/hooks/use-vibration)                  | Trigger device vibration                |
+
+---
+
+## Performance
+
+Hooks for optimizing application performance and resource usage.
+
+| Hook                                                           | Description                                                                                                                            |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| [useWasm](/docs/hooks/use-wasm)                                | Load and instantiate WebAssembly modules easily.                                                                                       |
+| [useWorker](/docs/hooks/use-worker)                            | Run heavy JavaScript functions in a background Web Worker to prevent UI freezing. The perfect companion to useWasm.                    |
+| [useHardwareConcurrency](/docs/hooks/use-hardware-concurrency) | Get the number of logical CPU cores to auto-scale thread pools or lower graphics settings for low-end devices.                         |
+| [useIdle](/docs/hooks/use-idle)                                | Detect when the user's system is completely idle (away from keyboard) using the IdleDetector API. Great for auto-lock/logout features. |
 
 ---

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-wasm",
+  "type": "registry:hook",
+  "title": "useWasm",
+  "description": "Load and instantiate a WebAssembly module.",
+  "categories": [
+    "performance"
+  ],
+  "files": [
+    {
+      "path": "performance/use-wasm.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect } from \"react\";\n\ninterface WasmState<T> {\n    module: T | null;\n    loading: boolean;\n    error: Error | null;\n}\n\n/**\n * Load and instantiate a WebAssembly module.\n *\n * @param url The URL of the `.wasm` file to load.\n * @param importObject Optional import object for the WebAssembly instance.\n */\nexport function useWasm<T = any>(\n    url: string,\n    importObject?: WebAssembly.Imports,\n): WasmState<T> {\n    const [state, setState] = useState<WasmState<T>>({\n        module: null,\n        loading: true,\n        error: null,\n    });\n\n    useEffect(() => {\n        let isMounted = true;\n\n        const loadWasm = async () => {\n            setState((prev) => ({ ...prev, loading: true, error: null }));\n            try {\n                // Determine if WebAssembly.instantiateStreaming is supported\n                if (\"instantiateStreaming\" in WebAssembly) {\n                    const response = await fetch(url);\n                    const { instance } = await WebAssembly.instantiateStreaming(\n                        response,\n                        importObject,\n                    );\n                    if (isMounted) {\n                        setState({\n                            module: instance.exports as unknown as T,\n                            loading: false,\n                            error: null,\n                        });\n                    }\n                } else {\n                    // Fallback to WebAssembly.instantiate\n                    const response = await fetch(url);\n                    const buffer = await response.arrayBuffer();\n                    const { instance } = await WebAssembly.instantiate(\n                        buffer,\n                        importObject,\n                    );\n                    if (isMounted) {\n                        setState({\n                            module: instance.exports as unknown as T,\n                            loading: false,\n                            error: null,\n                        });\n                    }\n                }\n            } catch (error) {\n                if (isMounted) {\n                    setState({\n                        module: null,\n                        loading: false,\n                        error:\n                            error instanceof Error\n                                ? error\n                                : new Error(String(error)),\n                    });\n                }\n            }\n        };\n\n        loadWasm();\n\n        return () => {\n            isMounted = false;\n        };\n    }, [url, importObject]);\n\n    return state;\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-hardware-concurrency",
+  "type": "registry:hook",
+  "title": "useHardwareConcurrency",
+  "description": "Get the number of logical CPU cores to auto-scale thread pools.",
+  "categories": [
+    "performance"
+  ],
+  "files": [
+    {
+      "path": "performance/use-hardware-concurrency.ts",
+      "type": "registry:hook",
+      "content": "import { useState, useEffect } from \"react\";\n\n/**\n * Get the number of logical CPU cores (navigator.hardwareConcurrency).\n * Useful for auto-scaling thread pools or adjusting graphics settings.\n * Returns a fallback of 1 if not supported or during SSR.\n */\nexport function useHardwareConcurrency() {\n    const [concurrency, setConcurrency] = useState<number>(1);\n\n    useEffect(() => {\n        if (\n            typeof navigator !== \"undefined\" &&\n            \"hardwareConcurrency\" in navigator\n        ) {\n            setConcurrency(navigator.hardwareConcurrency);\n        }\n    }, []);\n\n    return concurrency;\n}\n"
+    }
+  ]
+}
