@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowUp, FileCode } from "lucide-react";
 import { cn } from "@repo/ui/lib/utils";
+import { usePathname } from "next/navigation";
 
 /**
  * FloatingNav - Provides floating navigation buttons on docs pages
@@ -17,6 +18,11 @@ export function FloatingNav({
     showSourceCode?: boolean;
 }) {
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const pathname = usePathname();
+
+    const isComponentOrHookPage =
+        pathname?.includes("/docs/components/") ||
+        pathname?.includes("/docs/hooks/");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,16 +34,27 @@ export function FloatingNav({
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    if (
+        pathname?.endsWith("docs") ||
+        pathname.endsWith("hooks") ||
+        pathname.endsWith("components")
+    ) {
+        return null;
+    }
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     const scrollToSource = () => {
-        const sourceSection = document.getElementById("hook-source-code");
+        const sourceSection =
+            document.getElementById("hook-source-code") ||
+            document.getElementById("component-code");
         if (sourceSection) {
             sourceSection.scrollIntoView({ behavior: "smooth" });
         }
     };
+
     const className = cn(
         "flex h-8 cursor-pointer items-center justify-center gap-1 rounded-full px-4",
         "border-primary bg-primary text-primary-foreground border shadow-lg",
@@ -46,9 +63,9 @@ export function FloatingNav({
     );
     return (
         <>
-            <div className="fixed right-14 top-1 z-50 xl:right-2 xl:top-2">
+            <div className="fixed right-24 top-3 z-50 md:right-14 md:top-1 xl:right-4 xl:top-2">
                 {/* View Source Button - only shown on hook pages */}
-                {showSourceCode && (
+                {showSourceCode && isComponentOrHookPage && (
                     <button
                         onClick={scrollToSource}
                         className={className}
@@ -56,8 +73,11 @@ export function FloatingNav({
                         aria-label="View source code"
                     >
                         <FileCode className="size-4" />
-                        <span className="text-xs font-semibold">
-                            Source Code
+                        <span className="hidden text-xs font-semibold sm:block">
+                            Source
+                        </span>
+                        <span className="text-xs font-semibold sm:block">
+                            Code
                         </span>
                     </button>
                 )}

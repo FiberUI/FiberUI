@@ -1,0 +1,120 @@
+---
+title: Menu
+description: A menu displays a list of actions or options that a user can choose. Supports sections, submenus, separators, selection, and disabled items with full keyboard navigation.
+keywords:
+    [
+        "menu",
+        "context menu",
+        "react",
+        "tailwind css",
+        "accessible",
+        "dropdown",
+        "actions",
+        "submenu",
+        "ui",
+        "react menu",
+        "dropdown menu",
+        "accessible menu",
+        "react component",
+        "typescript",
+        "ui kit",
+        "selection",
+        "keyboard navigation",
+    ]
+---
+
+The Menu component displays a list of actions or options that a user can choose. Built on React Aria's Menu primitive with full keyboard navigation, submenus, sections, and accessibility.
+
+## Basic Usage
+
+A simple menu triggered by a button. Each item fires an `onAction` callback when selected.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample1 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={1} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Sections
+
+Use `MenuSection` with a `title` to group related items with sticky section headers.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample2 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={2} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Submenus
+
+Wrap a `MenuItem` with a `SubmenuTrigger` to create nested submenus. Submenus can be nested multiple levels deep.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample3 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={3} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Separators
+
+Use `MenuSeparator` to create visual dividers between groups of menu items.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample4 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={4} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Selection
+
+Set `selectionMode` to `"single"` or `"multiple"` to enable selection. Use `selectedKeys` and `onSelectionChange` for controlled selection.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample5 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={5} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Disabled Items
+
+Use `isDisabled` on individual `MenuItem` components to prevent interaction.
+
+<ComponentShowcaseTabs>
+    <ComponentPreviewTab>
+        <MenuExample6 />
+    </ComponentPreviewTab>
+    <ComponentCodeTab>
+        <Code name="menu" cnt={6} />
+    </ComponentCodeTab>
+</ComponentShowcaseTabs>
+
+---
+
+## Component Code
+
+<ComponentCode name="menu" />

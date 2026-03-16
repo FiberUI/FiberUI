@@ -1,4 +1,7 @@
+"use client";
+
 import { Check } from "lucide-react";
+import React from "react";
 import {
     ListBox as AriaListBox,
     ListBoxItem as AriaListBoxItem,
@@ -22,10 +25,11 @@ export function ListBox<T extends object>({
 }: ListBoxProps<T>) {
     return (
         <AriaListBox
+            data-slot="list-box"
             {...props}
             className={cn(
                 props.className,
-                "w-max rounded-lg border border-neutral-300 bg-white p-1 font-sans outline-0 dark:border-neutral-700 dark:bg-neutral-900",
+                "border-border bg-popover w-[200px] rounded-lg border p-1 font-sans outline-0",
             )}
         >
             {children}
@@ -38,21 +42,22 @@ export const itemStyles = tv({
     base: "group relative flex cursor-default select-none items-center gap-8 rounded-md px-2.5 py-1.5 text-sm will-change-transform forced-color-adjust-none",
     variants: {
         isSelected: {
-            false: "pressed:bg-neutral-100 dark:pressed:bg-neutral-800 text-neutral-700 -outline-offset-2 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
+            false: "text-popover-foreground hover:bg-accent pressed:bg-accent -outline-offset-2",
             true: "bg-primary text-primary-foreground -outline-offset-4 outline-white dark:outline-white forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:outline-[HighlightText] [&+[data-selected]]:rounded-t-none [&:has(+[data-selected])]:rounded-b-none",
         },
         isDisabled: {
-            true: "text-neutral-300 dark:text-neutral-600 forced-colors:text-[GrayText]",
+            true: "text-muted-foreground opacity-50 forced-colors:text-[GrayText]",
         },
     },
 });
 
 export function ListBoxItem(props: ListBoxItemProps) {
-    const textValue =
+    let textValue =
         props.textValue ||
         (typeof props.children === "string" ? props.children : undefined);
     return (
         <AriaListBoxItem
+            data-slot="list-box-item"
             {...props}
             textValue={textValue}
             className={itemStyles}
@@ -60,7 +65,7 @@ export function ListBoxItem(props: ListBoxItemProps) {
             {composeRenderProps(props.children, (children) => (
                 <>
                     {children}
-                    <div className="absolute bottom-0 left-4 right-4 hidden h-px bg-white/20 forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
+                    <div className="bg-primary-foreground/20 absolute bottom-0 left-4 right-4 hidden h-px forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
                 </>
             ))}
         </AriaListBoxItem>
@@ -68,34 +73,35 @@ export function ListBoxItem(props: ListBoxItemProps) {
 }
 
 export const dropdownItemStyles = tv({
-    base: "selected:pr-1 [[href]]:cursor-pointer group flex cursor-default select-none items-center gap-4 rounded-lg py-2 pl-3 pr-3 text-sm no-underline outline forced-color-adjust-none [-webkit-tap-highlight-color:transparent]",
+    base: "selected:pr-1 group flex cursor-default select-none items-center gap-4 rounded-lg py-2 pl-3 pr-3 text-sm no-underline outline outline-0 forced-color-adjust-none [-webkit-tap-highlight-color:transparent] [&[href]]:cursor-pointer",
     variants: {
         isDisabled: {
-            false: "text-neutral-900 dark:text-neutral-100",
-            true: "text-neutral-300 dark:text-neutral-600 forced-colors:text-[GrayText]",
+            false: "text-popover-foreground",
+            true: "text-muted-foreground opacity-50 forced-colors:text-[GrayText]",
         },
         isPressed: {
-            true: "bg-neutral-100 dark:bg-neutral-800",
+            true: "bg-accent",
         },
         isFocused: {
-            true: "bg-primary dark:bg-primary text-primary-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
+            true: "bg-primary text-primary-foreground forced-colors:bg-[Highlight] forced-colors:text-[HighlightText]",
         },
     },
     compoundVariants: [
         {
             isFocused: false,
             isOpen: true,
-            className: "bg-neutral-100 dark:bg-neutral-700/60",
+            className: "bg-accent",
         },
     ],
 });
 
 export function DropdownItem(props: ListBoxItemProps) {
-    const textValue =
+    let textValue =
         props.textValue ||
         (typeof props.children === "string" ? props.children : undefined);
     return (
         <AriaListBoxItem
+            data-slot="dropdown-item"
             {...props}
             textValue={textValue}
             className={dropdownItemStyles}
@@ -123,8 +129,11 @@ export function DropdownSection<T extends object>(
     props: DropdownSectionProps<T>,
 ) {
     return (
-        <ListBoxSection className="after:block after:h-[5px] after:content-[''] first:-mt-[5px] last:after:hidden">
-            <Header className="sticky -top-[5px] z-10 -mx-1 -mt-px truncate border-y border-y-neutral-200 bg-neutral-100/60 px-4 py-1 text-sm font-semibold text-neutral-500 backdrop-blur-md supports-[-moz-appearance:none]:bg-neutral-100 dark:border-y-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-300 [&+*]:mt-1">
+        <ListBoxSection
+            data-slot="dropdown-section"
+            className="after:block after:h-[5px] after:content-[''] first:-mt-[5px] last:after:hidden"
+        >
+            <Header className="text-muted-foreground border-y-border bg-muted/60 supports-[-moz-appearance:none]:bg-muted sticky -top-[5px] z-10 -mx-1 -mt-px truncate border-y px-4 py-1 text-sm font-semibold backdrop-blur-md [&+*]:mt-1">
                 {props.title}
             </Header>
             <Collection items={props.items}>{props.children}</Collection>
